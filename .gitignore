@@ -1,0 +1,6 @@
+# uploading to RPubs
+rsconnect/
+# environment variables
+.env
+
+__pycache__/
