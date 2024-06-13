@@ -24,5 +24,5 @@ This project is licensed under the Creative Commons License.
 
 ## Contact Information
 
-For any inquiries or questions, please contact Julius Fenn at [louisa.estadieu@philosophie.uni-freiburg.de](mailto:louisa.estadieu@philosophie.uni-freiburg.de) and [julius.fenn@psychologie.uni-freiburg.de](mailto:julius.fenn@psychologie.uni-freiburg.de).
+For any inquiries or questions, please contact Julius Fenn at Louisa Estadieu ([louisa.estadieu@philosophie.uni-freiburg.de](mailto:louisa.estadieu@philosophie.uni-freiburg.de)) and Julius Fenn ([julius.fenn@psychologie.uni-freiburg.de](mailto:julius.fenn@psychologie.uni-freiburg.de)).
 
