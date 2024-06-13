@@ -6,6 +6,7 @@ In the article we applied an innovative study design to compare soft to rigid ro
 
 
 The study explored the following central questions:
+
 <span style="color:green">add picture of study design</span>.
 
 ## Folders
