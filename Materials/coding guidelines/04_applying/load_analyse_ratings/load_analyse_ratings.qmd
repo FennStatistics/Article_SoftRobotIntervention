@@ -1,0 +1,108 @@
+---
+title: "Load and check lists of second coding process"
+author: "Julius Fenn, Louisa Estadieu"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    html-math-method: katex
+---
+
+```{r}
+#| echo: false
+#| warning: false
+#| results: hide
+
+# sets the directory of location of this script as the current directory
+# setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
+########################################
+# load packages
+########################################
+require(pacman)
+p_load('tidyverse', 'jsonlite', 'magrittr', 'xlsx',
+       'stargazer', 'psych', 'jtools', 'DT', 'ggstatsplot', 
+       'lavaan', 
+       'regsem', 'MplusAutomation', 'igraph',
+       'irr')
+
+########################################
+# list data files
+########################################
+setwd("../applying/adjusted (introduced TP)")
+dir()
+
+files <- list.files(pattern = "ratings")
+
+if(length(files) != 7){
+  print("ERROR")
+}
+
+files_rater <- list()
+
+for(i in 1:length(files)){
+  tmp <- xlsx::read.xlsx2(file = files[i], sheetIndex = 1)
+  files_rater[[i]] <- tmp
+}
+
+dat <- dplyr::bind_rows(files_rater)
+```
+
+# Notes
+
+
+# clean data
+
+Superordinate concepts of raters are written slightly differently.
+
+```{r}
+table(dat$Superordinate)
+
+# remove whitespaces
+length(unique(dat$Superordinate))
+dat$Superordinate <- stringr::str_trim(string = dat$Superordinate, side = "both")
+length(unique(dat$Superordinate))
+
+
+table(dat$Superordinate)
+
+
+dat$Superordinate[dat$Superordinate == "HIP"] <- "HRIP"
+sum(dat$Superordinate == "")
+```
+
+## words used
+
+```{r}
+tmp_words <- unique(dat$Superordinate)
+tmp_words <- tmp_words[!is.na(tmp_words)]
+
+mat <- matrix(data = NA, nrow = length(tmp_words), ncol = 2)
+h = 1
+
+for(w in tmp_words){
+  tmp <- dat[dat$Superordinate %in% w,]
+  tmp_overlap <- 
+  mat[h,] <- c(nrow(tmp), 
+               round(x = nrow(tmp) / nrow(dat) * 100, digits = 2))
+  h = h + 1
+  
+}
+
+rownames(mat) <- tmp_words
+colnames(mat) <- c("N", "percantage")
+mat <- mat[order(mat[,1], decreasing = TRUE),]
+
+mat
+
+
+
+stargazer(mat, type = "html", out = "table_words.html", summary = FALSE)
+```
+
+# save list of raters
+
+```{r}
+xlsx::write.xlsx2(x = dat, file = "ratings_combined.xlsx")
+```
+
