@@ -7,7 +7,6 @@ In the article we applied an innovative study design to compare soft to rigid ro
 
 The study explored the following central questions:
 
-<span style="color:green">add picture of study design</span>.
 
 ## Folders
 - [Online Study Files](https://github.com/FennStatistics/Article_SoftRobotIntervention/tree/main/Online%20Study%20Files) - Contains the studies of the world cafe and main study.
