@@ -19,7 +19,7 @@ The study explored the following central questions:
 
 ## License
 
-This project is licensed under the MIT License. Feel free to use, modify, and distribute the code and content in this repository, without commercial use.
+This project is licensed under the Creative Commons License.
 
 
 ## Contact Information
