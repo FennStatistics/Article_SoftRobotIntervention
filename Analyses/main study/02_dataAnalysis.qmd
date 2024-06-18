@@ -81,7 +81,17 @@ data_summary <- function(data, varname, groupnames){
 # CAM dataset of drawn concepts to translate
 
 ```{r}
+tmp_nodes <- CAMfiles_combined[[1]]
+tmp_nodes$text_summarized_noSuffix <- tmp_nodes$text_summarized
+tmp_nodes$text_summarized_noSuffix <- str_remove(string = tmp_nodes$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
 
+length(unique(tmp_nodes$CAM))
+sort(table(tmp_nodes$text_summarized_noSuffix))
+dim(tmp_nodes)
+
+
+setwd("outputs/02_dataAnalysis")
+xlsx::write.xlsx2(x = tmp_nodes, file = "drawnConcepts.xlsx")
 ```
 
 
@@ -1014,7 +1024,113 @@ DT::datatable(cbind(unlist(list_typeRobot),unlist(list_words), unlist(list_comme
 
 ## Gender / Age / Trust differences
 
+Create new variables 
 
+```{r}
+questionnaireCAMs$choosen_Robot_Sex <- paste0(questionnaireCAMs$choosen_Robot, "_", questionnaireCAMs$socio_sex)
+questionnaireCAMs$socio_age_dummy <- ifelse(test = questionnaireCAMs$socio_age <= 25, yes = "young", no = ifelse(test = questionnaireCAMs$socio_age >= 40, yes = "old", no = "medium"))
+table(questionnaireCAMs$socio_age_dummy)
+```
+Check for mean differences between robots
+
+
+```{r}
+## mean_AlmereAnxiety
+tmp <- aov(formula = mean_AlmereAnxiety ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_AlmereAnxiety
+)
+}
+
+## mean_AlmereAttitude
+tmp <- aov(formula = mean_AlmereAttitude ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_AlmereAttitude
+)
+}
+
+## mean_LiWangAnthropomorphism
+tmp <- aov(formula = mean_LiWangAnthropomorphism ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_LiWangAnthropomorphism
+)
+}
+
+## mean_LiWangAutonomy
+tmp <- aov(formula = mean_LiWangAutonomy ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_LiWangAutonomy
+)
+}
+
+## mean_GAToRSpp
+tmp <- aov(formula = mean_GAToRSpp ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_GAToRSpp
+)
+}
+
+## mean_GAToRSpn
+tmp <- aov(formula = mean_GAToRSpn ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_GAToRSpn
+)
+}
+
+## mean_GAToRSsp
+tmp <- aov(formula = mean_GAToRSsp ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_GAToRSsp
+)
+}
+
+## mean_GAToRSsn
+tmp <- aov(formula = mean_GAToRSsn ~ choosen_Robot_Sex, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_GAToRSsn
+)
+}
+```
+
+Check for mean differences of valence between robots
+
+```{r}
+ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_valence_macro_pre
+)
+
+ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot_Sex,
+  y = mean_valence_macro_post
+)
+```
 
 
 ### Qualitative
