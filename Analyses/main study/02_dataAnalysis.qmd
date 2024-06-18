@@ -46,8 +46,8 @@ CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final.rds")
 
 
 ### load functions
-# print(getwd())
-setwd("../../../../../functions")
+print(getwd())
+setwd("../../../../functions")
 for(i in 1:length(dir())){
   # print(dir()[i])
   source(dir()[i], encoding = "utf-8")
