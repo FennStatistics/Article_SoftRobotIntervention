@@ -38,11 +38,14 @@ questionnaire <- readRDS(file = "questionnaire_final.rds")
 questionnaireCAMs <- readRDS(file = "questionnaireCAMs_final.rds")
 
 
+### add type robot
+questionnaireCAMs$choosen_Robot <- ifelse(test = questionnaireCAMs$choosen_Robot == "Rettungsroboter", yes = "rescue robot", no = "socially assistive robot")
+
 networkIndicators_pre <- readRDS(file = "networkIndicators_pre_final.rds")
 networkIndicators_post <- readRDS(file = "networkIndicators_post_final.rds")
 
-
-CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final.rds")
+# CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final.rds")
+CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final_translated.rds")
 
 
 ### load functions
@@ -406,6 +409,7 @@ DT::datatable(CAMwordlist, options = list(pageLength = 5))
 
 ```{r}
 psych::describe(questionnaireCAMs[, c("socio_age")])
+hist(questionnaireCAMs$socio_age)
 
 table(questionnaireCAMs$socio_sex)
 table(questionnaireCAMs$socio_student)
@@ -452,6 +456,22 @@ Check for mean differences between robots
 
 
 ```{r}
+## mean_AlmereAttitude
+tmp <- aov(formula = mean_AlmereAttitude ~ choosen_Robot, data = questionnaireCAMs)
+if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
+  ggbetweenstats(
+  data = questionnaireCAMs,
+  x = choosen_Robot,
+  y = mean_AlmereAttitude, 
+  type = "parametric",
+  var.equal = TRUE
+)
+}
+tmp <- t.test(mean_AlmereAttitude ~ choosen_Robot, data = questionnaireCAMs, var.equal = TRUE)
+psych::describe(mean_AlmereAttitude ~ choosen_Robot, data = questionnaireCAMs)
+
+report::report(x = tmp)
+
 ## mean_AlmereAnxiety
 tmp <- aov(formula = mean_AlmereAnxiety ~ choosen_Robot, data = questionnaireCAMs)
 if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
@@ -462,15 +482,12 @@ if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
 )
 }
 
-## mean_AlmereAttitude
-tmp <- aov(formula = mean_AlmereAttitude ~ choosen_Robot, data = questionnaireCAMs)
-if(summary(tmp)[[1]][["Pr(>F)"]][1] < .05){
-  ggbetweenstats(
-  data = questionnaireCAMs,
-  x = choosen_Robot,
-  y = mean_AlmereAttitude
-)
-}
+cor(questionnaireCAMs$mean_AlmereAttitude, questionnaireCAMs$mean_AlmereAnxiety)
+tmp_RR <- questionnaireCAMs[questionnaireCAMs$choosen_Robot == "rescue robot",]
+tmp_SAR <- questionnaireCAMs[questionnaireCAMs$choosen_Robot == "socially assistive robot",]
+cor(tmp_RR$mean_AlmereAttitude, tmp_RR$mean_AlmereAnxiety)
+cor(tmp_SAR$mean_AlmereAttitude, tmp_SAR$mean_AlmereAnxiety)
+
 
 ## mean_LiWangAnthropomorphism
 tmp <- aov(formula = mean_LiWangAnthropomorphism ~ choosen_Robot, data = questionnaireCAMs)
@@ -613,7 +630,7 @@ print(p)
 tmp_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$typeChange %in% c("B", "D")]
 
 
-networkIndicators_long_BD <- networkIndicators_long[networkIndicators_long$participantCAM %in% tmp_ids,]
+networkIndicators_long_BD <- networkIndicators_long[str_remove_all(string = networkIndicators_long$participantCAM, pattern = "_pre$|_post$") %in% tmp_ids,]
 dim(networkIndicators_long); dim(networkIndicators_long_BD)
 
 
@@ -706,7 +723,14 @@ print(p)
 #### for both robots
 
 ```{r}
-sel_ids <- questionnaireCAMs$PROLIFIC_PID
+
+# fix IDs
+for(c in unique(CAMfiles_combined[[1]]$CAM)){
+  CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% c] <- unique(CAMfiles_combined[[3]]$participantCAM.x[CAMfiles_combined[[3]]$CAM.x %in% c])
+}
+
+sel_ids <- unique(CAMfiles_combined[[3]]$participantCAM.x)
+
 
 tmp_nodes <- CAMfiles_combined[[1]]
 
@@ -750,12 +774,17 @@ plot(g2, edge.arrow.size = 0,
 #### for rescue robot pre
 
 ```{r}
-sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "Rettungsroboter"]
+sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "rescue robot"]
 
 tmp_nodes <- nodes_pre
 
 tmp_nodes$text_summarized <- str_remove(string = tmp_nodes$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
 tmp_nodes$text_summarized <- str_trim(string = tmp_nodes$text_summarized)
+
+
+# fix IDs
+merged_pre$participantCAM.x <- str_remove_all(string = merged_pre$participantCAM.x, pattern = "_pre$|_post$")
+
 
 CAMaggregated_pre <- aggregate_CAMs(dat_merged = merged_pre, dat_nodes = tmp_nodes,
                                 ids_CAMs = sel_ids)
@@ -793,12 +822,16 @@ plot(g2, edge.arrow.size = 0,
 #### for rescue robot post
 
 ```{r}
-sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "Rettungsroboter"]
+sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "rescue robot"]
 
 tmp_nodes <- nodes_post
 
 tmp_nodes$text_summarized <- str_remove(string = tmp_nodes$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
 tmp_nodes$text_summarized <- str_trim(string = tmp_nodes$text_summarized)
+
+
+# fix IDs
+merged_post$participantCAM.x <- str_remove_all(string = merged_post$participantCAM.x, pattern = "_pre$|_post$")
 
 CAMaggregated_post <- aggregate_CAMs(dat_merged = merged_post, dat_nodes = tmp_nodes,
                                 ids_CAMs = sel_ids)
@@ -847,7 +880,7 @@ data.frame(post = diag(CAMaggregated_post[[1]]),
 #### for social assistance robot pre
 
 ```{r}
-sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "sozialer Assistenzroboter"]
+sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "socially assistive robot"]
 
 tmp_nodes <- nodes_pre
 
@@ -890,7 +923,7 @@ plot(g2, edge.arrow.size = 0,
 #### for social assistance robot post
 
 ```{r}
-sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "sozialer Assistenzroboter"]
+sel_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$choosen_Robot == "socially assistive robot"]
 
 tmp_nodes <- nodes_post
 
@@ -987,11 +1020,11 @@ list_words <- list()
 list_typeRobot <- list()
 list_value <- list()
 
-
 for(i in 1:nrow(dat_ids)){
- tmp_pre <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpre[i],]
+ tmp_pre <- CAMfiles_combined[[1]][str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$")
+ %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpre[i],]
 
- tmp_post <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpost[i],]
+ tmp_post <- CAMfiles_combined[[1]][str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpost[i],]
  
  
  
@@ -1135,11 +1168,40 @@ ggbetweenstats(
 
 ### Qualitative
 
+```{r}
+# oldest
+tmp <- sort(questionnaireCAMs$socio_age, decreasing = TRUE)[1:10]
+which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+# youngest
+tmp <- sort(questionnaireCAMs$socio_age, decreasing = FALSE)[1:10]
+which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+
+```
 
 
 
 ### Quantitative
 
+Kombiniert (viel Text)
+
+plus Kommentare zur Betonung einzelner
+
+Trennen nach (kürzer)
+type robot
+jeweils pos / neg aus Kategoriesystem
+  hier nur wohl mehr als X Differenzen vorkommen
+
+```{r}
+CAMfiles_combined[[1]]$text_summarized_noSuffix  <- str_remove(string = CAMfiles_combined[[1]]$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
+
+
+CAMfiles_combined[[1]]$text[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "HRIP"]
+CAMfiles_combined[[1]]$text[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_post$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "HRIP"]
+
+
+tmp <- CAMfiles_combined[[1]]$comment[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "MT"]
+tmp[tmp != ""]
+```
 
 
 

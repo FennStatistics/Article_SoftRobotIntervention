@@ -39,6 +39,10 @@ prolific <- rbind(prolific1, prolific2)
 
 
 
+### get files for translation
+setwd("../data_translation")
+dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_CBJF.xlsx", sheetIndex = 1)
+
 ### list data files
 setwd("../data")
 folders <- list.files(pattern = "^study_result.*")
@@ -154,7 +158,7 @@ file.remove(paste0(tmp_file_from, "/secondCAMdata.txt"))
 
 ### load functions
 # print(getwd())
-setwd("../../../../functions")
+setwd("../../../functions")
 for(i in 1:length(dir())){
   # print(dir()[i])
   source(dir()[i], encoding = "utf-8")
@@ -908,9 +912,6 @@ DT::datatable(dat_newWords, options = list(pageLength = 5))
 
 
 
-
-
-
 ## combine CAM data and apply protocol CAM-App
 
 Load CAM data
@@ -1142,6 +1143,9 @@ for(i in 1:7){
   }
 }
 ```
+
+
+
 # clean up CAM data
 
 ## identify words with high variance in valence
@@ -1309,6 +1313,212 @@ CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$participantCAM %in
 }
 ```
 
+
+# translate CAM data
+
+## translate raw file of raw_CAM_combined
+
+
+
+```{r}
+raw_CAM_translated <- list()
+
+for (i in 1:length(raw_CAM_combined)) {
+  tmp_rawCAM <- raw_CAM_combined[[i]]
+  
+  
+  if(tmp_rawCAM$idCAM %in% CAMfiles_pre[[1]]$CAM){
+    tmp_rawCAM$creator <- paste0(tmp_rawCAM$creator, "_pre")
+  }else if(tmp_rawCAM$idCAM %in% CAMfiles_post[[1]]$CAM){
+    tmp_rawCAM$creator <- paste0(tmp_rawCAM$creator, "_post")
+  }else{
+    print(i)
+    print("not found! deleted")
+  }
+  
+  for (n in 1:nrow(tmp_rawCAM$nodes)) {
+    if (tmp_rawCAM$nodes$isActive[n]) {
+      if (sum(dat_translation$id == tmp_rawCAM$nodes$id[n]) > 0) {
+        # overwrite text
+        tmp_rawCAM$nodes$text[n] <-
+          dat_translation$text_translated[dat_translation$id == tmp_rawCAM$nodes$id[n]]
+        
+        # overwrite comment
+        if (nchar(tmp_rawCAM$nodes$comment[n]) > 0) {
+          tmp_rawCAM$nodes$comment[n] <-
+            dat_translation$comment_translated[dat_translation$id == tmp_rawCAM$nodes$id[n]]
+        }
+      }
+    }
+  }
+  
+  raw_CAM_translated[[i]] <- tmp_rawCAM
+}
+
+
+### save CAM data JSON as .txt
+writeLines("",
+           "outputs/01_dataPreperation/CAMdata_combined_translated.txt") # create file
+text_connection <-
+  file("outputs/01_dataPreperation/CAMdata_combined_translated.txt",
+       "a") # open connection to append
+
+for (i in 1:length(raw_CAM_translated)) {
+  writeLines(
+    jsonlite::toJSON(
+      x = raw_CAM_translated[[i]],
+      pretty = FALSE,
+      auto_unbox = FALSE
+    ),
+    text_connection
+  )
+}
+
+close(text_connection) # close connection
+```
+
+
+## translate processed file of CAMfiles_combined
+
+
+```{r}
+nodes_translated <- CAMfiles_combined[[1]]
+
+for (i in 1:nrow(nodes_translated)) {
+  if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
+    print(i)
+    break
+  }
+  # overwrite text
+  nodes_translated$text[i] <-
+    dat_translation$text_translated[dat_translation$id == nodes_translated$id[i]]
+  
+  # overwrite comment
+  if (nchar(nodes_translated$comment[i]) > 0) {
+    nodes_translated$comment[i] <-
+      dat_translation$comment_translated[dat_translation$id == nodes_translated$id[i]]
+  }
+}
+```
+
+
+## draw translated CAMs, network indicators, wordlist
+
+```{r}
+CAMfiles_combined_translated <- CAMfiles_combined
+CAMfiles_combined_translated[[1]] <- nodes_translated
+nodes_translated_noSummarized <- nodes_translated
+nodes_translated_noSummarized$text_summarized <- NULL
+
+
+### fix IDs
+CAMfiles_combined_translated[[3]]$participantCAM.x[CAMfiles_combined_translated[[3]]$CAM.x %in% CAMfiles_pre[[3]]$CAM.x] <- paste0(CAMfiles_combined_translated[[3]]$participantCAM.x[CAMfiles_combined_translated[[3]]$CAM.x %in% CAMfiles_pre[[3]]$CAM.x], "_pre")
+
+CAMfiles_combined_translated[[3]]$participantCAM.x[CAMfiles_combined_translated[[3]]$CAM.x %in% CAMfiles_post[[3]]$CAM.x] <- paste0(CAMfiles_combined_translated[[3]]$participantCAM.x[CAMfiles_combined_translated[[3]]$CAM.x %in% CAMfiles_post[[3]]$CAM.x], "_post")
+
+### draw CAMs
+CAMdrawn_combined_translated <- draw_CAM(dat_merged = CAMfiles_combined_translated[[3]],
+                     dat_nodes = nodes_translated_noSummarized,ids_CAMs = "all",
+                     plot_CAM = FALSE,
+                     useCoordinates = TRUE,
+                     relvertexsize = 3,
+                     reledgesize = 1)
+
+### network indicators
+tmp_microIndicator <- c("rescue robot", "social assistance robot", "advantages", "disadvantages")
+networkIndicators_combined_translated <- compute_indicatorsCAM(drawn_CAM = CAMdrawn_combined_translated, 
+                                           micro_degree = tmp_microIndicator, 
+                                           micro_valence = tmp_microIndicator, 
+                                           micro_centr_clo = tmp_microIndicator, 
+                                           micro_transitivity = tmp_microIndicator, 
+                                           largestClique = FALSE)
+
+
+# wordlist
+CAMwordlist_combined_translated <- create_wordlist(
+  dat_nodes =  nodes_translated_noSummarized,
+  dat_merged =  CAMfiles_combined[[3]],
+  order = "frequency",
+  splitByValence = FALSE,
+  comments = TRUE,
+  raterSubsetWords = NULL,
+  rater = FALSE
+)
+
+if(all(nchar(CAMwordlist_combined_translated$Words) > 2)){
+  print("sucessfully removed empty words")
+}else{
+  CAMwordlist_combined_translated$Words[nchar(CAMwordlist_combined_translated$Words) < 2]
+}
+
+DT::datatable(CAMwordlist_combined_translated, options = list(pageLength = 5))
+```
+
+
+
+
+## save translated CAMs as .json files, and as .png (igraph)
+
+
+
+
+```{r, message = FALSE}
+#| label: save CAM pictures combined and translated
+
+save_CAMs_as_pictures = FALSE
+
+if(save_CAMs_as_pictures){
+setwd("outputs/01_dataPreperation")
+
+setwd("savesCAMs_together")
+setwd("png")
+### remove all files if there are any
+if(length(list.files()) >= 1){
+  file.remove(list.files())
+  cat('\n!
+      all former .png files have been deleted')
+}
+
+### if no participant ID was provided replace by randomly generated CAM ID
+
+if(all(CAMfiles_combined_translated[[3]]$participantCAM.x == "noID")){
+  CAMfiles_combined_translated[[3]]$participantCAM.x <- CAMfiles_combined_translated[[3]]$CAM.x
+}
+
+ids_CAMs <- unique(CAMfiles_combined_translated[[3]]$participantCAM.x); length(ids_CAMs)
+
+
+
+### save as .json files, and as .png (igraph)
+for(i in 1:length(ids_CAMs)){
+  save_graphic(filename = paste0(ids_CAMs[i]))
+  CAM_igraph <- CAMdrawn_combined_translated[[c(1:length(CAMdrawn_combined_translated))[
+    names(CAMdrawn_combined_translated) == paste0(unique(CAMfiles_combined_translated[[3]]$participantCAM.x)[i])]]]
+  plot(CAM_igraph, edge.arrow.size = .7,
+       layout=layout_nicely, vertex.frame.color="black", asp = .5, margin = -0.1,
+       vertex.size = 10, vertex.label.cex = .9)
+  dev.off()
+}
+
+setwd("../json")
+### remove all files if there are any
+if(length(list.files()) >= 1){
+  file.remove(list.files())
+  cat('\n!
+      all former .json files have been deleted')
+}
+for(i in 1:length(raw_CAM_translated)){
+  if(!is_empty(raw_CAM_translated[[i]]$nodes)){
+    if(nrow(raw_CAM_translated[[i]]$nodes) > 5){
+      write(toJSON(raw_CAM_translated[[i]], encoding = "UTF-8"),
+            paste0(raw_CAM_translated[[i]]$creator, ".json"))
+    }
+  }
+}
+}
+```
+
+
 # merge and save all data
 
 
@@ -1349,9 +1559,15 @@ if (all(questionnaire$PROLIFIC_PID == networkIndicators_pre$participantCAM) &
     all(unique(CAMfiles_combined[[1]]$participantCAM) == networkIndicators_post$participantCAM)) {
   print("all data can be matched row by row")
   
+  
+  # fix IDs
+networkIndicators_pre$participantCAM <- paste0(networkIndicators_pre$participantCAM, "_pre")
+  networkIndicators_post$participantCAM <- paste0(networkIndicators_post$participantCAM, "_post")
+  
+  
   # save questionnaire
-  questionnaire$CAMpre <- networkIndicators_pre$CAM_ID
-  questionnaire$CAMpost <- networkIndicators_post$CAM_ID
+  questionnaire$participantCAMpre <- networkIndicators_pre$participantCAM
+  questionnaire$participantCAMpost <- networkIndicators_post$participantCAM
 
   ## save as .xlsx file
   xlsx::write.xlsx2(x = questionnaire, file = "questionnaire_final.xlsx")
@@ -1381,6 +1597,8 @@ if (all(questionnaire$PROLIFIC_PID == networkIndicators_pre$participantCAM) &
   # save CAMfiles combined and clean
   saveRDS(CAMfiles_combined, file = "CAMfiles_combined_final.rds")
   
+    # save CAMfiles combined and clean
+  saveRDS(CAMfiles_combined_translated, file = "CAMfiles_combined_final_translated.rds")
   
   # save questionnaire combined with CAMs
   colnames(networkIndicators_pre) <- paste0(colnames(networkIndicators_pre), "_pre")
@@ -1394,6 +1612,3 @@ if (all(questionnaire$PROLIFIC_PID == networkIndicators_pre$participantCAM) &
   saveRDS(questionnaireCAMs, file = "questionnaireCAMs_final.rds")
 }
 ```
-
-
-
