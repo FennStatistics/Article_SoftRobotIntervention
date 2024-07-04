@@ -1171,10 +1171,17 @@ ggbetweenstats(
 ```{r}
 # oldest
 tmp <- sort(questionnaireCAMs$socio_age, decreasing = TRUE)[1:10]
-which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+tmp <- which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+
+questionnaire$participantCAMpre[tmp]
+questionnaire$participantCAMpost[tmp]
+
 # youngest
 tmp <- sort(questionnaireCAMs$socio_age, decreasing = FALSE)[1:10]
-which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+tmp <- which(questionnaireCAMs$socio_age %in% tmp)[1:10]
+
+questionnaire$participantCAMpre[tmp]
+questionnaire$participantCAMpost[tmp]
 
 ```
 

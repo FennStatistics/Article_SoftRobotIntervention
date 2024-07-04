@@ -435,6 +435,9 @@ const study = new lab.flow.Sequence({
     // new lab.plugins.Download()
   ],
   content: [ 
+    explanationSR1_htmlForm,
+    explanationSR2_htmlForm,
+    explanationSR3_htmlForm,     // -> next session
     // >>> PRE
     Greetings_htmlForm,
 
