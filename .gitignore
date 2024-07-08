@@ -6,3 +6,6 @@ rsconnect/
 
 **/api_key.py
 **/__pycache__/
+
+**/v01/
+**/v02/
