@@ -1,0 +1,371 @@
+---
+title: "Data analyses for S2 research questions"
+author: "Julius Fenn, Louisa Estadieu"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    html-math-method: katex
+---
+
+
+
+# Notes
+
+
+# load cleaned data files
+
+```{r}
+#| label: load cleaned data files
+#| warning: false
+
+# sets the directory of location of this script as the current directory
+# setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
+### load packages
+require(pacman)
+p_load('tidyverse', 'jsonlite', 'magrittr', 'xlsx',
+       'stargazer', 'psych', 'jtools', 'DT', 'ggstatsplot', 
+       'lavaan', 
+       'regsem', 'MplusAutomation', 'igraph')
+
+
+setwd("outputs/01_dataPreperation/final")
+
+### load questionnaire
+questionnaire <- readRDS(file = "questionnaire_final.rds")
+questionnaireCAMs <- readRDS(file = "questionnaireCAMs_final.rds")
+
+
+### add type robot
+questionnaire$choosen_Robot <- ifelse(test = questionnaire$choosen_Robot == "Rettungsroboter", yes = "rescue robot", no = "socially assistive robot")
+
+questionnaireCAMs$choosen_Robot <- ifelse(test = questionnaireCAMs$choosen_Robot == "Rettungsroboter", yes = "rescue robot", no = "socially assistive robot")
+
+networkIndicators_pre <- readRDS(file = "networkIndicators_pre_final.rds")
+networkIndicators_post <- readRDS(file = "networkIndicators_post_final.rds")
+
+# CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final.rds")
+CAMfiles_combined <- readRDS(file = "CAMfiles_combined_final_translated.rds")
+
+CAMfiles_pre <- readRDS(file = "CAMfiles_pre_final.rds")
+CAMfiles_post <- readRDS(file = "CAMfiles_post_final.rds")
+
+
+### load functions
+# print(getwd())
+setwd("../../../../functions")
+for(i in 1:length(dir())){
+  # print(dir()[i])
+  source(dir()[i], encoding = "utf-8")
+}
+
+
+setwd("../functions_CAMapp")
+for(i in 1:length(dir())){
+  # print(dir()[i])
+  source(dir()[i], encoding = "utf-8")
+}
+rm(i)
+
+
+
+### summary function
+data_summary <- function(data, varname, groupnames){
+  require(plyr)
+  summary_func <- function(x, col){
+    c(mean = mean(x[[col]], na.rm=TRUE),
+      se = sd(x[[col]], na.rm=TRUE) / sqrt(length(x[[col]])))
+  }
+  data_sum<-ddply(data, groupnames, .fun=summary_func,
+                  varname)
+  data_sum <- plyr::rename(data_sum, c("mean" = varname))
+  return(data_sum)
+}
+```
+
+# descriptives
+
+```{r}
+table(questionnaireCAMs$typeChange)
+```
+
+# data preperation
+
+
+
+
+## only keep B, D
+
+only keep B, D:
+
+```{r}
+tmp_ids <- questionnaireCAMs$PROLIFIC_PID[questionnaireCAMs$typeChange %in% c("B", "D")]
+
+networkIndicators_pre <- networkIndicators_pre[str_remove_all(string = networkIndicators_pre$participantCAM, pattern = "_pre$") %in% tmp_ids, ]
+networkIndicators_post <- networkIndicators_post[str_remove_all(string = networkIndicators_post$participantCAM, pattern = "_post$") %in% tmp_ids, ]
+
+questionnaire <- questionnaire[questionnaire$PROLIFIC_PID %in% tmp_ids, ]
+questionnaireCAMs <- questionnaireCAMs[questionnaireCAMs$PROLIFIC_PID %in% tmp_ids, ]
+
+CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% tmp_ids, ]
+CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][CAMfiles_combined[[2]]$participantCAM %in% tmp_ids, ]
+CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][CAMfiles_combined[[3]]$participantCAM.y %in% tmp_ids, ] 
+```
+
+## add IDs to CAMfiles_combined
+
+```{r}
+CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% CAMfiles_pre[[1]]$CAM] <- paste0(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% CAMfiles_pre[[1]]$CAM], "_pre")
+
+CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% CAMfiles_post[[1]]$CAM] <- paste0(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% CAMfiles_post[[1]]$CAM], "_post")
+```
+
+## set up long data
+
+```{r}
+# prepare data
+### add pre post
+networkIndicators_pre$timepoint <- "pre"
+networkIndicators_post$timepoint <- "post"
+
+### long data format
+networkIndicators_long <- rbind(networkIndicators_pre, networkIndicators_post)
+
+### ad ID
+networkIndicators_long$ID <- c(1:(nrow(networkIndicators_long) / 2), 1:(nrow(networkIndicators_long) / 2))
+
+### reformat variable
+networkIndicators_long$timepoint <- factor(networkIndicators_long$timepoint, 
+                                           levels = c("pre", "post"), 
+                                           ordered = FALSE)
+
+### add type robot
+networkIndicators_long$typeRobot <- ifelse(test = !is.na(networkIndicators_long$valence_micro_Rettungsroboter), yes = "rescue robots", no = "socially assistive robots")
+table(networkIndicators_long$typeRobot)
+table(questionnaireCAMs$choosen_Robot) * 2
+```
+
+
+
+# R1: Perceived risks and benefits quantitative
+
+## average emotional evaluation
+
+```{r}
+### post - pre difference of robot -> average valence
+fit1 <- afex::aov_car(mean_valence_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+                      data = networkIndicators_long)
+fit1a <- afex::aov_ez(id = "ID", dv = "mean_valence_macro",
+                      data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
+# partical eta squared
+anova(fit1, es = "pes")
+# generalized eta squared
+fit1a # > identical results
+
+
+dfvalcor <- data_summary(networkIndicators_long, varname="mean_valence_macro",
+                         groupnames=c("timepoint","typeRobot"))
+
+dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("pre", "post"))
+
+p <- ggplot(dfvalcor, aes(x=timepoint, y=mean_valence_macro, fill=typeRobot)) +
+  geom_bar(stat="identity", color="black",
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=mean_valence_macro-se, ymax=mean_valence_macro+se), width=.2,
+                position=position_dodge(.9)) + ggplot_theme + ylab(label = "average emotional evaluation") + 
+  theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
+print(p)
+```
+
+
+## number of drawn concepts
+
+### overall 
+
+
+```{r}
+### post - pre difference of robot -> number of concepts
+fit1 <- afex::aov_car(num_nodes_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+                      data = networkIndicators_long)
+fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_macro",
+                      data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
+# partical eta squared
+anova(fit1, es = "pes")
+# generalized eta squared
+fit1a # > identical results
+
+
+dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_macro",
+                         groupnames=c("timepoint","typeRobot"))
+
+dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("pre", "post"))
+
+p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_macro, fill=typeRobot)) +
+  geom_bar(stat="identity", color="black",
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=num_nodes_macro-se, ymax=num_nodes_macro+se), width=.2,
+                position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of concepts") + 
+  theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
+print(p)
+```
+
+
+### positive 
+
+
+
+```{r}
+### post - pre difference of robot -> number of concepts
+fit1 <- afex::aov_car(num_nodes_pos_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+                      data = networkIndicators_long)
+fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_pos_macro",
+                      data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
+# partical eta squared
+anova(fit1, es = "pes")
+# generalized eta squared
+fit1a # > identical results
+
+
+dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_pos_macro",
+                         groupnames=c("timepoint","typeRobot"))
+
+dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("pre", "post"))
+
+p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_pos_macro, fill=typeRobot)) +
+  geom_bar(stat="identity", color="black",
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=num_nodes_pos_macro-se, ymax=num_nodes_pos_macro+se), width=.2,
+                position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of positive concepts") + 
+  theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
+print(p)
+```
+### negative 
+
+
+```{r}
+### post - pre difference of robot -> number of concepts
+fit1 <- afex::aov_car(num_nodes_neg_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+                      data = networkIndicators_long)
+fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_neg_macro",
+                      data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
+# partical eta squared
+anova(fit1, es = "pes")
+# generalized eta squared
+fit1a # > identical results
+
+
+dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_neg_macro",
+                         groupnames=c("timepoint","typeRobot"))
+
+dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("pre", "post"))
+
+p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_neg_macro, fill=typeRobot)) +
+  geom_bar(stat="identity", color="black",
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=num_nodes_neg_macro-se, ymax=num_nodes_neg_macro+se), width=.2,
+                position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of negative concepts") + 
+  theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
+print(p)
+```
+
+### ambivalent 
+
+
+```{r}
+### post - pre difference of robot -> number of concepts
+fit1 <- afex::aov_car(num_nodes_ambi_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+                      data = networkIndicators_long)
+fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_ambi_macro",
+                      data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
+# partical eta squared
+anova(fit1, es = "pes")
+# generalized eta squared
+fit1a # > identical results
+
+
+dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_ambi_macro",
+                         groupnames=c("timepoint","typeRobot"))
+
+dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("pre", "post"))
+
+p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_ambi_macro, fill=typeRobot)) +
+  geom_bar(stat="identity", color="black",
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=num_nodes_ambi_macro-se, ymax=num_nodes_ambi_macro+se), width=.2,
+                position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of ambivalent concepts") + 
+  theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
+print(p)
+```
+
+
+# R2: Perceived risks and benefits qualitative
+
+
+```{r}
+ids_participants <- str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$")
+ids_participants <- unique(ids_participants)
+
+## number of participants
+length(ids_participants)
+## number of drawn concepts
+table(str_extract_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "pre$|post$", simplify = TRUE))
+```
+everything which was deleted or added is based on the intervention
+
+individual level
+
+```{r}
+for(i in 1:length(ids_participants)){
+  tmp_pre <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% paste0(ids_participants[i], "_pre"), ]
+  tmp_post <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% paste0(ids_participants[i], "_post"), ]
+  
+  print(questionnaire$typeChange[questionnaire$participantCAMpre == unique(tmp_pre$participantCAM)])
+  print(tmp_pre$text[!tmp_pre$text %in% tmp_post$text])
+  print(tmp_post$text[!tmp_post$text %in% tmp_pre$text])
+  
+  # tmp_pre$comment[!tmp_pre$text %in% tmp_post$text]
+  # tmp_post$comment[!tmp_post$text %in% tmp_pre$text]
+
+}
+```
+
+overall level
+
+```{r}
+allConcepts_pre <- CAMfiles_combined[[1]][str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$"), ]
+allConcepts_post <- CAMfiles_combined[[1]][str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_post$"), ]
+
+
+## for robot
+tmp_ids <- c(questionnaire$participantCAMpre[questionnaire$choosen_Robot == "rescue robot"], questionnaire$participantCAMpost[questionnaire$choosen_Robot == "rescue robot"])
+
+allConcepts_pre <- allConcepts_pre[!allConcepts_pre$participantCAM %in% tmp_ids, ]
+allConcepts_post <- allConcepts_post[!allConcepts_post$participantCAM %in% tmp_ids, ]
+
+
+allConcepts_pre$text_summarized <- str_remove_all(string = allConcepts_pre$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
+allConcepts_post$text_summarized <- str_remove_all(string = allConcepts_post$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
+
+
+tmp_words_pre <- allConcepts_pre$text[allConcepts_pre$text_summarized == "MT"]
+tmp_words_post <- allConcepts_post$text[allConcepts_post$text_summarized == "MT"]
+
+length(tmp_words_pre)
+length(tmp_words_post)
+
+tmp_words_pre[!tmp_words_pre %in% tmp_words_post]
+
+tmp_words_post[!tmp_words_post %in% tmp_words_pre]
+
+```
+
+
+
+
+
+# R3: Perceived risks and benefits mediated by gender and age
+
+blub
+
+
