@@ -544,7 +544,7 @@ save as HTML:
 ```{r}
 setwd("outputs/03_dataAnalysis_RQ")
 stargazer(tmp_RR, type = "html", out = "rescue robot_table.html", summary = FALSE)
-stargazer(tmp_SAR, type = "html", out = "socially assistive robot.html", summary = FALSE)
+stargazer(tmp_SAR, type = "html", out = "socially assistive robot_table.html", summary = FALSE)
 ```
 
 
