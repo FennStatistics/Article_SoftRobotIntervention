@@ -162,6 +162,8 @@ const study = new lab.flow.Sequence({
     //new lab.plugins.Download()
   ],
   content: [
+    explanationSR1_htmlForm,
+    explanationSR2_htmlForm,
     break500,
     CAMfeedbackGeneral_htmlForm,
     explanationSR1_htmlForm,

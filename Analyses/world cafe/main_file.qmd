@@ -1,5 +1,5 @@
 ---
-title: "world-cafe study (informing basal attributes, S2)"
+title: "world-cafe study (informing scenario texts)"
 author: "Julius Fenn, Louisa Estadieu"
 format:
   html:
@@ -185,6 +185,8 @@ DT::datatable(questionnaire[, c("socialBenefitsSR","socialBenefitsSRdefinition",
 ```{r}
 DT::datatable(questionnaire[, c("sustainableSR","sustainableSRdefinition")], options = list(pageLength = 5)) 
 ```
+
+
 ### save as Excel
 
 as .xlsx file
@@ -208,110 +210,3 @@ xlsx::write.xlsx2(x = tmp_dat, file = "outputs/openQuestions.xlsx")
 tmp_dat <- questionnaire[questionnaire$feedback_critic != "" & !is.na(questionnaire$feedback_critic), c("ID","feedback_critic")]
 DT::datatable(tmp_dat, options = list(pageLength = 5)) 
 ```
-
-
-
-# basal attributes
-
-## relevancy and valence ratings
-
-error: two times I surved "autonomous" (German: selbstständig, autonom)
-
-```{r}
-#| warning: false
-########################################
-# get data set with all ratings
-########################################
-dat_ratings <- na.omit(dat[, c("ID", "Attribut", "English_translation", "ratingLivmats", "ratingValence")])
-dat_ratings$ratingLivmats <- as.numeric(dat_ratings$ratingLivmats)
-dat_ratings$ratingValence <- as.numeric(dat_ratings$ratingValence)
-
-if(nrow(dat_ratings) / 32 == nrow(questionnaire)){
-  print("Everything worked fine")
-}
-
-########################################
-# summary of all ratings
-########################################
-summary_ratings <- dat_ratings %>%
-  group_by(English_translation) %>%
-  summarize(N = n(), 
-            mean_ratingLivmats = mean(ratingLivmats), SD_ratingLivmats = sd(ratingLivmats),
-            mean_ratingValence = mean(ratingValence), SD_ratingValence = sd(ratingValence)) %>%
-  mutate(across(3:6, round, 2))
-DT::datatable(summary_ratings, options = list(pageLength = 5)) 
-
-## save
-xlsx::write.xlsx2(x = summary_ratings, file = "outputs/summary_ratings.xlsx")
-
-########################################
-# get words of basal attributes => 6
-########################################
-summary_ratings$English_translation[summary_ratings$mean_ratingLivmats >= 6]
-```
-Plot relevancy ratings: 
-
-```{r}
-#| warning: false
-# Calculate mean and standard deviation
-mu <- mean(dat_ratings$ratingLivmats, na.rm = TRUE)
-sigma <- sd(dat_ratings$ratingLivmats, na.rm = TRUE)
-
-# Create the histogram with normal distribution overlay
-ggplot(dat_ratings, aes(x = ratingLivmats)) +
-  geom_histogram(aes(y = ..density..), binwidth = 1, fill = "dodgerblue3", color = "white") +
-  stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), color = "red") +
-  labs(x = "Mean Relevancy Ratings", y = "Density") +
-  theme_apa() +
-  theme(plot.title = element_text(hjust = 0.5)) + geom_vline(xintercept = mean(dat_ratings$ratingLivmats, na.rm = TRUE), col = "red")
-```
-
-
-Plot valence ratings: 
-
-```{r}
-#| warning: false
-# Calculate mean and standard deviation
-mu <- mean(dat_ratings$ratingValence, na.rm = TRUE)
-sigma <- sd(dat_ratings$ratingValence, na.rm = TRUE)
-
-# Create the histogram with normal distribution overlay
-ggplot(dat_ratings, aes(x = ratingValence)) +
-  geom_histogram(aes(y = ..density..), binwidth = 1, fill = "dodgerblue3", color = "white") +
-  stat_function(fun = dnorm, args = list(mean = mu, sd = sigma), color = "red") +
-  labs(x = "Mean Valence Ratings", y = "Density") +
-  theme_apa() +
-  theme(plot.title = element_text(hjust = 0.5)) + geom_vline(xintercept = mean(dat_ratings$ratingValence, na.rm = TRUE), col = "red")
-```
-
-**both are medium-strongly slightly related**
-
-```{r}
-cor(dat_ratings$ratingLivmats, dat_ratings$ratingValence)
-```
-
-
-
-## missing basal attributes for single research areas
-
-for **Research Area A (Energy Autonomy):**
-```{r}
-table(unlist(dat$toolsStatistics))
-```
-
-for **Research Area B (Adaptivity):**
-```{r}
-table(unlist(dat$toolsSoftwares))
-```
-
-for **Research Area C (Longevity):**
-```{r}
-table(unlist(dat$toolsTopics))
-```
-
-for **Research Area D (Societal challenges and Sustainability):**
-```{r}
-table(unlist(dat$toolsData))
-```
-
-
