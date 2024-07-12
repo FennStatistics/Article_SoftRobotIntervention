@@ -27,7 +27,8 @@ require(pacman)
 p_load('tidyverse', 'jsonlite', 'magrittr', 'xlsx',
        'stargazer', 'psych', 'jtools', 'DT', 'ggstatsplot', 
        'lavaan', 
-       'regsem', 'MplusAutomation', 'igraph', 'openxlsx')
+       'regsem', 'MplusAutomation', 'igraph', 'openxlsx',
+       'reshape2')
 
 
 setwd("outputs/01_dataPreperation/final")
@@ -519,10 +520,10 @@ for (c in 1:length(ids_categories)) {
     dat[c,]$Mnew <- paste0(round(x =  mean(tmp), digits = 2), " (", round(x =  sd(tmp), digits = 2), ")")
 }
   
-  dat$CAMs <- round(x = dat$CAMs / num_RR * 100, digits = 2)
-dat$Nnew <- round(x = dat$Nnew / num_RR * 1, digits = 2)
-dat$Nold <- round(x = dat$Nold / num_RR * 1, digits = 2)
-dat$Nconstant <- round(x = dat$Nconstant / num_RR * 1, digits = 2)
+  dat$CAMs <- round(x = dat$CAMs / numParticipants * 100, digits = 2)
+dat$Nnew <- round(x = dat$Nnew / numParticipants * 1, digits = 2)
+dat$Nold <- round(x = dat$Nold / numParticipants * 1, digits = 2)
+dat$Nconstant <- round(x = dat$Nconstant / numParticipants * 1, digits = 2)
 
 colnames(dat) <- c("category", "perCAMs", "avgConstant", "avgOld", "avgNew", "Mconstant", "Mold", "Mnew")
   return(dat)
