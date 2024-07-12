@@ -448,7 +448,7 @@ separately for categories:
 
 ```{r}
 
-getDescriptiveTable <- function(chooseRobot){
+getDescriptiveTable <- function(chooseRobot, numParticipants){
   dat <- data.frame(category = ids_categories, CAMs = NA, 
                   Nconstant = NA, Nold = NA, Nnew = NA, 
            Mconstant = NA, Mold = NA, Mnew = NA)
@@ -518,7 +518,13 @@ for (c in 1:length(ids_categories)) {
                tmp <- ifelse(test = unlist(vec_new_valence) == 10, yes = 0, no = unlist(vec_new_valence))
     dat[c,]$Mnew <- paste0(round(x =  mean(tmp), digits = 2), " (", round(x =  sd(tmp), digits = 2), ")")
 }
+  
+  dat$CAMs <- round(x = dat$CAMs / num_RR * 100, digits = 2)
+dat$Nnew <- round(x = dat$Nnew / num_RR * 1, digits = 2)
+dat$Nold <- round(x = dat$Nold / num_RR * 1, digits = 2)
+dat$Nconstant <- round(x = dat$Nconstant / num_RR * 1, digits = 2)
 
+colnames(dat) <- c("category", "perCAMs", "avgConstant", "avgOld", "avgNew", "Mconstant", "Mold", "Mnew")
   return(dat)
 } 
 ```
@@ -530,14 +536,17 @@ for (c in 1:length(ids_categories)) {
 #| warning: false
 
 ## for rescue robots
-tmp_RR <- getDescriptiveTable(chooseRobot = "rescue robot")
+num <- sum(questionnaire$choosen_Robot == "rescue robot")
+tmp_RR <- getDescriptiveTable(chooseRobot = "rescue robot", numParticipants = num)
 DT::datatable(data = tmp_RR)
 
 ## for socially assistive robot
-tmp_SAR <- getDescriptiveTable(chooseRobot = "socially assistive robot")
+num <- sum(questionnaire$choosen_Robot == "socially assistive robot")
+tmp_SAR <- getDescriptiveTable(chooseRobot = "socially assistive robot", numParticipants = num)
 DT::datatable(data = tmp_SAR)
 
 ```
+
 
 save as HTML: 
 
@@ -548,6 +557,46 @@ stargazer(tmp_SAR, type = "html", out = "socially assistive robot_table.html", s
 ```
 
 
+```{r}
+# Data for r1
+data_r1 <- tmp_RR[!tmp_RR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
+data_r1$group = "RR"
+colnames(data_r1)[c(2,3)] <- c("constant", "new")
+
+# Data for r2
+data_r2 <- tmp_SAR[!tmp_SAR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
+data_r2$group = "SAR"
+colnames(data_r2)[c(2,3)] <- c("constant", "new")
+
+
+# Combine the data
+data_combined <- rbind(data_r1, data_r2)
+
+# Reshape the data to long format for ggplot
+data_long <- melt(data_combined, id.vars = c("category", "group"), 
+                  variable.name = "type", value.name = "value")
+
+# Create a new column to distinguish between the groups and types for coloring
+data_long$group_type <- interaction(data_long$group, data_long$type)
+
+# rename group_type
+
+
+# Create the grouped barplot
+ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.7), width = 0.6) +
+  coord_flip() +
+  labs(title = "Grouped Barplot of constant and new terms of robots for single categories",
+       x = "Category",
+       y = "Average number of drawn concepts",
+       fill = "Robot, Type") +
+  theme_minimal() +
+  scale_fill_manual(values = c("RR.constant" = "blue", "RR.new" = "red", 
+                               "SAR.constant" = "green", "SAR.new" = "orange")) +
+  theme(legend.position = "top",
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12))
+```
 
 
 ### create data.frame of all words for ChatGPT
