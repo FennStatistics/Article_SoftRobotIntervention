@@ -586,6 +586,8 @@ data_long$group_type <- interaction(data_long$group, data_long$type)
 # Create the grouped barplot
 ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.7), width = 0.6) +
+    geom_text(aes(label = value, y = value + 0.02), 
+            position = position_dodge(width = 0.7), vjust = 0) +
   coord_flip() +
   labs(title = "Grouped Barplot of constant and new terms of robots for single categories",
        x = "Category",
