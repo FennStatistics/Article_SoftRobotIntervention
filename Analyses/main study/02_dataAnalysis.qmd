@@ -433,8 +433,14 @@ DT::datatable(questionnaireCAMs[,c("PROLIFIC_PID", "feedback_critic")], options 
 ```{r}
 DT::datatable(questionnaireCAMs[,c("PROLIFIC_PID", str_subset(string = colnames(questionnaireCAMs), pattern = "^feedCAM"))], options = list(pageLength = 5)) 
 
+## technical problems
+table(questionnaireCAMs$feedCAM_technicalprobs)
+questionnaireCAMs$feedCAM_technicalprobsText[questionnaireCAMs$feedCAM_technicalprobs == 1]
+
+
 hist(questionnaire$feedCAM_repres)
 summary(questionnaire$feedCAM_repres)
+psych::describe(x = questionnaire$feedCAM_repres)
 ```
 
 ## differences survey means
@@ -978,7 +984,7 @@ data.frame(post = diag(CAMaggregated_post[[1]]),
 
 
 ```{r}
-dat_ids <- questionnaireCAMs[, c("PROLIFIC_PID", "choosen_Robot", "typeChange", "CAMpre", "CAMpost")]
+dat_ids <- questionnaireCAMs[, c("PROLIFIC_PID", "choosen_Robot", "typeChange", "CAM_ID_pre", "CAM_ID_post")]
 dat_ids <- dat_ids[dat_ids$typeChange %in% c("B", "D"),]
 ```
 
@@ -1022,9 +1028,9 @@ list_value <- list()
 
 for(i in 1:nrow(dat_ids)){
  tmp_pre <- CAMfiles_combined[[1]][str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$")
- %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpre[i],]
+ %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAM_ID_pre[i],]
 
- tmp_post <- CAMfiles_combined[[1]][str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAMpost[i],]
+ tmp_post <- CAMfiles_combined[[1]][str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% dat_ids$PROLIFIC_PID[i] & CAMfiles_combined[[1]]$CAM %in% dat_ids$CAM_ID_post[i],]
  
  
  
