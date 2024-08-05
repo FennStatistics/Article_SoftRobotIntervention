@@ -89,6 +89,7 @@ data_summary <- function(data, varname, groupnames){
 
 ```{r}
 table(questionnaireCAMs$typeChange)
+round(x = table(questionnaireCAMs$typeChange) / nrow(questionnaireCAMs) * 100, digits = 2)
 ```
 
 # data preperation
@@ -300,6 +301,12 @@ p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_ambi_macro, fill=typeRobot)) 
   theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
 print(p)
 ```
+
+
+## additional analysis
+
+
+
 
 
 # R2: Perceived risks and benefits qualitative
