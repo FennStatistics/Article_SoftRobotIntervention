@@ -305,6 +305,74 @@ print(p)
 
 ## additional analysis
 
+```{r}
+networkIndicators_long_within <- networkIndicators_long
+networkIndicators_long_within$participantCAM <- str_remove(string = networkIndicators_long_within$participantCAM, pattern = "_pre$|_post$")
+
+
+# positive concepts
+## parametric t-test
+ggwithinstats(
+  data = networkIndicators_long_within,
+  x = timepoint,
+  y = num_nodes_pos_macro,
+  type = "p",
+  effsize.type = "d",
+  conf.level = 0.95,
+  title = "Parametric test"
+)
+
+# frequencies
+tmp <- data.frame(post = networkIndicators_long_within$num_nodes_pos_macro[networkIndicators_long_within$timepoint == "post"], pre = networkIndicators_long_within$num_nodes_pos_macro[networkIndicators_long_within$timepoint == "pre"])
+tmp$diff <- tmp$post- tmp$pre
+tmp$diff_boolean <- tmp$diff == 0
+psych::describe(tmp$diff)
+sum(tmp$diff_boolean) / nrow(tmp)
+
+
+# negative concepts
+## parametric t-test
+ggwithinstats(
+  data = networkIndicators_long_within,
+  x = timepoint,
+  y = num_nodes_neg_macro,
+  type = "p",
+  effsize.type = "d",
+  conf.level = 0.95,
+  title = "Parametric test"
+)
+
+# frequencies
+tmp <- data.frame(post = networkIndicators_long_within$num_nodes_neg_macro[networkIndicators_long_within$timepoint == "post"], pre = networkIndicators_long_within$num_nodes_neg_macro[networkIndicators_long_within$timepoint == "pre"])
+tmp$diff <- tmp$post- tmp$pre
+tmp$diff_boolean <- tmp$diff == 0
+psych::describe(tmp$diff)
+sum(tmp$diff_boolean) / nrow(tmp)
+```
+
+
+
+
+```{r}
+## selecting subset of the data
+df_disgust <- dplyr::filter(bugs_long, condition %in% c("LDHF", "HDHF"))
+
+## parametric t-test
+p1 <- ggwithinstats(
+  data = df_disgust,
+  x = condition,
+  y = desire,
+  type = "p",
+  effsize.type = "d",
+  conf.level = 0.99,
+  title = "Parametric test",
+  package = "ggsci",
+  palette = "nrc_npg"
+)
+p1
+```
+
+
 
 
 
