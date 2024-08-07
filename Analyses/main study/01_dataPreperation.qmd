@@ -41,7 +41,7 @@ prolific <- rbind(prolific1, prolific2)
 
 ### get files for translation
 setwd("../data_translation")
-dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_CBJF.xlsx", sheetIndex = 1)
+dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
 
 ### list data files
 setwd("../data")
@@ -374,7 +374,7 @@ names(questionnaire)[names(questionnaire) == "ans1"] <- "adaptiveQuestion"
 
 # remove testing data sets
 questionnaire <- questionnaire[nchar(questionnaire$PROLIFIC_PID) == 24,]
-
+dim(questionnaire)
 
 ### add prolific data
 prolific <- prolific[prolific$Participant.id %in% questionnaire$PROLIFIC_PID,]
@@ -531,24 +531,29 @@ CAMfiles_pre <- create_CAMfiles(datCAM = raw_CAM_pre, reDeleted = TRUE)
 CAMfiles_pre[[1]] <- CAMfiles_pre[[1]][nchar(CAMfiles_pre[[1]]$participantCAM) == 24,]
 CAMfiles_pre[[2]] <- CAMfiles_pre[[2]][nchar(CAMfiles_pre[[2]]$participantCAM) == 24,]
 CAMfiles_pre[[3]] <- CAMfiles_pre[[3]][nchar(CAMfiles_pre[[3]]$participantCAM.x) == 24,]
+# number of CAMs collected
+nrow(CAMfiles_pre[[1]])
 
-# remove CAM with many empty concepts
-## remove person from survey data
+
+# remove person who draw many empty concepts
 tmp_pid <- unique(CAMfiles_pre[[1]]$participantCAM[CAMfiles_pre[[1]]$CAM %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b")])
+print(tmp_pid)
+
+## remove person from questionnaire data
 questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% tmp_pid,]
 
 ## remove person from CAM data
-CAMfiles_pre[[1]] <- CAMfiles_pre[[1]][CAMfiles_pre[[1]]$CAM != "a0c6edeb-267a-4f27-8199-79f896e033ce",]
-CAMfiles_pre[[2]] <- CAMfiles_pre[[2]][CAMfiles_pre[[2]]$CAM != "a0c6edeb-267a-4f27-8199-79f896e033ce",]
-CAMfiles_pre[[3]] <- CAMfiles_pre[[3]][CAMfiles_pre[[3]]$CAM.x != "a0c6edeb-267a-4f27-8199-79f896e033ce",]
+table(CAMfiles_pre[[1]][CAMfiles_pre[[1]]$participantCAM %in% tmp_pid,]$text)
+CAMfiles_pre[[1]] <- CAMfiles_pre[[1]][!CAMfiles_pre[[1]]$participantCAM %in% tmp_pid,]
+CAMfiles_pre[[2]] <- CAMfiles_pre[[2]][!CAMfiles_pre[[2]]$participantCAM %in% tmp_pid,]
+CAMfiles_pre[[3]] <- CAMfiles_pre[[3]][!CAMfiles_pre[[3]]$participantCAM.x %in% tmp_pid,]
 
 
-
-
-# remove empty concepts:
+# remove 7 empty concepts:
 CAMfiles_pre[[1]]$text[nchar(CAMfiles_pre[[1]]$text) < 2]
 tmp_ids <- CAMfiles_pre[[1]]$id[nchar(CAMfiles_pre[[1]]$text) < 2]
 table(CAMfiles_pre[[1]]$isActive[CAMfiles_pre[[1]]$id %in% tmp_ids])
+table(CAMfiles_pre[[1]]$participantCAM[CAMfiles_pre[[1]]$id %in% tmp_ids])
 
 CAMfiles_pre[[1]] <- CAMfiles_pre[[1]][!CAMfiles_pre[[1]]$id %in% tmp_ids,]
 
@@ -596,6 +601,8 @@ if(all(nchar(CAMwordlist_pre$Words) > 2)){
 
 DT::datatable(CAMwordlist_pre, options = list(pageLength = 5)) 
 ```
+
+
 
 
 ### save CAMs as .json files, and as .png (igraph)
@@ -690,17 +697,28 @@ CAMfiles_post <- create_CAMfiles(datCAM = raw_CAM_post, reDeleted = TRUE)
 CAMfiles_post[[1]] <- CAMfiles_post[[1]][nchar(CAMfiles_post[[1]]$participantCAM) == 24,]
 CAMfiles_post[[2]] <- CAMfiles_post[[2]][nchar(CAMfiles_post[[2]]$participantCAM) == 24,]
 CAMfiles_post[[3]] <- CAMfiles_post[[3]][nchar(CAMfiles_post[[3]]$participantCAM.x) == 24,]
+# number of CAMs collected
+nrow(CAMfiles_post[[1]])
 
-# remove CAM with many empty concepts
-CAMfiles_post[[1]] <- CAMfiles_post[[1]][CAMfiles_post[[1]]$CAM != "8d74f576-e617-4eb1-8ccf-93589ce6c65b",]
-CAMfiles_post[[2]] <- CAMfiles_post[[2]][CAMfiles_post[[2]]$CAM != "8d74f576-e617-4eb1-8ccf-93589ce6c65b",]
-CAMfiles_post[[3]] <- CAMfiles_post[[3]][CAMfiles_post[[3]]$CAM.x != "8d74f576-e617-4eb1-8ccf-93589ce6c65b",]
+# remove person who draw many empty concepts
+tmp_pid <- unique(CAMfiles_post[[1]]$participantCAM[CAMfiles_post[[1]]$CAM %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b")])
+print(tmp_pid)
+
+## removed person already from questionnaire data
+
+## remove person from CAM data
+table(CAMfiles_post[[1]][CAMfiles_post[[1]]$participantCAM %in% tmp_pid,]$text)
+CAMfiles_post[[1]] <- CAMfiles_post[[1]][!CAMfiles_post[[1]]$participantCAM %in% tmp_pid,]
+CAMfiles_post[[2]] <- CAMfiles_post[[2]][!CAMfiles_post[[2]]$participantCAM %in% tmp_pid,]
+CAMfiles_post[[3]] <- CAMfiles_post[[3]][!CAMfiles_post[[3]]$participantCAM.x %in% tmp_pid,]
 
 
-# remove empty concepts:
+# removed 4 empty concepts:
 CAMfiles_post[[1]]$text[nchar(CAMfiles_post[[1]]$text) < 2  & CAMfiles_post[[1]]$text != "f"]
 tmp_ids <- CAMfiles_post[[1]]$id[nchar(CAMfiles_post[[1]]$text) < 2 & CAMfiles_post[[1]]$text != "f"]
 table(CAMfiles_post[[1]]$isActive[CAMfiles_post[[1]]$id %in% tmp_ids])
+table(CAMfiles_post[[1]]$participantCAM[CAMfiles_post[[1]]$id %in% tmp_ids])
+
 
 CAMfiles_post[[1]] <- CAMfiles_post[[1]][!CAMfiles_post[[1]]$id %in% tmp_ids,]
 
@@ -950,16 +968,28 @@ CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][nchar(CAMfiles_combined[[1]]$pa
 CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][nchar(CAMfiles_combined[[2]]$participantCAM) == 24,]
 CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][nchar(CAMfiles_combined[[3]]$participantCAM.x) == 24,]
 
-# remove CAM with many empty concepts
-CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$CAM %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b"),]
-CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][!CAMfiles_combined[[2]]$CAM %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b"),]
-CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$CAM.x %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b"),]
+
+# remove person who draw many empty concepts
+tmp_pid <- unique(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% c("a0c6edeb-267a-4f27-8199-79f896e033ce", "8d74f576-e617-4eb1-8ccf-93589ce6c65b")])
+print(tmp_pid)
+
+## removed person already from questionnaire data
+
+## remove person from CAM data
+table(CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% tmp_pid,]$text)
+CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$participantCAM %in% tmp_pid,]
+CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][!CAMfiles_combined[[2]]$participantCAM %in% tmp_pid,]
+CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$participantCAM.x %in% tmp_pid,]
+
+
+length(unique(CAMfiles_combined[[1]]$CAM))
 
 
 # remove empty concepts:
 CAMfiles_combined[[1]]$text[nchar(CAMfiles_combined[[1]]$text) < 2  & CAMfiles_combined[[1]]$text != "f"]
 tmp_ids <- CAMfiles_combined[[1]]$id[nchar(CAMfiles_combined[[1]]$text) < 2 & CAMfiles_combined[[1]]$text != "f"]
 table(CAMfiles_combined[[1]]$isActive[CAMfiles_combined[[1]]$id %in% tmp_ids])
+table(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$id %in% tmp_ids])
 
 CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$id %in% tmp_ids,]
 
@@ -1007,15 +1037,22 @@ for(c in unique(CAMfiles_combined[[1]]$CAM)){
 
 ## fix manually
 # single pre defined concepts were falsely written
-CAMfiles_combined[[1]]$text[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "Soziale Assistenzroboter"] <- "sozialer Assistenzroboter"
-CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "sozialer Assistenzroboter"] <- "sozialer Assistenzroboter_positive"
+## Soziale Assistenzroboter to sozialer Assistenzroboter
+CAMfiles_combined[[1]]$CAM[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "Soziale Assistenzroboter"] 
+vec_CAMs <- vec_CAMs[!vec_CAMs %in% CAMfiles_combined[[1]]$CAM[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "Soziale Assistenzroboter"]]
 
+CAMfiles_combined[[1]]$text[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "Soziale Assistenzroboter"] <- "Soziale Assistenzroboter"
+CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$participantCAM %in% "5debfbcc3a11682f0fae8b29" & CAMfiles_combined[[1]]$text == "Soziale Assistenzroboter"] <- "Soziale Assistenzroboter_positive"
+
+## Roboter to sozialer Rettungsroboter
+CAMfiles_combined[[1]]$CAM[CAMfiles_combined[[1]]$participantCAM %in% "5ba00acff337030001de805d" & CAMfiles_combined[[1]]$text == "Roboter"]
+vec_CAMs <- vec_CAMs[!vec_CAMs %in% CAMfiles_combined[[1]]$CAM[CAMfiles_combined[[1]]$participantCAM %in% "5ba00acff337030001de805d" & CAMfiles_combined[[1]]$text == "Roboter"]]
 
 CAMfiles_combined[[1]]$text[CAMfiles_combined[[1]]$participantCAM %in% "5ba00acff337030001de805d" & CAMfiles_combined[[1]]$text == "Roboter"] <- "Rettungsroboter"
 CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$participantCAM %in% "5ba00acff337030001de805d" & CAMfiles_combined[[1]]$text == "Rettungsroboter"] <- "Rettungsroboter_neutral"              
 
 
-## remove 5 persons
+## remove 5 persons because of technical issues
 vec_Pids <- unique(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% vec_CAMs])
 vec_Pids
 
@@ -1027,7 +1064,10 @@ CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$partici
 # remove questionnaires
 questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% vec_Pids,]
 
-###
+
+
+
+# remove person "6560e6f734ae18bd18474cc9" -> only draw pre-defined concepts
 for(c in unique(CAMfiles_combined[[1]]$participantCAM)){
   tmp <- CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% c,]
   
@@ -1038,14 +1078,14 @@ for(c in unique(CAMfiles_combined[[1]]$participantCAM)){
   }
 }
 
+## removed person from questionnaire data
+questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% "6560e6f734ae18bd18474cc9",]
 
-# remove person "6560e6f734ae18bd18474cc9" -> only draw pre-defined concepts
+## remove person from CAM data
 CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$participantCAM %in% "6560e6f734ae18bd18474cc9",]
 CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][!CAMfiles_combined[[2]]$participantCAM %in% "6560e6f734ae18bd18474cc9",]
 CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$participantCAM.x %in% "6560e6f734ae18bd18474cc9",]
 
-# remove questionnaires
-questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% "6560e6f734ae18bd18474cc9",]
 
 
 # remove person "65304e8a630196510c79f7df" -> draw multiple times concept "leer"
@@ -1058,15 +1098,18 @@ for(c in unique(CAMfiles_combined[[1]]$CAM)){
   }
 }
 
-tmp <-  CAMfiles_combined[[1]][CAMfiles_combined[[1]]$CAM %in% c("503b3517-b003-48e5-b121-f48c9a64ecb6", "39e7d213-1276-4da8-99ea-5a13487874e7"),]
-unique(tmp$participantCAM)
+# remove person who draw many empty concepts
+tmp_pid <- unique(CAMfiles_combined[[1]]$participantCAM[CAMfiles_combined[[1]]$CAM %in% c("503b3517-b003-48e5-b121-f48c9a64ecb6", "39e7d213-1276-4da8-99ea-5a13487874e7")])
+print(tmp_pid)
 
-CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$participantCAM %in% "65304e8a630196510c79f7df",]
-CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][!CAMfiles_combined[[2]]$participantCAM %in% "65304e8a630196510c79f7df",]
-CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$participantCAM.x %in% "65304e8a630196510c79f7df",]
+## remove person from questionnaire data
+questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% tmp_pid,]
 
-# remove questionnaires
-questionnaire <- questionnaire[!questionnaire$PROLIFIC_PID %in% "65304e8a630196510c79f7df",]
+## remove person from CAM data
+CAMfiles_combined[[1]] <- CAMfiles_combined[[1]][!CAMfiles_combined[[1]]$participantCAM %in% tmp_pid,]
+CAMfiles_combined[[2]] <- CAMfiles_combined[[2]][!CAMfiles_combined[[2]]$participantCAM %in% tmp_pid,]
+CAMfiles_combined[[3]] <- CAMfiles_combined[[3]][!CAMfiles_combined[[3]]$participantCAM.x %in% tmp_pid,]
+
 
 
 
@@ -1287,8 +1330,10 @@ table(str_remove(string = tmp_nodes$text_summarized, pattern = "_positive$|_nega
 ```
 
 
-Fix if participants wrote one of the predefined concepts (Nachteile, Vorteile):
+## fix single words (multiple times pre-defined concepts, missing summarized words)
 
+
+Fix if participants wrote one of the predefined concepts (Nachteile, Vorteile):
 
 
 ```{r}
@@ -1313,6 +1358,38 @@ CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$participantCAM %in
 }
 ```
 
+missing summarized words:
+
+```{r}
+setwd("data_overwrite")
+dat_overwrite_manually <- xlsx::read.xlsx2(file = "manually_overwrite.xlsx", sheetIndex = 1)
+
+for(i in 1:nrow(dat_overwrite_manually)){
+  if(nchar(dat_overwrite_manually$Superordinate[i]) >= 2){
+    CAMfiles_combined[[1]]$text_summarized[CAMfiles_combined[[1]]$text_summarized %in% dat_overwrite_manually$Words[i]] <- dat_overwrite_manually$Superordinate[i]
+  }
+}
+```
+check if all words have been properly summarized:
+
+```{r}
+# wordlist
+CAMwordlist_combined_afterQCA <- create_wordlist(
+  dat_nodes =  CAMfiles_combined[[1]],
+  dat_merged =  CAMfiles_combined[[3]],
+  order = "frequency",
+  splitByValence = FALSE,
+  comments = TRUE,
+  raterSubsetWords = NULL,
+  rater = FALSE
+)
+
+
+CAMwordlist_combined_afterQCA[CAMwordlist_combined_afterQCA$Words %in% c("Nachteile", "Vorteile", "Rettungsroboter", "Soziale Assistenzroboter"),c("Words", "raw")]
+length(unique(CAMfiles_combined[[1]]$CAM))
+```
+
+
 
 # translate CAM data
 
@@ -1333,6 +1410,8 @@ for (i in 1:length(raw_CAM_combined)) {
     tmp_rawCAM$creator <- paste0(tmp_rawCAM$creator, "_post")
   }else{
     print(i)
+    print(tmp_rawCAM$idCAM)
+    print(tmp_rawCAM$creator)
     print("not found! deleted")
   }
   
@@ -1382,10 +1461,56 @@ close(text_connection) # close connection
 
 
 ```{r}
+ERROR
+```
+
+ADD RISKS / BENEFITS !!!!
+
+
+
+
+```{r}
+xlsx::write.xlsx2(x = CAMfiles_combined[[1]], file = "drawnConcepts_translation.xlsx")
+```
+
+```{r}
+### get files for translation
+setwd("data_translation")
+dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
+
+
+
+
+
+
+
+
 nodes_translated <- CAMfiles_combined[[1]]
 
+
+sum(nodes_translated$id == "73a99249-5a0f-41a5-a775-f432d3e0ab51")
+
 for (i in 1:nrow(nodes_translated)) {
-  if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
+  if(nodes_translated$id[i] %in% c("d3a7b80c-5c3d-4f73-aadd-bee4c771ef16", "c61fa2dc-b9ea-4e5b-b05f-1544e1bf633d")){
+    nodes_translated$text[i] <- "advantages"
+  }else if(nodes_translated$id[i] == "0fbd6255-2b7a-4605-aa78-f25a9531165f"){
+    nodes_translated$text[i] <- "social assistance robot"
+  }else if(nodes_translated$id[i] %in% c("ff3c5ad2-684d-4540-bb70-d8e718e8d48c", "c9f4bb18-7d51-49b6-97f3-59bab643f07a")){
+    nodes_translated$text[i] <- "disadvantages"
+  }else if(nodes_translated$id[i] == "5689fc0a-59be-4bfc-801d-61d067c2b65c"){
+    nodes_translated$text[i] <- "rescue robot"
+  }else if(nodes_translated$id[i] == "17245ee8-ecce-4b65-abe1-01a72e2cdca8"){
+    nodes_translated$text[i] <- "AI"
+    nodes_translated$comment[i] <- "every single sci-film"
+  }else if(nodes_translated$id[i] == "a257bd47-0a18-4934-bf89-4e50b4560e51"){
+    nodes_translated$text[i] <- "expensive"
+    nodes_translated$comment[i] <- "are then only reserved for the rich and powerful"
+  }else{
+      if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
+    print(nodes_translated$text[i])
+    print(nodes_translated$comment[i])
+    print(nodes_translated$CAM[i])
+    print(nodes_translated$id[i])
     print(i)
     break
   }
@@ -1397,6 +1522,63 @@ for (i in 1:nrow(nodes_translated)) {
   if (nchar(nodes_translated$comment[i]) > 0) {
     nodes_translated$comment[i] <-
       dat_translation$comment_translated[dat_translation$id == nodes_translated$id[i]]
+  }
+  }
+}
+```
+
+
+
+```{r}
+### get files for translation
+setwd("data_translation")
+dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
+
+
+
+
+
+
+
+
+nodes_translated <- CAMfiles_combined[[1]]
+
+
+sum(nodes_translated$id == "73a99249-5a0f-41a5-a775-f432d3e0ab51")
+
+for (i in 1:nrow(nodes_translated)) {
+  if(nodes_translated$id[i] %in% c("d3a7b80c-5c3d-4f73-aadd-bee4c771ef16", "c61fa2dc-b9ea-4e5b-b05f-1544e1bf633d")){
+    nodes_translated$text[i] <- "advantages"
+  }else if(nodes_translated$id[i] == "0fbd6255-2b7a-4605-aa78-f25a9531165f"){
+    nodes_translated$text[i] <- "social assistance robot"
+  }else if(nodes_translated$id[i] %in% c("ff3c5ad2-684d-4540-bb70-d8e718e8d48c", "c9f4bb18-7d51-49b6-97f3-59bab643f07a")){
+    nodes_translated$text[i] <- "disadvantages"
+  }else if(nodes_translated$id[i] == "5689fc0a-59be-4bfc-801d-61d067c2b65c"){
+    nodes_translated$text[i] <- "rescue robot"
+  }else if(nodes_translated$id[i] == "17245ee8-ecce-4b65-abe1-01a72e2cdca8"){
+    nodes_translated$text[i] <- "AI"
+    nodes_translated$comment[i] <- "every single sci-film"
+  }else if(nodes_translated$id[i] == "a257bd47-0a18-4934-bf89-4e50b4560e51"){
+    nodes_translated$text[i] <- "expensive"
+    nodes_translated$comment[i] <- "are then only reserved for the rich and powerful"
+  }else{
+      if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
+    print(nodes_translated$text[i])
+    print(nodes_translated$comment[i])
+    print(nodes_translated$CAM[i])
+    print(nodes_translated$id[i])
+    print(i)
+    break
+  }
+  # overwrite text
+  nodes_translated$text[i] <-
+    dat_translation$text_translated[dat_translation$id == nodes_translated$id[i]]
+  
+  # overwrite comment
+  if (nchar(nodes_translated$comment[i]) > 0) {
+    nodes_translated$comment[i] <-
+      dat_translation$comment_translated[dat_translation$id == nodes_translated$id[i]]
+  }
   }
 }
 ```
