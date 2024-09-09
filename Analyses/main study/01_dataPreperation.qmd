@@ -1459,14 +1459,17 @@ close(text_connection) # close connection
 
 ## translate processed file of CAMfiles_combined
 
-
 ```{r}
 ERROR
 ```
 
-ADD RISKS / BENEFITS !!!!
 
+```{r}
 
+tmp_comments <- sapply(gregexpr("[[:alpha:]]+", CAMfiles_combined[[1]]$comment), function(x) sum(x > 0))
+tmp_comments <- tmp_comments[tmp_comments != 0]
+psych::describe(tmp_comments)
+```
 
 
 ```{r}
@@ -1477,68 +1480,6 @@ xlsx::write.xlsx2(x = CAMfiles_combined[[1]], file = "drawnConcepts_translation.
 ### get files for translation
 setwd("data_translation")
 dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
-
-
-
-
-
-
-
-
-nodes_translated <- CAMfiles_combined[[1]]
-
-
-sum(nodes_translated$id == "73a99249-5a0f-41a5-a775-f432d3e0ab51")
-
-for (i in 1:nrow(nodes_translated)) {
-  if(nodes_translated$id[i] %in% c("d3a7b80c-5c3d-4f73-aadd-bee4c771ef16", "c61fa2dc-b9ea-4e5b-b05f-1544e1bf633d")){
-    nodes_translated$text[i] <- "advantages"
-  }else if(nodes_translated$id[i] == "0fbd6255-2b7a-4605-aa78-f25a9531165f"){
-    nodes_translated$text[i] <- "social assistance robot"
-  }else if(nodes_translated$id[i] %in% c("ff3c5ad2-684d-4540-bb70-d8e718e8d48c", "c9f4bb18-7d51-49b6-97f3-59bab643f07a")){
-    nodes_translated$text[i] <- "disadvantages"
-  }else if(nodes_translated$id[i] == "5689fc0a-59be-4bfc-801d-61d067c2b65c"){
-    nodes_translated$text[i] <- "rescue robot"
-  }else if(nodes_translated$id[i] == "17245ee8-ecce-4b65-abe1-01a72e2cdca8"){
-    nodes_translated$text[i] <- "AI"
-    nodes_translated$comment[i] <- "every single sci-film"
-  }else if(nodes_translated$id[i] == "a257bd47-0a18-4934-bf89-4e50b4560e51"){
-    nodes_translated$text[i] <- "expensive"
-    nodes_translated$comment[i] <- "are then only reserved for the rich and powerful"
-  }else{
-      if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
-    print(nodes_translated$text[i])
-    print(nodes_translated$comment[i])
-    print(nodes_translated$CAM[i])
-    print(nodes_translated$id[i])
-    print(i)
-    break
-  }
-  # overwrite text
-  nodes_translated$text[i] <-
-    dat_translation$text_translated[dat_translation$id == nodes_translated$id[i]]
-  
-  # overwrite comment
-  if (nchar(nodes_translated$comment[i]) > 0) {
-    nodes_translated$comment[i] <-
-      dat_translation$comment_translated[dat_translation$id == nodes_translated$id[i]]
-  }
-  }
-}
-```
-
-
-
-```{r}
-### get files for translation
-setwd("data_translation")
-dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
-
-
-
-
-
-
 
 
 nodes_translated <- CAMfiles_combined[[1]]
