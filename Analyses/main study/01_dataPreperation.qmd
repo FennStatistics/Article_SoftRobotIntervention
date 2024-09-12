@@ -41,7 +41,7 @@ prolific <- rbind(prolific1, prolific2)
 
 ### get files for translation
 setwd("../data_translation")
-dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
+dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_CBJF.xlsx", sheetIndex = 1)
 
 ### list data files
 setwd("../data")
@@ -1396,7 +1396,6 @@ length(unique(CAMfiles_combined[[1]]$CAM))
 ## translate raw file of raw_CAM_combined
 
 
-
 ```{r}
 raw_CAM_translated <- list()
 
@@ -1459,50 +1458,20 @@ close(text_connection) # close connection
 
 ## translate processed file of CAMfiles_combined
 
-```{r}
-ERROR
-```
-
+Check descriptive statistics for comments:
 
 ```{r}
-
 tmp_comments <- sapply(gregexpr("[[:alpha:]]+", CAMfiles_combined[[1]]$comment), function(x) sum(x > 0))
 tmp_comments <- tmp_comments[tmp_comments != 0]
 psych::describe(tmp_comments)
 ```
 
+Overwrite German written text and comments to English:
 
 ```{r}
-xlsx::write.xlsx2(x = CAMfiles_combined[[1]], file = "drawnConcepts_translation.xlsx")
-```
-
-```{r}
-### get files for translation
-setwd("data_translation")
-dat_translation <- xlsx::read.xlsx2(file = "drawnConcepts_translated_combined.xlsx", sheetIndex = 1)
-
-
 nodes_translated <- CAMfiles_combined[[1]]
 
-
-sum(nodes_translated$id == "73a99249-5a0f-41a5-a775-f432d3e0ab51")
-
 for (i in 1:nrow(nodes_translated)) {
-  if(nodes_translated$id[i] %in% c("d3a7b80c-5c3d-4f73-aadd-bee4c771ef16", "c61fa2dc-b9ea-4e5b-b05f-1544e1bf633d")){
-    nodes_translated$text[i] <- "advantages"
-  }else if(nodes_translated$id[i] == "0fbd6255-2b7a-4605-aa78-f25a9531165f"){
-    nodes_translated$text[i] <- "social assistance robot"
-  }else if(nodes_translated$id[i] %in% c("ff3c5ad2-684d-4540-bb70-d8e718e8d48c", "c9f4bb18-7d51-49b6-97f3-59bab643f07a")){
-    nodes_translated$text[i] <- "disadvantages"
-  }else if(nodes_translated$id[i] == "5689fc0a-59be-4bfc-801d-61d067c2b65c"){
-    nodes_translated$text[i] <- "rescue robot"
-  }else if(nodes_translated$id[i] == "17245ee8-ecce-4b65-abe1-01a72e2cdca8"){
-    nodes_translated$text[i] <- "AI"
-    nodes_translated$comment[i] <- "every single sci-film"
-  }else if(nodes_translated$id[i] == "a257bd47-0a18-4934-bf89-4e50b4560e51"){
-    nodes_translated$text[i] <- "expensive"
-    nodes_translated$comment[i] <- "are then only reserved for the rich and powerful"
-  }else{
       if (sum(dat_translation$id == nodes_translated$id[i]) == 0) {
     print(nodes_translated$text[i])
     print(nodes_translated$comment[i])
@@ -1520,9 +1489,50 @@ for (i in 1:nrow(nodes_translated)) {
     nodes_translated$comment[i] <-
       dat_translation$comment_translated[dat_translation$id == nodes_translated$id[i]]
   }
-  }
 }
 ```
+
+
+
+Overwrite pre-defined concepts and fix again the following errors:
+
+- multiple times pre-defined concepts
+- changed pre-defined concepts because of technical errors
+
+
+```{r}
+## summarized words (suffixes removed):
+sort(table(str_remove(string = nodes_translated$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")), decreasing = TRUE)[1:20]
+
+# German words for robots in English abbreviation:
+nodes_translated$text_summarized <- str_replace(string = nodes_translated$text_summarized, pattern = "^Rettungsroboter", replacement = "RR")
+nodes_translated$text_summarized <- str_replace(string = nodes_translated$text_summarized, pattern = "^Soziale Assistenzroboter", replacement = "SAR")
+
+# German words for risks / benefits to English:
+nodes_translated$text_summarized <- str_replace(string = nodes_translated$text_summarized, pattern = "^Nachteile", replacement = "risks")
+nodes_translated$text_summarized <- str_replace(string = nodes_translated$text_summarized, pattern = "^Vorteile", replacement = "benefits")
+
+## check summarized words (suffixes removed):
+sort(table(str_remove(string = nodes_translated$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")), decreasing = TRUE)[1:20]
+
+
+
+## translated words:
+sort(table(nodes_translated$text), decreasing = TRUE)[1:10]
+
+# in some cases additional "s"
+nodes_translated$text[str_detect(string = nodes_translated$text_summarized, pattern = "^SAR")] <- "social assistance robot"
+# manually recode one word, which else would be appear two times as a pre-defined word:
+nodes_translated$text[str_detect(string = nodes_translated$text, pattern = "^risks")] <- "low risks"
+nodes_translated$text[str_detect(string = nodes_translated$text_summarized, pattern = "^risks")] <- "risks"
+
+nodes_translated$text[str_detect(string = nodes_translated$text_summarized, pattern = "^benefits")] <- "benefits"
+
+
+## check translated words:
+sort(table(nodes_translated$text), decreasing = TRUE)[1:10]
+```
+
 
 
 ## draw translated CAMs, network indicators, wordlist
@@ -1548,7 +1558,7 @@ CAMdrawn_combined_translated <- draw_CAM(dat_merged = CAMfiles_combined_translat
                      reledgesize = 1)
 
 ### network indicators
-tmp_microIndicator <- c("rescue robot", "social assistance robot", "advantages", "disadvantages")
+tmp_microIndicator <- c("rescue robot", "social assistance robot", "benefits", "risks")
 networkIndicators_combined_translated <- compute_indicatorsCAM(drawn_CAM = CAMdrawn_combined_translated, 
                                            micro_degree = tmp_microIndicator, 
                                            micro_valence = tmp_microIndicator, 
@@ -1588,7 +1598,7 @@ DT::datatable(CAMwordlist_combined_translated, options = list(pageLength = 5))
 ```{r, message = FALSE}
 #| label: save CAM pictures combined and translated
 
-save_CAMs_as_pictures = FALSE
+save_CAMs_as_pictures = TRUE
 
 if(save_CAMs_as_pictures){
 setwd("outputs/01_dataPreperation")
