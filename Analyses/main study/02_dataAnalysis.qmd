@@ -378,7 +378,7 @@ merged_post <- CAMfiles_combined[[3]][CAMfiles_combined[[3]]$CAM.x %in% question
 
 
 ### network indicators
-tmp_microIndicator <- c("Rettungsroboter", "sozialer Assistenzroboter", "Vorteile", "Nachteile")
+tmp_microIndicator <- c("rescue robot", "social assistance robot", "benefits", "risks")
 networkIndicators <- compute_indicatorsCAM(drawn_CAM = CAMdrawn, 
                                            micro_degree = tmp_microIndicator, 
                                            micro_valence = tmp_microIndicator, 
