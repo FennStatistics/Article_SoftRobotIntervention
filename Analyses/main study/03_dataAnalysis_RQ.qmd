@@ -251,7 +251,6 @@ anova(fit1, es = "pes")
 # generalized eta squared
 fit1a # > identical results
 
-
 dfvalcor <- data_summary(networkIndicators_long, varname="mean_valence_macro",
                          groupnames=c("timepoint","typeRobot"))
 
