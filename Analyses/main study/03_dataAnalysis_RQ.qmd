@@ -165,8 +165,49 @@ table(questionnaireCAMs$socio_employment)
 
 ## split by robot
 psych::describe(socio_age ~ choosen_Robot, data = questionnaireCAMs)
+t.test(socio_age ~ choosen_Robot, data = questionnaireCAMs)
+
 table(questionnaireCAMs$socio_sex, questionnaireCAMs$choosen_Robot)
+chisq.test(questionnaireCAMs$socio_sex, questionnaireCAMs$choosen_Robot)
 ```
+spent time on study
+
+```{r}
+psych::describe(x = questionnaireCAMs$total_min_prolific)
+```
+
+
+## describe CAMs
+
+network parameters: 
+
+```{r}
+psych::describe(x = networkIndicators_long[, c("mean_valence_macro", "num_nodes_macro")])
+```
+
+
+```{r}
+psych::describe(x = questionnaireCAMs$feedCAM_repres)
+```
+
+
+spelling of terms:
+
+```{r}
+length(CAMfiles_combined[[1]]$text)
+length(unique(CAMfiles_combined[[1]]$text))
+sort(table(CAMfiles_combined[[1]]$text), decreasing = TRUE)[1:10]
+
+
+sum(CAMfiles_combined[[1]]$comment != "")
+tmp_comments <- sapply(gregexpr("[[:alpha:]]+", CAMfiles_combined[[1]]$comment), function(x) sum(x > 0))
+tmp_comments <- tmp_comments[tmp_comments != 0]
+psych::describe(tmp_comments)
+```
+
+
+
+
 
 ## feedback to the study
 
@@ -454,6 +495,13 @@ allConcepts_post <- CAMfiles_combined[[1]][str_detect(string = CAMfiles_combined
 networkIndicators_post$diffConcepts <- networkIndicators_post$num_nodes_macro - networkIndicators_pre$num_nodes_macro
 
 cbind(networkIndicators_post$diffConcepts[order(networkIndicators_post$diffConcepts, decreasing = TRUE)][1:12], networkIndicators_post$participantCAM[order(networkIndicators_post$diffConcepts, decreasing = TRUE)][1:12])
+
+
+textPre <- CAMfiles_combined[[1]]$text[CAMfiles_combined[[1]]$participantCAM == "60fe7985ba99343ad0b893b7_pre"]
+textPost <- CAMfiles_combined[[1]]$text[CAMfiles_combined[[1]]$participantCAM == "60fe7985ba99343ad0b893b7_post"]
+
+textPost[!textPost %in% textPre]
+textPre[!textPre %in% textPost]
 ```
 
 
