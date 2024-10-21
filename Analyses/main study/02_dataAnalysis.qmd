@@ -1018,7 +1018,6 @@ summary(tmp$meanDifferencesCAMs)
 
 #### check for words
 
-!!! in progress
 
 ```{r}
 list_comments <- list()
@@ -1045,15 +1044,6 @@ for(i in 1:nrow(dat_ids)){
 barplot(table(unlist(list_value)))
 tmp <- ifelse(test = unlist(list_value) == 10, yes = 0, no = unlist(list_value))
 summary(tmp)
-
-summary(tmp[unlist(list_typeRobot) == "Rettungsroboter"])
-summary(tmp[unlist(list_typeRobot) == "sozialer Assistenzroboter"])
-
-
-table(unlist(list_words)[unlist(list_typeRobot) == "Rettungsroboter"])
-table(unlist(list_words)[unlist(list_typeRobot) == "sozialer Assistenzroboter"])
-
-
 
 DT::datatable(cbind(unlist(list_typeRobot),unlist(list_words), unlist(list_comments), unlist(list_value)), options = list(pageLength = 5)) 
 ```
@@ -1174,6 +1164,8 @@ ggbetweenstats(
 
 ### Qualitative
 
+#### age
+
 ```{r}
 # oldest
 tmp <- sort(questionnaireCAMs$socio_age, decreasing = TRUE)[1:10]
@@ -1193,26 +1185,28 @@ questionnaire$participantCAMpost[tmp]
 
 
 
-### Quantitative
-
-Kombiniert (viel Text)
-
-plus Kommentare zur Betonung einzelner
-
-Trennen nach (kürzer)
-type robot
-jeweils pos / neg aus Kategoriesystem
-  hier nur wohl mehr als X Differenzen vorkommen
+#### gender
 
 ```{r}
-CAMfiles_combined[[1]]$text_summarized_noSuffix  <- str_remove(string = CAMfiles_combined[[1]]$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
+
+tmp_nodes <- CAMfiles_combined[[1]]
+
+tmp_nodes$text_summarized_noSuffix  <- str_remove(string = tmp_nodes$text_summarized, pattern = "_positive$|_negative$|_neutral$|_ambivalent$")
 
 
-CAMfiles_combined[[1]]$text[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "HRIP"]
-CAMfiles_combined[[1]]$text[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_post$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "HRIP"]
+
+ids_female <- c(questionnaireCAMs$participantCAMpre[questionnaireCAMs$socio_sex == "Female"], 
+                questionnaireCAMs$participantCAMpost[questionnaireCAMs$socio_sex == "Female"])
+
+tmp_nodes <- tmp_nodes[tmp_nodes$participantCAM %in% ids_female, ]
 
 
-tmp <- CAMfiles_combined[[1]]$comment[str_detect(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$") & CAMfiles_combined[[1]]$text_summarized_noSuffix == "MT"]
+
+tmp_nodes$text[str_detect(string = tmp_nodes$participantCAM, pattern = "_pre$") & tmp_nodes$text_summarized_noSuffix == "HRIP"]
+tmp_nodes$text[str_detect(string = tmp_nodes$participantCAM, pattern = "_post$") & tmp_nodes$text_summarized_noSuffix == "HRIP"]
+
+
+tmp <- tmp_nodes$comment[str_detect(string = tmp_nodes$participantCAM, pattern = "_pre$") & tmp_nodes$text_summarized_noSuffix == "MT"]
 tmp[tmp != ""]
 ```
 
