@@ -1598,7 +1598,7 @@ DT::datatable(CAMwordlist_combined_translated, options = list(pageLength = 5))
 ```{r, message = FALSE}
 #| label: save CAM pictures combined and translated
 
-save_CAMs_as_pictures = TRUE
+save_CAMs_as_pictures = FALSE
 
 if(save_CAMs_as_pictures){
 setwd("outputs/01_dataPreperation")
