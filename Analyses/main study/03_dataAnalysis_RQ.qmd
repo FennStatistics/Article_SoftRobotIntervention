@@ -158,7 +158,7 @@ hist(questionnaireCAMs$socio_age)
 
 # sex:
 table(questionnaireCAMs$socio_sex)
-round(x = table(questionnaireCAMs$socio_sex) / nrow(questionnaireCAMs) * 100, digits = 2)
+round(x = table(questionnaireCAMs$socio_sex) / nrow(questionnaireCAMs) * 100, digits = 2) # 1 answer missing
 
 table(questionnaireCAMs$socio_student)
 table(questionnaireCAMs$socio_employment)
@@ -182,7 +182,10 @@ psych::describe(x = questionnaireCAMs$total_min_prolific)
 network parameters: 
 
 ```{r}
-psych::describe(x = networkIndicators_long[, c("mean_valence_macro", "num_nodes_macro")])
+psych::describe(x = networkIndicators_long[, c("mean_valence_macro", "num_nodes_macro", "num_nodes_pos_macro", "num_nodes_neg_macro", "num_nodes_neut_macro", "num_nodes_ambi_macro")])
+
+t.test(mean_valence_macro ~ typeRobot, data = networkIndicators_long)
+t.test(num_nodes_macro ~ typeRobot, data = networkIndicators_long)
 ```
 
 
@@ -200,7 +203,7 @@ sort(table(CAMfiles_combined[[1]]$text), decreasing = TRUE)[1:10]
 
 
 sum(CAMfiles_combined[[1]]$comment != "")
-tmp_comments <- sapply(gregexpr("[[:alpha:]]+", CAMfiles_combined[[1]]$comment), function(x) sum(x > 0))
+tmp_comments <- sapply(strsplit(CAMfiles_combined[[1]]$comment, "\\s+"), function(x) length(x)) # by words
 tmp_comments <- tmp_comments[tmp_comments != 0]
 psych::describe(tmp_comments)
 ```
@@ -216,6 +219,10 @@ Question: Do you have any feedback or criticism of the online study? (in German)
 
 ```{r}
 DT::datatable(questionnaireCAMs[,c("PROLIFIC_PID", "feedback_critic")], options = list(pageLength = 5)) 
+
+## save feedbacks to summarize via LLM
+setwd("outputs/03_dataAnalysis_RQ")
+write.table(x = questionnaireCAMs$feedback_critic[!is.na(nchar(questionnaireCAMs$feedback_critic))], file = "feedback_critic.txt", row.names = FALSE)
 ```
 
 ## technical problems CAMEL
@@ -229,7 +236,6 @@ questionnaireCAMs$feedCAM_technicalprobsText[questionnaireCAMs$feedCAM_technical
 
 
 hist(questionnaire$feedCAM_repres)
-summary(questionnaire$feedCAM_repres)
 psych::describe(x = questionnaire$feedCAM_repres)
 ```
 
@@ -505,9 +511,11 @@ textPre[!textPre %in% textPost]
 
 
 
-## split by category
+## data preperation
 
-*not sensitive if concept was deleted!*
+### split by category
+
+only a first look, table is *not sensitive if concept was deleted*
 
 ```{r}
 
@@ -524,33 +532,13 @@ mat
 
 
 
-## split by category and individual
+### split by category and participant
 
-### create lists
-
+#### create data frames of concepts constant (C), deleted (D), new (N)
 
 ```{r}
-## create lists
-list_text_constant <- list()
-list_text_old <- list()
-list_text_new <- list()
-
-for (c in ids_categories) {
-  list_text_constant[[c]] <- list()
-  list_text_old[[c]] <- list()
-  list_text_new[[c]] <- list()
-  for (i in 1:length(ids_participants)) {
-    list_text_constant[[c]][[i]] <- NA
-    list_text_old[[c]][[i]] <- NA
-    list_text_new[[c]][[i]] <- NA
-    
-  }
-  
-  names(list_text_constant[[c]]) <- ids_participants
-  names(list_text_old[[c]]) <- ids_participants
-  names(list_text_new[[c]]) <- ids_participants
-  
-}
+dat_pre_out <- data.frame()
+dat_post_out <- data.frame()
 
 
 for (i in 1:length(ids_participants)) {
@@ -560,6 +548,9 @@ for (i in 1:length(ids_participants)) {
     CAMfiles_combined[[1]][CAMfiles_combined[[1]]$participantCAM %in% paste0(ids_participants[i], "_post"), ]
   
   
+  ## get date of concepts drawn by data collection tool (no interaction by user) - heuristic !!!:
+  date_tmp <- tmp_post$date[tmp_post$date - min(tmp_post$date) <= .5] # less than half a second
+  
   for (c in 1:length(ids_categories)) {
     if (any(
       c(
@@ -567,40 +558,351 @@ for (i in 1:length(ids_participants)) {
         tmp_post$category %in% ids_categories[c]
       )
     )) {
-      ## manually check if you miss any words
+      ## manually check if you could miss any words
       if (length(table(tmp_pre$text[tmp_pre$category %in% ids_categories[c]])[table(tmp_pre$text[tmp_pre$category %in% ids_categories[c]]) >= 2]) >= 1) {
-        cat("i post:", i, "in c:", c, "\n")
+        # cat("\npre data - multiple identical named concepts:\n", "in i:", i, ", c:", c, "\n")
       }
       if (length(table(tmp_post$text[tmp_post$category %in% ids_categories[c]])[table(tmp_post$text[tmp_post$category %in% ids_categories[c]]) >= 2]) >= 1) {
-        cat("i post:", i, "in c:", c, "\n")
+        # cat("\npost data - multiple identical named concepts:\n", "in i:", i, ", c:", c, "\n")
+      }
+      
+      dat_pre <-
+        tmp_pre[tmp_pre$category %in% ids_categories[c], c("participantCAM", "id" , "text", "value", "comment", "date", "x_pos", "y_pos", "category")]
+      
+      dat_post <-
+        tmp_post[tmp_post$category %in% ids_categories[c], c("participantCAM", "id" , "text", "value", "comment", "date", "x_pos", "y_pos", "category")]
+      
+      
+      ## set variables:
+      if(nrow(dat_pre) >= 1){
+        ## indicate type of concept:
+        dat_pre$typeConcept <- NA
+        
+        checkOldDeleted <- FALSE
+      }
+      
+      if(nrow(dat_post) >= 1){
+        dat_post$originalConcept_date <- dat_post$date %in% date_tmp
+        
+        ## check if positions have changed - heuristic !!!:
+        dat_post$originalConcept_position <- FALSE
+        ## indicate if position was changed
+        dat_post$changedPosition <- FALSE
+        ## indicate if valence was changed
+        dat_post$changedValence <- FALSE
+        
+        ## indicate type of concept:
+        dat_post$typeConcept <- NA
+        
+        checkNewAdded <- FALSE
+      }
+      
+      ## loop through if both data sets exists
+      if(nrow(dat_pre) >= 1 && nrow(dat_post) >= 1){
+        #> through dat_pre
+        for(p in 1:nrow(dat_pre)){
+          ## check positon:
+          pos_tmp <- dat_pre[p,c("x_pos", "y_pos")]
+          
+          matching_id <- dat_post[dat_post$x_pos == pos_tmp$x_pos & dat_post$y_pos == pos_tmp$y_pos, "id"]
+          
+          dat_post$originalConcept_position[dat_post$id == matching_id] <- TRUE
+          
+          ## check valence
+          value_tmp <- dat_post$value[dat_post$text %in% dat_pre$text[p]]
+          
+          if(length(value_tmp) != 0){
+            if(dat_pre$value[p] != value_tmp[1]){
+              dat_post$changedValence[dat_post$text %in% dat_pre$text[p]] <- TRUE
+            }
+          }
+          
+          ## indicate type of concept:
+          if(dat_pre$text[p] %in% dat_post$text){
+            dat_pre$typeConcept[p] <- "constant"
+          }else{
+            dat_pre$typeConcept[p] <- "deleted"
+            # cat("\n deleted concepts:\n", "in i:", i, ", c:", c, "p:", p, "\n")
+            checkOldDeleted <- TRUE
+          }
+        }
+        
+        #> through dat_post
+        for(q in 1:nrow(dat_post)){
+          ## indicate type of concept:
+          if(dat_post$text[q] %in% dat_pre$text){
+            dat_post$typeConcept[q] <- "constant"
+          }else{
+            dat_post$typeConcept[q] <- "new"
+            # cat("\n new concepts:\n", "in i:", i, ", c:", c, "p:", p, "\n")
+            checkNewAdded <- TRUE
+          }
+          
+          ## indicate if concept changed positon
+          if(dat_post$originalConcept_date[q] && !dat_post$originalConcept_position[q]){
+            dat_post$changedPosition[q] <- TRUE
+          }
+        }
+        
+        
+        if(all(checkOldDeleted, checkNewAdded)){
+          # cat("\n deleted concepts, new concepts:\n", "in i:", i, ", c:", c, "p:", p, "\n")
+        } 
       }
       
       
-      text_vec_pre <-
-        tmp_pre$text[tmp_pre$category %in% ids_categories[c]]
-      text_vec_post <-
-        tmp_post$text[tmp_post$category %in% ids_categories[c]]
-      
-      ## constant
-      if (length(text_vec_pre[text_vec_pre %in% text_vec_post]) >= 1) {
-        list_text_constant[[ids_categories[c]]][[i]] <-
-          text_vec_pre[text_vec_pre %in% text_vec_post]
-      }
-      ## old and deleted
-      if (length(text_vec_pre[!text_vec_pre %in% text_vec_post]) >= 1) {
-        list_text_old[[ids_categories[c]]][[i]] <-
-          text_vec_pre[!text_vec_pre %in% text_vec_post]
+      ## indicate type of concept:
+      if(nrow(dat_post) == 0){
+        dat_pre$typeConcept <- "deleted"
       }
       
-      ## new
-      if (length(text_vec_post[!text_vec_post %in% text_vec_pre]) >= 1) {
-        list_text_new[[ids_categories[c]]][[i]] <-
-          text_vec_post[!text_vec_post %in% text_vec_pre]
+      if(nrow(dat_pre) == 0){
+        dat_post$typeConcept <- "new"
       }
-    }
+      
+      if(any(is.na(dat_post$typeConcept))){
+        cat("\n NA typeConcept:\n", "in i:", i, ", c:", c, "p:", p, "\n")
+        stop()
+      }
+      
+      dat_pre_out <- rbind(dat_pre_out, dat_pre)
+      dat_post_out <- rbind(dat_post_out, dat_post)
+  }
   }
 }
 ```
+
+
+
+```{r}
+# check if I missed any typeConcept
+sum(is.na(dat_pre_out$typeConcept))
+sum(is.na(dat_post_out$typeConcept))
+
+# check if any data set was multiple times added
+sum(table(dat_pre_out$id) >= 2)
+sum(table(dat_post_out$id) >= 2)
+
+# number of entries
+nrow(dat_pre_out)
+nrow(dat_post_out)
+# nrow(dat_post_out) - 535 + 68
+
+# types
+table(dat_pre_out$typeConcept)
+table(dat_post_out$typeConcept)
+```
+
+
+
+```{r}
+table(dat_post_out$changedPosition)
+table(dat_post_out$changedValence)
+```
+
+
+```{r}
+setwd("outputs/03_dataAnalysis_RQ")
+xlsx::write.xlsx2(x = dat_pre_out, file = "concepts_conventional.xlsx")
+xlsx::write.xlsx2(x = dat_post_out, file = "concepts_soft.xlsx")
+```
+
+
+
+#### create data.frame of all words for ChatGPT
+
+
+```{r}
+table(dat_pre_out$typeConcept)
+table(dat_post_out$typeConcept)
+
+
+
+
+
+```
+
+
+```{r}
+head(dat_post_out$participantCAM)
+```
+
+
+```{r}
+```
+
+
+
+```{r}
+c <- 1
+
+dat_pre_out$choosen_Robot <- NA
+dat_post_out$choosen_Robot <- NA
+
+ids_SAR_pre <- questionnaireCAMs$participantCAMpre[questionnaireCAMs$choosen_Robot == "social assistance robot"]
+ids_SAR_post <- questionnaireCAMs$participantCAMpost[questionnaireCAMs$choosen_Robot == "social assistance robot"]
+
+
+dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_SAR_pre, ids_SAR_post)] <- "social assistance robot"
+dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_SAR_pre, ids_SAR_post)] <- "social assistance robot"
+
+ids_RR_pre <- questionnaireCAMs$participantCAMpre[questionnaireCAMs$choosen_Robot == "rescue robot"]
+ids_RR_post <- questionnaireCAMs$participantCAMpost[questionnaireCAMs$choosen_Robot == "rescue robot"]
+
+
+dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_RR_pre, ids_RR_post)] <- "rescue robot"
+dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_RR_pre, ids_RR_post)] <- "rescue robot"
+
+
+sum(is.na(dat_pre_out$choosen_Robot))
+sum(is.na(dat_post_out$choosen_Robot))
+
+
+for (c in 1:length(ids_categories)) {
+  tmp_pre_SAR <- dat_pre_out[dat_pre_out$category == ids_categories[c] & dat_pre_out$choosen_Robot == "social assistance robot", ]
+  tmp_pre_RR <- dat_pre_out[dat_pre_out$category == ids_categories[c] & dat_pre_out$choosen_Robot == "rescue robot", ]
+  
+  
+    tmp_post_SAR <- dat_post_out[dat_post_out$category == ids_categories[c] & dat_post_out$choosen_Robot == "social assistance robot", ]
+  tmp_post_RR <- dat_post_out[dat_post_out$category == ids_categories[c] & dat_post_out$choosen_Robot == "rescue robot", ]
+  
+  
+
+}
+
+# see: https://chatgpt.com/share/6718fc5e-203c-8007-88fb-426c344926b7
+
+
+# rigid
+# rigid_comments
+# 
+# 
+# deleted
+# deleted_comments
+# 
+# new
+# new_comments
+```
+
+
+
+
+
+```{r}
+ERROR
+```
+
+
+
+
+```{r}
+saveWordsByCategory <- function(chooseRobot){
+  
+  wb <- openxlsx::createWorkbook()
+  
+for (c in 1:length(ids_categories)) {
+  # print(c)
+
+  tmp_constant <- list_text_constant[[ids_categories[c]]]
+  tmp_constant <- tmp_constant[!is.na(tmp_constant)]
+  
+  tmp_old <- list_text_old[[ids_categories[c]]]
+  tmp_old <- tmp_old[!is.na(tmp_old)]
+  
+  tmp_new <- list_text_new[[ids_categories[c]]]
+  tmp_new <- tmp_new[!is.na(tmp_new)]
+  
+  
+  tmp_constant <- tmp_constant[names(tmp_constant) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
+  tmp_old <- tmp_old[names(tmp_old) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
+  tmp_new <- tmp_new[names(tmp_new) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
+  
+  
+  
+  tmp_maxLength <- max(length(unlist(tmp_constant)), length(unlist(tmp_old)), length(unlist(tmp_new)))
+  
+  dat <- data.frame(constant = c(unlist(tmp_constant), rep(NA, each = tmp_maxLength - length(unlist(tmp_constant)))), 
+                    old = c(unlist(tmp_old), rep(NA, each = tmp_maxLength - length(unlist(tmp_old)))), 
+                    new = c(unlist(tmp_new), rep(NA, each = tmp_maxLength - length(unlist(tmp_new)))))
+
+  
+  rownames(dat) <- NULL
+  
+  
+  ## add comments for constant
+  dat$constant_comments <- NA
+
+  tmp_constant <- unlist(tmp_constant)
+  names(tmp_constant) <- str_trunc(string = names(tmp_constant), width = 24, ellipsis = "")
+
+    for(j in 1:length(tmp_constant)){
+      tmp <-  CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_constant)[j] & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]]
+      
+      if(length(tmp[nchar(tmp) >= 1]) >= 1){
+              dat$constant_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
+      }
+    }
+  dat$constant_comments[dat$constant_comments == ""] <- NA
+  
+  
+    ## add comments for old
+  dat$old_comments <- NA
+
+  tmp_old <- unlist(tmp_old)
+  names(tmp_old) <- str_trunc(string = names(tmp_old), width = 24, ellipsis = "")
+
+  if(!is.null(tmp_old)){
+        for(j in 1:length(tmp_old)){
+          
+          
+                tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_old)[j] & CAMfiles_combined[[1]]$text %in% tmp_old[[j]]]
+      
+      if(length(tmp[nchar(tmp) >= 1]) >= 1){
+              dat$old_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
+      }
+    }
+  dat$old_comments[dat$old_comments == ""] <- NA
+  }
+
+  
+  ## add comments for new
+  dat$new_comments <- NA
+
+  tmp_new <- unlist(tmp_new)
+  names(tmp_new) <- str_trunc(string = names(tmp_new), width = 24, ellipsis = "")
+
+    for(j in 1:length(tmp_new)){
+      tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_new)[j] & CAMfiles_combined[[1]]$text %in% tmp_new[[j]]]
+      
+            
+      if(length(tmp[nchar(tmp) >= 1]) >= 1){
+              dat$new_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
+      }
+    }
+  dat$new_comments[dat$new_comments == ""] <- NA
+
+  
+  ## add worksheet
+  addWorksheet(wb, ids_categories[c])
+writeData(wb, ids_categories[c], dat)
+} 
+  # Save the workbook
+saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets.xlsx"), overwrite = TRUE)
+
+return("Saved")
+}
+```
+
+```{r}
+  setwd("outputs/03_dataAnalysis_RQ")
+saveWordsByCategory(chooseRobot = c("rescue robot", "social assistance robot"))
+saveWordsByCategory(chooseRobot = c("rescue robot"))
+saveWordsByCategory(chooseRobot = c("social assistance robot"))
+```
+
+
+
+## data analysis
 
 ### describe lists
 
@@ -734,6 +1036,8 @@ stargazer(tmp_SAR, type = "html", out = "social assistance robot_table.html", su
 ```
 
 
+### Graphic 1 (quantitative)
+
 ```{r}
 # Data for r1
 data_r1 <- tmp_RR[!tmp_RR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
@@ -781,113 +1085,7 @@ ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
 
 
 
-### create data.frame of all words for ChatGPT
 
-
-```{r}
-saveWordsByCategory <- function(chooseRobot){
-  
-  wb <- openxlsx::createWorkbook()
-  
-for (c in 1:length(ids_categories)) {
-  # print(c)
-
-  tmp_constant <- list_text_constant[[ids_categories[c]]]
-  tmp_constant <- tmp_constant[!is.na(tmp_constant)]
-  
-  tmp_old <- list_text_old[[ids_categories[c]]]
-  tmp_old <- tmp_old[!is.na(tmp_old)]
-  
-  tmp_new <- list_text_new[[ids_categories[c]]]
-  tmp_new <- tmp_new[!is.na(tmp_new)]
-  
-  
-  tmp_constant <- tmp_constant[names(tmp_constant) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  tmp_old <- tmp_old[names(tmp_old) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  tmp_new <- tmp_new[names(tmp_new) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  
-  
-  
-  tmp_maxLength <- max(length(unlist(tmp_constant)), length(unlist(tmp_old)), length(unlist(tmp_new)))
-  
-  dat <- data.frame(constant = c(unlist(tmp_constant), rep(NA, each = tmp_maxLength - length(unlist(tmp_constant)))), 
-                    old = c(unlist(tmp_old), rep(NA, each = tmp_maxLength - length(unlist(tmp_old)))), 
-                    new = c(unlist(tmp_new), rep(NA, each = tmp_maxLength - length(unlist(tmp_new)))))
-
-  
-  rownames(dat) <- NULL
-  
-  
-  ## add comments for constant
-  dat$constant_comments <- NA
-
-  tmp_constant <- unlist(tmp_constant)
-  names(tmp_constant) <- str_trunc(string = names(tmp_constant), width = 24, ellipsis = "")
-
-    for(j in 1:length(tmp_constant)){
-      tmp <-  CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_constant)[j] & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]]
-      
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$constant_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$constant_comments[dat$constant_comments == ""] <- NA
-  
-  
-    ## add comments for old
-  dat$old_comments <- NA
-
-  tmp_old <- unlist(tmp_old)
-  names(tmp_old) <- str_trunc(string = names(tmp_old), width = 24, ellipsis = "")
-
-  if(!is.null(tmp_old)){
-        for(j in 1:length(tmp_old)){
-          
-          
-                tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_old)[j] & CAMfiles_combined[[1]]$text %in% tmp_old[[j]]]
-      
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$old_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$old_comments[dat$old_comments == ""] <- NA
-  }
-
-  
-  ## add comments for new
-  dat$new_comments <- NA
-
-  tmp_new <- unlist(tmp_new)
-  names(tmp_new) <- str_trunc(string = names(tmp_new), width = 24, ellipsis = "")
-
-    for(j in 1:length(tmp_new)){
-      tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_new)[j] & CAMfiles_combined[[1]]$text %in% tmp_new[[j]]]
-      
-            
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$new_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$new_comments[dat$new_comments == ""] <- NA
-
-  
-  ## add worksheet
-  addWorksheet(wb, ids_categories[c])
-writeData(wb, ids_categories[c], dat)
-} 
-  # Save the workbook
-saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets.xlsx"), overwrite = TRUE)
-
-return("Saved")
-}
-```
-
-```{r}
-  setwd("outputs/03_dataAnalysis_RQ")
-saveWordsByCategory(chooseRobot = c("rescue robot", "social assistance robot"))
-saveWordsByCategory(chooseRobot = c("rescue robot"))
-saveWordsByCategory(chooseRobot = c("social assistance robot"))
-```
 
 
 # R3: Perceived risks and benefits mediated by gender and age
