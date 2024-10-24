@@ -713,193 +713,104 @@ xlsx::write.xlsx2(x = dat_post_out, file = "concepts_soft.xlsx")
 
 
 ```{r}
-table(dat_pre_out$typeConcept)
-table(dat_post_out$typeConcept)
-
-
-
-
-
-```
-
-
-```{r}
-head(dat_post_out$participantCAM)
-```
-
-
-```{r}
-```
-
-
-
-```{r}
-c <- 1
-
 dat_pre_out$choosen_Robot <- NA
 dat_post_out$choosen_Robot <- NA
 
+## get IDs:
 ids_SAR_pre <- questionnaireCAMs$participantCAMpre[questionnaireCAMs$choosen_Robot == "social assistance robot"]
 ids_SAR_post <- questionnaireCAMs$participantCAMpost[questionnaireCAMs$choosen_Robot == "social assistance robot"]
-
-
-dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_SAR_pre, ids_SAR_post)] <- "social assistance robot"
-dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_SAR_pre, ids_SAR_post)] <- "social assistance robot"
 
 ids_RR_pre <- questionnaireCAMs$participantCAMpre[questionnaireCAMs$choosen_Robot == "rescue robot"]
 ids_RR_post <- questionnaireCAMs$participantCAMpost[questionnaireCAMs$choosen_Robot == "rescue robot"]
 
 
-dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_RR_pre, ids_RR_post)] <- "rescue robot"
-dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_RR_pre, ids_RR_post)] <- "rescue robot"
+## fill in choosen_Robot variable:
+dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_SAR_pre)] <- "social assistance robot"
+dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_SAR_post)] <- "social assistance robot"
+
+dat_pre_out$choosen_Robot[dat_pre_out$participantCAM %in% c(ids_RR_pre)] <- "rescue robot"
+dat_post_out$choosen_Robot[dat_post_out$participantCAM %in% c(ids_RR_post)] <- "rescue robot"
 
 
 sum(is.na(dat_pre_out$choosen_Robot))
 sum(is.na(dat_post_out$choosen_Robot))
 
 
-for (c in 1:length(ids_categories)) {
-  tmp_pre_SAR <- dat_pre_out[dat_pre_out$category == ids_categories[c] & dat_pre_out$choosen_Robot == "social assistance robot", ]
-  tmp_pre_RR <- dat_pre_out[dat_pre_out$category == ids_categories[c] & dat_pre_out$choosen_Robot == "rescue robot", ]
-  
-  
-    tmp_post_SAR <- dat_post_out[dat_post_out$category == ids_categories[c] & dat_post_out$choosen_Robot == "social assistance robot", ]
-  tmp_post_RR <- dat_post_out[dat_post_out$category == ids_categories[c] & dat_post_out$choosen_Robot == "rescue robot", ]
-  
-  
-
-}
-
-# see: https://chatgpt.com/share/6718fc5e-203c-8007-88fb-426c344926b7
-
-
-# rigid
-# rigid_comments
-# 
-# 
-# deleted
-# deleted_comments
-# 
-# new
-# new_comments
+chooseRobot = "social assistance robot"
+chooseRobot = "rescue robot"
 ```
 
 
 
-
-
 ```{r}
-ERROR
-```
-
-
-
-
-```{r}
-saveWordsByCategory <- function(chooseRobot){
-  
+saveWordsByCategory <- function(chooseRobot) {
   wb <- openxlsx::createWorkbook()
   
-for (c in 1:length(ids_categories)) {
-  # print(c)
-
-  tmp_constant <- list_text_constant[[ids_categories[c]]]
-  tmp_constant <- tmp_constant[!is.na(tmp_constant)]
-  
-  tmp_old <- list_text_old[[ids_categories[c]]]
-  tmp_old <- tmp_old[!is.na(tmp_old)]
-  
-  tmp_new <- list_text_new[[ids_categories[c]]]
-  tmp_new <- tmp_new[!is.na(tmp_new)]
-  
-  
-  tmp_constant <- tmp_constant[names(tmp_constant) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  tmp_old <- tmp_old[names(tmp_old) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  tmp_new <- tmp_new[names(tmp_new) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot %in% chooseRobot]]
-  
-  
-  
-  tmp_maxLength <- max(length(unlist(tmp_constant)), length(unlist(tmp_old)), length(unlist(tmp_new)))
-  
-  dat <- data.frame(constant = c(unlist(tmp_constant), rep(NA, each = tmp_maxLength - length(unlist(tmp_constant)))), 
-                    old = c(unlist(tmp_old), rep(NA, each = tmp_maxLength - length(unlist(tmp_old)))), 
-                    new = c(unlist(tmp_new), rep(NA, each = tmp_maxLength - length(unlist(tmp_new)))))
-
-  
-  rownames(dat) <- NULL
-  
-  
-  ## add comments for constant
-  dat$constant_comments <- NA
-
-  tmp_constant <- unlist(tmp_constant)
-  names(tmp_constant) <- str_trunc(string = names(tmp_constant), width = 24, ellipsis = "")
-
-    for(j in 1:length(tmp_constant)){
-      tmp <-  CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_constant)[j] & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]]
-      
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$constant_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$constant_comments[dat$constant_comments == ""] <- NA
-  
-  
-    ## add comments for old
-  dat$old_comments <- NA
-
-  tmp_old <- unlist(tmp_old)
-  names(tmp_old) <- str_trunc(string = names(tmp_old), width = 24, ellipsis = "")
-
-  if(!is.null(tmp_old)){
-        for(j in 1:length(tmp_old)){
-          
-          
-                tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_old)[j] & CAMfiles_combined[[1]]$text %in% tmp_old[[j]]]
-      
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$old_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$old_comments[dat$old_comments == ""] <- NA
+  for (c in 1:length(ids_categories)) {
+    ## pre data:
+    tmp_pre <-
+      dat_pre_out[dat_pre_out$category == ids_categories[c] &
+                    dat_pre_out$choosen_Robot %in% chooseRobot,]
+    ## post data:
+    tmp_post <-
+      dat_post_out[dat_post_out$category == ids_categories[c] &
+                     dat_post_out$choosen_Robot %in% chooseRobot,]
+    
+    
+    ## set up data.frame
+    tmp_numEntries <-  max(c(nrow(tmp_pre), nrow(tmp_post)))
+    
+    dat <- data.frame(
+      rigid = rep(x = NA, each = tmp_numEntries),
+      rigid_comments = rep(x = NA, each = tmp_numEntries),
+      deleted = rep(x = NA, each = tmp_numEntries),
+      deleted_comments = rep(x = NA, each = tmp_numEntries),
+      new = rep(x = NA, each = tmp_numEntries),
+      new_comments = rep(x = NA, each = tmp_numEntries)
+    )
+    
+    ## rigid:
+    dat$rigid <-
+      c(tmp_pre$text, rep(x = NA, each = (nrow(dat) - nrow(tmp_pre))))
+    dat$rigid_comments <-
+      c(tmp_pre$comment, rep(x = NA, each = (nrow(dat) - nrow(tmp_pre))))
+    
+    ## deleted:
+    tmp <- tmp_pre$text[tmp_pre$typeConcept == "deleted"]
+    dat$deleted <-
+      c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    tmp <- tmp_pre$comment[tmp_pre$typeConcept == "deleted"]
+    dat$deleted_comments <-
+      c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    
+    ## new:
+    tmp <- tmp_post$text[tmp_post$typeConcept == "new"]
+    dat$new <- c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    tmp <- tmp_post$comment[tmp_post$typeConcept == "new"]
+    dat$new_comments <-
+      c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    
+    ## add worksheet
+    addWorksheet(wb, ids_categories[c])
+    writeData(wb, ids_categories[c], dat)
   }
-
   
-  ## add comments for new
-  dat$new_comments <- NA
-
-  tmp_new <- unlist(tmp_new)
-  names(tmp_new) <- str_trunc(string = names(tmp_new), width = 24, ellipsis = "")
-
-    for(j in 1:length(tmp_new)){
-      tmp <- CAMfiles_combined[[1]]$comment[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_new)[j] & CAMfiles_combined[[1]]$text %in% tmp_new[[j]]]
-      
-            
-      if(length(tmp[nchar(tmp) >= 1]) >= 1){
-              dat$new_comments[j] <- paste0(tmp[nchar(tmp) >= 1], collapse = " // ")
-      }
-    }
-  dat$new_comments[dat$new_comments == ""] <- NA
-
-  
-  ## add worksheet
-  addWorksheet(wb, ids_categories[c])
-writeData(wb, ids_categories[c], dat)
-} 
   # Save the workbook
-saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets.xlsx"), overwrite = TRUE)
-
-return("Saved")
+  saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets_new.xlsx"), overwrite = TRUE)
+  
+  
+  return("Saved")
 }
 ```
 
+
+
 ```{r}
-  setwd("outputs/03_dataAnalysis_RQ")
+setwd("outputs/03_dataAnalysis_RQ")
 saveWordsByCategory(chooseRobot = c("rescue robot", "social assistance robot"))
 saveWordsByCategory(chooseRobot = c("rescue robot"))
 saveWordsByCategory(chooseRobot = c("social assistance robot"))
 ```
-
 
 
 ## data analysis
@@ -909,12 +820,10 @@ saveWordsByCategory(chooseRobot = c("social assistance robot"))
 overall:
 
 ```{r}
-## constant (not deleted or added)
-length(unlist(list_text_constant)[!is.na(unlist(list_text_constant))])
-## old = deleted
-length(unlist(list_text_old)[!is.na(unlist(list_text_old))])
-## new
-length(unlist(list_text_new)[!is.na(unlist(list_text_new))])
+## constant (not deleted or added), deleted
+table(dat_pre_out$typeConcept)
+## constant, new
+table(dat_post_out$typeConcept)
 ```
 
 ### get descriptive tables for each type of robot
@@ -926,89 +835,105 @@ separately for categories:
 # chooseRobot = "rescue robot"
 # numParticipants =  sum(questionnaire$choosen_Robot == "rescue robot")
 
-
-getDescriptiveTable <- function(chooseRobot, numParticipants){
-  dat <- data.frame(category = ids_categories, CAMs = NA, 
-                  Nconstant = NA, Nold = NA, Nnew = NA, 
-           Mconstant = NA, Mold = NA, Mnew = NA)
-
-for (c in 1:length(ids_categories)) {
-  tmp_constant <- list_text_constant[[ids_categories[c]]]
-  tmp_constant <- tmp_constant[!is.na(tmp_constant)]
+getDescriptiveTable <- function(chooseRobot, numParticipants) {
+  dat <-
+    data.frame(
+      category = ids_categories,
+      NCAMs = NA,
+      PerCAMs = NA,
+      Nconstant = NA,
+      Ndeleted = NA,
+      Nnew = NA,
+      Mconstant = NA,
+      Mdeleted = NA,
+      Mnew = NA
+    )
   
-  tmp_old <- list_text_old[[ids_categories[c]]]
-  tmp_old <- tmp_old[!is.na(tmp_old)]
-  
-  tmp_new <- list_text_new[[ids_categories[c]]]
-  tmp_new <- tmp_new[!is.na(tmp_new)]
-  
-  
-  tmp_constant <- tmp_constant[names(tmp_constant) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot == chooseRobot]]
-  tmp_old <- tmp_old[names(tmp_old) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot == chooseRobot]]
-  tmp_new <- tmp_new[names(tmp_new) %in% questionnaire$PROLIFIC_PID[questionnaire$choosen_Robot == chooseRobot]]
-
-  
-  dat[c,]$CAMs <- length(unique(c(names(tmp_constant), names(tmp_old), names(tmp_new))))
-  
-
-  dat[c,]$Nconstant <- length(unlist(tmp_constant))
-  dat[c,]$Nold <- length(unlist(tmp_old))
-  dat[c,]$Nnew <- length(unlist(tmp_new))
-
-  
-
-  vec_constant_valence <- list()
-
-  for(j in 1:length(tmp_constant)){
-         # cat("get error:", c, j,"\n")
-
+  for (c in 1:length(ids_categories)) {
+    ## pre data:
+    tmp_pre <-
+      dat_pre_out[dat_pre_out$category == ids_categories[c] &
+                    dat_pre_out$choosen_Robot %in% chooseRobot, ]
+    ## post data:
+    tmp_post <-
+      dat_post_out[dat_post_out$category == ids_categories[c] &
+                     dat_post_out$choosen_Robot %in% chooseRobot, ]
     
     
-    vec_constant_valence[[j]] <- CAMfiles_combined[[1]]$value[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_constant)[j] & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]]
+    #> ambivalent ratings (10) to 0
+    tmp_pre$value <-
+      ifelse(test = tmp_pre$value == 10,
+             yes = 0,
+             no = tmp_pre$value)
+    tmp_post$value <-
+      ifelse(test = tmp_post$value == 10,
+             yes = 0,
+             no = tmp_post$value)
     
-   if(any(CAMfiles_combined[[1]]$value[CAMfiles_combined[[1]]$participantCAM %in% paste0(names(tmp_constant)[j], "_pre") & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]] != CAMfiles_combined[[1]]$value[CAMfiles_combined[[1]]$participantCAM %in% paste0(names(tmp_constant)[j], "_post") & CAMfiles_combined[[1]]$text %in% tmp_constant[[j]]])){
-     cat("changed valence of constant words in category", ids_categories[c], "person with id", names(tmp_constant)[j],"\n")
-   }
+    ## numbers:
+    #> number of CAMs
+    tmp_CAMs <- c(tmp_pre$participantCAM, tmp_post$participantCAM)
+    dat$NCAMs[c] <-
+      length(unique(tmp_CAMs)) # number CAMs involved in this category
+    dat$PerCAMs[c] <-
+      round(x = length(unique(tmp_CAMs)) / numParticipants * 100,
+            digits = 2) # percentage (divided by total number of choosen robot)
+    
+    #> number of constant terms
+    dat$Nconstant[c] <-
+      round(
+        x = sum(tmp_pre$typeConcept == "constant") / length(unique(tmp_CAMs)) * 1,
+        digits = 2
+      )
+    
+    #> number of deleted terms
+    dat$Ndeleted[c] <-
+      round(
+        x = sum(tmp_pre$typeConcept == "deleted") / length(unique(tmp_CAMs)) * 1,
+        digits = 2
+      )
+    
+    #> number of constant terms
+    dat$Nnew[c] <-
+      round(
+        x = sum(tmp_post$typeConcept == "new") / length(unique(tmp_CAMs)) * 1,
+        digits = 2
+      )
+    
+    ## means:
+    #> mean of constant terms
+    dat$Mconstant[c] <-
+      mean(tmp_pre$value[tmp_pre$typeConcept == "constant"])
+    
+    #> mean of constant terms
+    dat$Mdeleted[c] <-
+      mean(tmp_pre$value[tmp_pre$typeConcept == "deleted"])
+    
+    #> mean of constant terms
+    dat$Mnew[c] <-
+      mean(tmp_post$value[tmp_post$typeConcept == "new"])
   }
+  colnames(dat) <-
+    c(
+      "category",
+      "numCAMs",
+      "perCAMs",
+      "avgConstant",
+      "avgOld",
+      "avgNew",
+      "Mconstant",
+      "Mold",
+      "Mnew"
+    )
   
-  tmp <- ifelse(test = unlist(vec_constant_valence) == 10, yes = 0, no = unlist(vec_constant_valence))
-    dat[c,]$Mconstant <- paste0(round(x =  mean(tmp), digits = 2), " (", round(x =  sd(tmp), digits = 2), ")")
-
-
-  if(length(tmp_old) >= 1){
-        vec_old_valence <- list()
-    for(j in 1:length(tmp_old)){
-        vec_old_valence[[j]] <- CAMfiles_combined[[1]]$value[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_old)[j] & CAMfiles_combined[[1]]$text %in% tmp_old[[j]]]
-  }
   
-        
-          tmp <- ifelse(test = unlist(vec_old_valence) == 10, yes = 0, no = unlist(vec_old_valence))
-    dat[c,]$Mold <- paste0(round(x =  mean(tmp), digits = 2), " (", round(x =  sd(tmp), digits = 2), ")")
-        
-  }
+  dat$Mconstant <- round(x = dat$Mconstant, digits = 2)
+  dat$Mold <- round(x = dat$Mold, digits = 2)
+  dat$Mnew <- round(x = dat$Mnew, digits = 2)
 
-
-    
-        vec_new_valence <- list()
-    for(j in 1:length(tmp_new)){
-        vec_new_valence[[j]] <- CAMfiles_combined[[1]]$value[str_remove_all(string = CAMfiles_combined[[1]]$participantCAM, pattern = "_pre$|_post$") %in% names(tmp_new)[j] & CAMfiles_combined[[1]]$text %in% tmp_new[[j]]]
-    }
-        
-               tmp <- ifelse(test = unlist(vec_new_valence) == 10, yes = 0, no = unlist(vec_new_valence))
-    dat[c,]$Mnew <- paste0(round(x =  mean(tmp), digits = 2), " (", round(x =  sd(tmp), digits = 2), ")")
-}
-  
-  dat$CAMs <- round(x = dat$CAMs / numParticipants * 100, digits = 2)
-dat$Nnew <- round(x = dat$Nnew / numParticipants * 1, digits = 2)
-dat$Nold <- round(x = dat$Nold / numParticipants * 1, digits = 2)
-dat$Nconstant <- round(x = dat$Nconstant / numParticipants * 1, digits = 2)
-
-colnames(dat) <- c("category", "perCAMs", "avgConstant", "avgOld", "avgNew", "Mconstant", "Mold", "Mnew")
   return(dat)
-} 
+}
 ```
-
-
 
 
 ```{r}
@@ -1018,13 +943,17 @@ colnames(dat) <- c("category", "perCAMs", "avgConstant", "avgOld", "avgNew", "Mc
 num <- sum(questionnaire$choosen_Robot == "rescue robot")
 tmp_RR <- getDescriptiveTable(chooseRobot = "rescue robot", numParticipants = num)
 DT::datatable(data = tmp_RR)
+```
 
+```{r}
 ## for social assistance robot
 num <- sum(questionnaire$choosen_Robot == "social assistance robot")
 tmp_SAR <- getDescriptiveTable(chooseRobot = "social assistance robot", numParticipants = num)
 DT::datatable(data = tmp_SAR)
 
 ```
+
+
 
 
 save as HTML: 
@@ -1034,6 +963,7 @@ setwd("outputs/03_dataAnalysis_RQ")
 stargazer(tmp_RR, type = "html", out = "rescue robot_table.html", summary = FALSE)
 stargazer(tmp_SAR, type = "html", out = "social assistance robot_table.html", summary = FALSE)
 ```
+
 
 
 ### Graphic 1 (quantitative)
@@ -1073,7 +1003,7 @@ ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
   coord_flip() +
   labs(title = "Grouped Barplot of constant and new terms of robots for single categories",
        x = "Category",
-       y = "Average number of drawn concepts",
+       y = "Average number of drawn concepts per participant",
        fill = "Robot (type)") +
   theme_minimal() +
   scale_fill_manual(values = c("RR (constant)" = "darkblue", "SAR (constant)" = "lightblue", 
