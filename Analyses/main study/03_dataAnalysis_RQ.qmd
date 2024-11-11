@@ -740,8 +740,6 @@ chooseRobot = "social assistance robot"
 chooseRobot = "rescue robot"
 ```
 
-
-
 ```{r}
 saveWordsByCategory <- function(chooseRobot) {
   wb <- openxlsx::createWorkbook()
@@ -761,17 +759,22 @@ saveWordsByCategory <- function(chooseRobot) {
     tmp_numEntries <-  max(c(nrow(tmp_pre), nrow(tmp_post)))
     
     dat <- data.frame(
-      rigid = rep(x = NA, each = tmp_numEntries),
-      rigid_comments = rep(x = NA, each = tmp_numEntries),
+      constant = rep(x = NA, each = tmp_numEntries),
+      constant_comments = rep(x = NA, each = tmp_numEntries),
       deleted = rep(x = NA, each = tmp_numEntries),
       deleted_comments = rep(x = NA, each = tmp_numEntries),
       new = rep(x = NA, each = tmp_numEntries),
       new_comments = rep(x = NA, each = tmp_numEntries)
     )
     
-    ## rigid:
-    dat$rigid <-
-      c(tmp_pre$text, rep(x = NA, each = (nrow(dat) - nrow(tmp_pre))))
+    ## constant:
+    tmp <- tmp_pre$text[tmp_pre$typeConcept == "constant"]
+    dat$constant <-
+      c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    tmp <- tmp_pre$comment[tmp_pre$typeConcept == "constant"]
+    dat$constant_comments <-
+      c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
+    
     dat$rigid_comments <-
       c(tmp_pre$comment, rep(x = NA, each = (nrow(dat) - nrow(tmp_pre))))
     
