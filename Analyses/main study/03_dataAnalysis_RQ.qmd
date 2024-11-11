@@ -775,9 +775,6 @@ saveWordsByCategory <- function(chooseRobot) {
     dat$constant_comments <-
       c(tmp, rep(x = NA, each = (nrow(dat) - length(tmp))))
     
-    dat$rigid_comments <-
-      c(tmp_pre$comment, rep(x = NA, each = (nrow(dat) - nrow(tmp_pre))))
-    
     ## deleted:
     tmp <- tmp_pre$text[tmp_pre$typeConcept == "deleted"]
     dat$deleted <-
