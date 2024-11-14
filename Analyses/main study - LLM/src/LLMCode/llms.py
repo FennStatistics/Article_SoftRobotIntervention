@@ -264,27 +264,16 @@ def query_LLM_batch(model, prompt_batch, max_tokens, use_cache=None, temperature
     global current_openai_model
     current_openai_model = model    #needed for the Aalto Azure GPT API callbacks
     
-    # !!!
+########## adjustements Julius START
     # Handle None for system_message
     if system_message is None:
         system_message = "You are a helpful assistant."
-    
     # Handle None for stop - it should only be passed to the API if it's not None
     stop = stop if stop is not None else []
-    
-    # Print all arguments to check if any are None
-    print("Arguments:")
-    print(f"model: {model}")
-    print(f"prompt_batch: {prompt_batch}")
-    print(f"max_tokens: {max_tokens}")
-    print(f"use_cache: {use_cache}")
-    print(f"temperature: {temperature}")
-    print(f"system_message: {system_message}")
-    print(f"stop: {stop}")
-    print(f"API_type: {API_type}")
-    
+    # Handle None for temperature
     if temperature is None:
-        temperature=0 #by default, operate fully deterministically
+        temperature=0 #by default, operate "deterministically"    
+########## adjustements Julius END
 
     if use_cache is None:
         use_cache=False
@@ -379,6 +368,24 @@ def query_LLM_batch(model, prompt_batch, max_tokens, use_cache=None, temperature
             stop=stop,
             n=1  # one completion per prompt
         )
+        
+########## adjustements Julius START
+        # Access the token usage from the response
+        if 'usage' in response:
+            total_tokens = response['usage']['total_tokens']
+            prompt_tokens = response['usage']['prompt_tokens']
+            completion_tokens = response['usage']['completion_tokens']
+            
+            # Output token usage
+            print(f"Total Tokens: {total_tokens}")
+            print(f"Prompt Tokens: {prompt_tokens}")
+            print(f"Completion Tokens: {completion_tokens}")
+            
+            # Check if the response exceeds the max_tokens limit
+            if total_tokens > max_tokens:
+                print("Warning: The response may be incomplete due to exceeding the maximum token limit.")
+########## adjustements Julius END
+        
         # extract continuations
         continuations = [choice.text for choice in response.choices]
 

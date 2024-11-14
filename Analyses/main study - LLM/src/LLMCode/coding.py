@@ -822,6 +822,78 @@ def code_inductively_with_code_consistency(texts,
     return coded_texts, code_descriptions
 
 
+########## adjustements Julius START
+def code_inductively_with_code_consistency_adj(texts,
+                                           research_question,
+                                           topicCategory,
+                                           few_shot_examples,
+                                           gpt_model,
+                                           use_cache=True,
+                                           max_tokens=None,
+                                           verbose=False):
+    if max_tokens is None:
+        # Set max_tokens dynamically based on maximum text length
+        # Note that len(text) is in characters, not tokens
+        max_tokens = max(max(len(text) for text in texts), 300)
+
+    # Process texts sequentially to enforce code consistency
+    coded_texts = []
+    code_descriptions = {}
+    for idx, text in enumerate(texts):
+        # Update progress
+        print_progress_bar(idx + 1, len(texts), printEnd="")
+        # Find insights independent of existing codes
+        insight_prompt = construct_insight_prompt_adj(text, research_question, topicCategory)
+        continuations = query_LLM(
+            model=gpt_model,
+            prompts=[insight_prompt],
+            max_tokens=200,
+            use_cache=use_cache
+        )
+        insights = continuations[0]
+
+        # Construct prompt, including a list of existing codes
+        prompt = construct_inductive_prompt(
+            text=text, 
+            research_question=research_question,
+            few_shot_examples=few_shot_examples,
+            code_descriptions=code_descriptions,
+            insights=insights
+        )
+
+        # Query the LLM
+        continuations = query_LLM(
+            model=gpt_model,
+            prompts=[prompt],
+            max_tokens=max_tokens,
+            use_cache=use_cache
+        )
+        
+        # Attempt to correct any LLM formatting errors
+        coded_text_batch = correct_coding_errors([text], continuations, verbose=verbose)
+
+        # Add singular coded text to output
+        assert len(coded_text_batch) == 1
+        coded_text = coded_text_batch[0]
+        coded_texts.append(coded_text)
+
+        # For any new codes, generate description and store
+        for highlight, code in parse_codes(coded_text):
+            if code not in code_descriptions:
+                code_descriptions[code] = generate_code_description(
+                    code,
+                    [highlight],
+                    research_question,
+                    gpt_model,
+                    use_cache
+                )
+                
+    return coded_texts, code_descriptions
+########## adjustements Julius END
+
+
+
+
 def code_deductively(texts,
                      research_question,
                      codebook,
@@ -1001,9 +1073,22 @@ def construct_insight_prompt(text, research_question):
     prompt += f"If there are no relevant insights, output \"The text contains no insights relevant to the research question.\""
     return prompt
 
+########## adjustements Julius START
+def construct_insight_prompt_adj(text, research_question, topicCategory):
+    prompt = f"You are an expert qualitative researcher who is given the following associations of possible risks and benefits of rigid and soft robots regarding the overall theme {topicCategory}."
+    prompt = f"Your task is now to to analyze:\n\n{text}\n\n"
+    prompt += f"Output up to two sentences summarising the most interesting insights in the text, specifically pertaining to the research question \"{research_question}\". "
+    prompt += f"If there are no relevant insights, output \"The text contains no insights relevant to the research question.\""
+    return prompt
+########## adjustements Julius END
+
+
 
 def generate_code_description(code, examples, research_question, gpt_model, use_cache, counter_examples=[]):
-    prompt = "Write a brief but nuanced one-sentence description for the given inductive code, based on a set of texts annotated with the code"
+    # prompt = "Write a brief but nuanced one-sentence description for the given inductive code, based on a set of texts annotated with the code"
+########## adjustements Julius START
+    prompt = "Write a brief but nuanced two-sentence description for the given inductive code, based on a set of texts annotated with the code"
+########## adjustements Julius END
 
     if len(counter_examples) > 0:
         prompt += " and counter-examples where the code does not apply.\n"
