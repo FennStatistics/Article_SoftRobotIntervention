@@ -1074,11 +1074,15 @@ def construct_insight_prompt(text, research_question):
     return prompt
 
 ########## adjustements Julius START
-def construct_insight_prompt_adj(text, research_question, topicCategory):
-    prompt = f"You are an expert qualitative researcher who is given the following associations of possible risks and benefits of rigid and soft robots regarding the overall theme {topicCategory}."
-    prompt = f"Your task is now to to analyze:\n\n{text}\n\n"
-    prompt += f"Output up to two sentences summarising the most interesting insights in the text, specifically pertaining to the research question \"{research_question}\". "
-    prompt += f"If there are no relevant insights, output \"The text contains no insights relevant to the research question.\""
+def construct_insight_prompt_adj(text, research_question, topic_category):
+    prompt = (
+        f"You are an expert qualitative researcher specialized in the analysis of risks and benefits related to robotics. "
+        f"The overarching theme of this analysis is '{topic_category}'.\n\n"
+        f"Your task is to evaluate the following text:\n\n{text}\n\n"
+        f"Based on your analysis, provide one concise sentence summarizing the most significant insights from the text "
+        f"while pertaining to the research question: \"{research_question}\". "
+        f"If the text does not contain insights relevant to the research question, simply state: \"The text contains no insights relevant to the research question.\""
+    )
     return prompt
 ########## adjustements Julius END
 
@@ -1087,7 +1091,7 @@ def construct_insight_prompt_adj(text, research_question, topicCategory):
 def generate_code_description(code, examples, research_question, gpt_model, use_cache, counter_examples=[]):
     # prompt = "Write a brief but nuanced one-sentence description for the given inductive code, based on a set of texts annotated with the code"
 ########## adjustements Julius START
-    prompt = "Write a brief but nuanced two-sentence description for the given inductive code, based on a set of texts annotated with the code"
+    prompt = "Write a brief but nuanced one-sentence description for the given inductive code, based on a set of texts annotated with the code"
 ########## adjustements Julius END
 
     if len(counter_examples) > 0:
