@@ -1,0 +1,22 @@
+[
+    {
+        "robot": "RR",
+        "category": "HRIP",
+        "coded_texts": [
+            "hope: **Robots can give victims hope that they might be rescued**<sup>hope</sup>, which could **impact their endurance**<sup>endurance</sup>",
+            "can work complementary: **complements human activities**<sup>complementary role</sup>",
+            "victims trust robots",
+            "no fear",
+            "autonomous support",
+            "***comforting: Through the non-mechanical appearance, the victim feels more calmed***<sup>comfort</sup>",
+            "flexible designs/forms: Due to the flexible design of a robot, it can be adapted to various situations depending on what is needed.",
+            "supply: **Robots can take care of people who are initially unreachable**<sup>complementary role</sup>"
+        ],
+        "code_descriptions": {
+            "hope": "Captures instances where participants express the belief that rescue robots provide hope to victims by potentially facilitating their rescue.",
+            "endurance": "Captures instances where participants discuss the effects of prolonged physical or mental strain on their ability to sustain performance or functionality in the context of Human-Robot-Interaction with rescue robots. \n\n*** \n\nThis code may be applied to instances where participants mention the challenges or limitations they face in maintaining their physical or mental stamina during interactions with rescue robots, shedding light on the importance of endurance in the context of Human-Robot-Interaction.",
+            "complementary role": "Identifies instances where participants highlight the supportive and enhancing role of rescue robots in complementing human actions and tasks within the context of Human-Robot-Interaction in rescue scenarios. \n\n*** \n\nenhances human capabilities through collaboration with robots***\n\n*** \n\nrobots are seen as assisting and supporting rather than replacing human efforts",
+            "comfort": "Captures instances where the non-mechanical appearance of rescue robots provides a sense of calm and reassurance to victims in distress."
+        }
+    }
+]

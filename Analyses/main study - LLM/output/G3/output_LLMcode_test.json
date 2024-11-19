@@ -1,0 +1,33 @@
+[
+    {
+        "robot": "RR",
+        "category": "SA",
+        "coded_texts": [
+            "can act quickly: Robots can intervene quickly, as they do not need to be dressed or prepared and are autonomous",
+            "rational efficiency: No suicidal experiments in rescue",
+            "life-threatening places",
+            "toxic environment",
+            "replaceable: **During operations, unlike human rescuers, there is no need to pay attention to the safety of the robots, as they can be easily replaced.**<sup>replaceability; efficiency</sup>",
+            "speed / agility",
+            "protection of rescue forces",
+            "reach dangerous places",
+            "accessibility of special regions",
+            "no people necessary",
+            "useful addition: To human rescuers.",
+            "exploration: Assess the safety of the dangerous area",
+            "reach the inaccessible",
+            "**remote control: Can be operated by experts via remote control or autonomous systems to perform operations from a safe distance.**<sup>safety</sup>",
+            "reduced risk of injury",
+            "safety for rescue workers",
+            "simplification of difficult situations: Many rescue situations prove difficult for people to reach or to intervene, automation can clearly help here.",
+            "does not risk human lives",
+            "follows instructions precisely",
+            "efficiency: both equally fast work, more productive way of working as well as improved access to danger zones"
+        ],
+        "code_descriptions": {
+            "replaceability": "Captures discussions where participants highlight the perceived benefit of robots in search and rescue operations being easily replaceable, thus reducing concerns about their safety compared to human rescuers.",
+            "efficiency": "Highlights the perceived benefit of search and rescue robots in terms of operational efficiency, as they eliminate the need for safety precautions typically required for human rescuers, thereby streamlining the rescue process.",
+            "safety": "Captures discussions about the perceived safety benefits of search and rescue robots, particularly their ability to be operated remotely, which allows experts to conduct operations from a safe distance, thereby minimizing human risk in hazardous environments."
+        }
+    }
+]

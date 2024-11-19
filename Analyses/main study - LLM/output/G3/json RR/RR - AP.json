@@ -1,0 +1,31 @@
+[
+    {
+        "robot": "RR",
+        "category": "AP",
+        "coded_texts": [
+            "**human-like closeness**<sup>interaction design</sup>: If robots are **animal-like and come across as more natural**, they would be more familiar and less artificial.",
+            "no emotions",
+            "lack of emotionality: **Human rescuers could be shocked, carry trauma from it, all of which a robot can handle**<sup>lack of emotionality</sup>.",
+            "automated action: **Robots operate automatically and can therefore trade more efficiently**<sup>efficiency</sup>",
+            "human-like robots: regarding soft robots, which appear familiar through their appearance",
+            "animal-like with children",
+            "Autonomous action?",
+            "autonomous actions: **Robots can act without someone having to be there**<sup>efficiency</sup>",
+            "autonomous decisions: **Robots decide on life and death. They possibly make more logical decisions when they are not guided by emotions and prejudices as humans do.**<sup>autonomous decisions</sup>",
+            "autonomous action",
+            "human decisions",
+            "calming the injured",
+            "***robots have improvement potential***<sup>efficiency</sup>: Such a robot is capable of learning and thus able to better recognize, anticipate, and deal with situations in the future.",
+            "no human problems: **It does not need food, water, toilets, etc. unlike human rescue services.**<sup>efficiency</sup>",
+            "by emotions",
+            "inspired by organisms",
+            "***without emotions***<sup>lack of emotionality</sup>: Robots can assess situations **without emotional involvement**<sup>lack of emotionality</sup>, while humans might waste too much time on hopeless rescue attempts."
+        ],
+        "code_descriptions": {
+            "interaction design": "Identifies instances where participants express a desire for rescue robots to exhibit human-like qualities in their design, emphasizing the importance of creating emotionally engaging interactions.",
+            "lack of emotionality": "Identifies instances where participants express concerns about the perceived absence of emotional depth or empathy in rescue robots compared to human rescuers, highlighting potential limitations in emotional support and understanding. \n\n*** \n\nRobots lack the ability to provide emotional comfort or understanding in distressing situations, which could be a significant drawback in rescue scenarios where human empathy is valued.",
+            "efficiency": "Identifies instances where participants highlight the improved operational effectiveness and productivity achieved through the autonomous functioning of robots in the context of the perceived positive anthropomorphism of rescue robots. \n\n***Robots operate automatically and can therefore trade more efficiently***",
+            "autonomous decisions": "Identifies instances where participants discuss the potential advantages of rescue robots making autonomous decisions, emphasizing the perceived benefits of logic over human emotions and biases in critical situations."
+        }
+    }
+]

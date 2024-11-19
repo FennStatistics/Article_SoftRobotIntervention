@@ -1,0 +1,46 @@
+[
+    {
+        "robot": "SAR",
+        "category": "TL",
+        "coded_texts": [
+            "difficult to adapt",
+            "no emotions/feelings: Emotions/feelings are not available for automations",
+            "limited know-how",
+            "**Possible defects: Possible defects could ensure that interactions between robots and humans can be toxic or harmful.**<sup>risk; interaction</sup>",
+            "**possibly limited customization options**<sup>lower adaptability</sup>: lower adaptability",
+            "Technical errors: **There is a risk of technical errors**<sup>risk</sup>",
+            "defects: What happens when a robot is broken - who checks them?",
+            "lack of competence",
+            "***complex operation: The robots could be difficult to configure and operate***<sup>lower adaptability</sup>",
+            "learning difficulties",
+            "Has limited abilities",
+            "emergency situation: **can only provide limited help in emergency situations**<sup>limited assistance</sup>",
+            "no spontaneity: **The robot cannot handle unforeseen and untrained situations. This can be very dangerous.**<sup>risk</sup>",
+            "unrealistic learned handling",
+            "can break",
+            "dialect: **The robot does not understand dialect or a person who can no longer express themselves clearly due to age**<sup>dialect</sup>",
+            "technical problems: Risk of malfunction",
+            "technical problems",
+            "limited learning ability",
+            "Maintenance & Co.",
+            "no specific expertise",
+            "lower inhibition threshold",
+            "future prospects: What to do when there are no more experts available and robots, for example, no longer work?",
+            "risk of breakdowns",
+            "technological limits",
+            "technical errors: Misprogramming of the robots",
+            "prone to errors: **Artificial helpers make fewer careless mistakes than humans**<sup>prone to errors</sup>, but **they may not understand glaring errors**<sup>prone to errors</sup>.",
+            "technical progress: **The technology is not ready to widely recognize human emotions in the form of robots and to work like humans**<sup>technical progress; safety concerns</sup>. Thus, no safety can be guaranteed."
+        ],
+        "code_descriptions": {
+            "risk": "Identifies concerns and potential negative outcomes associated with the use of socially assistive robots, highlighting the risks and potential harm in human-robot interactions.",
+            "interaction": "Identifies concerns related to the potential negative outcomes or issues that may arise from interactions between humans and socially assistive robots, highlighting the importance of ensuring safe and beneficial interactions in the context of technological limitations.",
+            "lower adaptability": "Identifies instances where participants express concerns about the restricted ability to personalize or modify socially assistive robots to suit individual needs or preferences. \n\n*** \n\nmay not be able to adjust to different environments or user preferences*** \n\nlimited flexibility in adapting to changing user requirements***",
+            "limited assistance": "Denotes instances where participants express concerns about socially assistive robots being able to offer only restricted support, particularly in urgent or critical scenarios. \n\n*** \n\nPlease let me know if you need further assistance with your qualitative research project.",
+            "dialect": "Identifies instances where participants express concerns about socially assistive robots' inability to comprehend regional or individual speech patterns, including challenges faced by individuals with age-related communication difficulties.",
+            "prone to errors": "Identifies instances where participants compare the error-prone nature of humans to the perceived reliability of artificial helpers in the context of socially assistive robots.",
+            "technical progress": "Identifies instances where participants express skepticism about the current capabilities of socially assistive robots in understanding and mimicking human emotions, highlighting concerns about the limitations of technological progress in this area.",
+            "safety concerns": "Identifies concerns expressed about the current limitations in technology's ability to accurately perceive and respond to human emotions through socially assistive robots. \n\n*** \n\nParticipants express doubts about the readiness of technology to effectively recognize and respond to human emotions in socially assistive robots, citing potential safety concerns."
+        }
+    }
+]
