@@ -1,0 +1,58 @@
+count coloured rows
+count entries with multiple assigned categories (=== split "1")
+- motivated by high variance within identical word
+count "2"s
+highlight IF "1" -> dat_overwrite_adjusted$splitWords[i] == "0", else split
+
+##
+
+
+## fix single word
+tmp_nodes$text_summarized[tmp_nodes$text_summarized == "-Soziale Begleitung"] <- "Soziale Begleitung"
+
+
+
+## overwrite concepts
+for(i in 1:nrow(dat_overwrite)){
+  if(!is.na(dat_overwrite$Superordinate[i])){
+    tmp <- tmp_nodes[tmp_nodes$text_summarized == dat_overwrite$Words[i], ]
+    
+    for(j in 1:nrow(tmp)){
+      if(sum(tmp_nodes$id %in% tmp[j,]$id) != 1){
+        # print("single CAM removed")
+        # print(i)
+        break
+      }else{
+        # add suffix
+        tmp_superordinate <- str_trim(string = dat_overwrite$Superordinate[i], side = "both")
+        if(tmp[j,]$value < 0){
+          if(dat_overwrite_adjusted$splitWords[i] == "0"){
+            tmp[j,]$text_summarized <- paste0(tmp_superordinate, "_negative")
+          }else{
+            tmp[j,]$text_summarized <- paste0(dat_overwrite_adjusted$rep_neg[i], "_negative")
+          }
+        }else if(tmp[j,]$value == 0){
+          if(dat_overwrite_adjusted$splitWords[i] == "0"){
+            tmp[j,]$text_summarized <- paste0(tmp_superordinate, "_neutral")
+          }else{
+            tmp[j,]$text_summarized <- paste0(dat_overwrite_adjusted$rep_neut[i], "_neutral")
+          }
+        }else if(tmp[j,]$value == 10){
+          if(dat_overwrite_adjusted$splitWords[i] == "0"){
+            tmp[j,]$text_summarized <- paste0(tmp_superordinate, "_ambivalent")
+          }else{
+            tmp[j,]$text_summarized <- paste0(dat_overwrite_adjusted$rep_amb[i], "_ambivalent")
+          }
+        }else{
+          if(dat_overwrite_adjusted$splitWords[i] == "0"){
+            tmp[j,]$text_summarized <- paste0(tmp_superordinate, "_positive")
+          }else{
+            tmp[j,]$text_summarized <- paste0(dat_overwrite_adjusted$rep_pos[i], "_positive")
+          }
+        }
+      }   
+    }        
+    
+    tmp_nodes$text_summarized[tmp_nodes$text_summarized == dat_overwrite$Words[i]] <- tmp$text_summarized
+  }
+}
