@@ -1,0 +1,12 @@
+Change:
+
+    "lack of emotionality": "Revised to emphasize how the absence of emotional depth in rescue robots is perceived as a positive trait, focusing on their ability to manage emotionally charged situations with logic and consistency. Condensed the description by removing unnecessary details and literal quotes."
+    "efficiency": "Streamlined the description to focus on the key aspects of operational effectiveness and productivity, removing extraneous details and simplifying the language for clarity."
+
+Delete:
+
+    "interaction design": "Removed as it was redundant with the newly added 'human-like design' code, which better encapsulates the concept of emotionally engaging and natural interactions."
+
+Add:
+
+    "human-like design": "Introduced to capture the value participants place on rescue robots designed with human-like qualities, which enhance emotional engagement, familiarity, and trust in their interactions."

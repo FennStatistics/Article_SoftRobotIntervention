@@ -1,0 +1,31 @@
+[
+    {
+        "robot": "RR",
+        "category": "AP",
+        "coded_texts": [
+            "**human-like closeness**<sup>interaction design</sup>: If robots are **animal-like and come across as more natural**, they would be more familiar and less artificial.",
+            "no emotions",
+            "lack of emotionality: **Human rescuers could be shocked, carry trauma from it, all of which a robot can handle**<sup>lack of emotionality</sup>.",
+            "automated action: **Robots operate automatically and can therefore trade more efficiently**<sup>efficiency</sup>",
+            "human-like robots: regarding soft robots, which appear familiar through their appearance",
+            "animal-like with children",
+            "Autonomous action?",
+            "autonomous actions: **Robots can act without someone having to be there**<sup>efficiency</sup>",
+            "autonomous decisions: **Robots decide on life and death. They possibly make more logical decisions when they are not guided by emotions and prejudices as humans do.**<sup>autonomous decisions</sup>",
+            "autonomous action",
+            "human decisions",
+            "calming the injured",
+            "***robots have improvement potential***<sup>efficiency</sup>: Such a robot is capable of learning and thus able to better recognize, anticipate, and deal with situations in the future.",
+            "no human problems: **It does not need food, water, toilets, etc. unlike human rescue services.**<sup>efficiency</sup>",
+            "by emotions",
+            "inspired by organisms",
+            "***without emotions***<sup>lack of emotionality</sup>: Robots can assess situations **without emotional involvement**<sup>lack of emotionality</sup>, while humans might waste too much time on hopeless rescue attempts."
+        ],
+        "code_descriptions": {
+            "lack of emotionality": "Identifies instances where participants discuss how the absence of emotional depth in rescue robots allows them to handle emotionally charged situations with logic and consistency, which can be seen as a positive trait in high-stress rescue scenarios.",
+            "efficiency": "Identifies instances where participants highlight the operational effectiveness and productivity achieved through the autonomous functioning of rescue robots, emphasizing their ability to perform tasks quickly and without fatigue.",
+            "autonomous decisions": "Identifies instances where participants discuss the potential advantages of rescue robots making autonomous decisions, emphasizing the benefits of logic over human emotions and biases in critical situations.",
+            "human-like design": "Identifies instances where participants value rescue robots designed with human-like or natural qualities, promoting emotional engagement, familiarity, and trust in their interactions."
+          }
+    }
+]

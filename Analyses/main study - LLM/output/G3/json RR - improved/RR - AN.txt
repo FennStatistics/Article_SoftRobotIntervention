@@ -1,0 +1,15 @@
+Change:
+
+"lack of empathy": "Updated to incorporate arguments about lack of human closeness and condensed for clarity by removing unnecessary details and literal quotes."
+"perspective": "Condensed the description to focus on the main arguments, emphasizing the absence of human intervention and reliance on AI systems."
+"perceived negative anthropomorphism": "Incorporated references to the imitation of nature and how human-like characteristics in robots might evoke unease, while condensing the description for clarity."
+"lack of alignment": "Condensed the description to focus on the main arguments, emphasizing the conflict between autonomy and the structured requirements of rescue missions."
+
+Delete:
+
+"empathy": "Removed as it overlapped entirely with 'lack of empathy,' making it redundant."
+
+Add:
+
+"errors_in_autonomy": "Introduced to highlight errors or shortcomings that arise from the autonomous functioning of rescue robots, emphasizing their potential to make incorrect or suboptimal decisions."
+"lack_of_human_judgment": "Added to address concerns about the absence of human reasoning and intuition in robotic decision-making during rescue scenarios."

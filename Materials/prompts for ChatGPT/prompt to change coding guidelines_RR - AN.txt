@@ -1,0 +1,80 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived negative anthropomorphism** specifically regarding **rescue robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key `code_descriptions`. Each key represents a code, and its value is a description of that code. Example structure:  
+```json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+```
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   `[change1, change2, change3]`  
+   Example:  
+   `Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].`  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   `[reason for deletion]`  
+   Example:  
+   `Delete: "code_name_3". Reason: [redundant with code_name_2].`  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   `[keyword1, keyword2, keyword3]`  
+   Example:  
+   `Add: "code_name_4". Keywords: [safety, trust, autonomy].`
+
+---
+
+### Necessary Changes
+
+- Change: "lack of empathy". Updates: [more broadly to also contain arguments highlighted in code "empathy"; add argument of lack of human closeness].  
+- Delete: "empathy". Reason: [same as "lack of empathy"].  
+
+- Change: "perceived negative anthropomorphism". Updates: [incorporate references to "imitation of nature" and how human-like characteristics in robots might evoke unease].  
+
+- Change: "perspective". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].  
+- Change: "perceived negative anthropomorphism". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].  
+- Change: "lack of alignment". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].  
+- Change: "lack of empathy". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].  
+
+- Add: "Errors in Autonomy". Keywords: [errors or shortcomings arising from the autonomous functioning of robots].  
+- Add: "Lack of Human Judgment". Keywords: [absence of human reasoning and intuition].  
+
+---
+
+### For the following data:
+
+        "code_descriptions": {
+            "empathy": "Identifies instances where participants express a lack of ability or difficulty in empathizing with the emotions or experiences of others, particularly in relation to autonomous actions of rescue robots. \n\n*** \n\nParticipants highlighted their struggle to empathize with the victims' emotions as the robots operated autonomously during rescue missions.",
+            "perspective": "Captures instances where participants discuss the absence of human involvement in interactions with artificial intelligence, highlighting a shift in perspective towards non-human entities. \n\n*** \n\nParticipants emphasized the reliance on AI systems and the lack of human intervention in decision-making processes.",
+            "perceived negative anthropomorphism": "Identifies instances where participants express discomfort or unease towards rescue robots due to their human-like characteristics, such as an intimidating appearance.",
+            "lack of alignment": "Identifies instances where the concept of autonomy is viewed as conflicting with the objectives of rescue missions. \n\n*** \n\nChallenges arise due to the lack of alignment between the need for independent decision-making and the structured nature of rescue operations. \n\n*** \n\nParticipants express concerns about the lack of alignment between the capabilities of rescue robots and the specific requirements of complex search and rescue scenarios.",
+            "lack of empathy": "Identifies instances where participants express concerns about the absence of emotional understanding or compassion in rescue robots, highlighting the perceived limitations in empathetic capabilities. \n\n*** \n\nParticipants noted that the lack of empathy in rescue robots could hinder their ability to provide effective emotional support during emergencies. \n\n*** \n\nThe absence of sympathy in robotic interactions was seen as a significant drawback, potentially impacting the quality of care and human-robot relationships in rescue scenarios."
+        }
+		
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.
