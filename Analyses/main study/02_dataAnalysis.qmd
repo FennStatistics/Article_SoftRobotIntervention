@@ -995,7 +995,7 @@ Question: Ihre angepasste Mind-Map hatte eine durchschnittliche emotionale Bewer
 
 ```{r}
 questionnaireCAMs$meanDifferencesCAMs <- round(x = questionnaireCAMs$mean_valence_macro_post - questionnaireCAMs$mean_valence_macro_pre, digits = 2)
-DT::datatable(questionnaireCAMs[,c("meanDifferencesCAMs", "adaptiveQuestion", "feedback_critic")], options = list(pageLength = 5)) 
+DT::datatable(questionnaireCAMs[,c("choosen_Robot", "meanDifferencesCAMs", "adaptiveQuestion", "feedback_critic")], options = list(pageLength = 5)) 
 
 
 hist(questionnaireCAMs$meanDifferencesCAMs)
@@ -1009,12 +1009,29 @@ Only for people who have added new concpets (typ B, D)
 tmp <- questionnaireCAMs[questionnaireCAMs$PROLIFIC_PID %in% dat_ids$PROLIFIC_PID, ]
 
 
-DT::datatable(tmp[,c("meanDifferencesCAMs", "adaptiveQuestion", "feedback_critic")], options = list(pageLength = 5)) 
+DT::datatable(tmp[,c("choosen_Robot", "meanDifferencesCAMs", "adaptiveQuestion", "feedback_critic")], options = list(pageLength = 5)) 
 
 
 hist(tmp$meanDifferencesCAMs)
 summary(tmp$meanDifferencesCAMs)
 ```
+
+create subset of data to summarize by an LLM:
+
+```{r}
+tmp <- tmp[,c("choosen_Robot", "meanDifferencesCAMs", "adaptiveQuestion")]
+
+# dummy - one SD above, below mean
+tmp$dummy <- 0
+tmp$dummy[tmp$meanDifferencesCAMs > (mean(tmp$meanDifferencesCAMs) + sd(tmp$meanDifferencesCAMs))] <- 1
+tmp$dummy[tmp$meanDifferencesCAMs < (mean(tmp$meanDifferencesCAMs) - sd(tmp$meanDifferencesCAMs))] <- -1
+
+
+setwd("outputs/02_dataAnalysis")
+xlsx::write.xlsx2(x = tmp, file = "adaptiveQuestions.xlsx")
+```
+
+
 
 #### check for words
 

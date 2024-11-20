@@ -855,15 +855,6 @@ const study = new lab.flow.Sequence({
     //new lab.plugins.Download()
   ],
   content: [
-    SCALES_sequence,
-    htmlForm,
-
-
-
-    htmlForm,
-
-
-
     break500,
     htmlForm,
 
