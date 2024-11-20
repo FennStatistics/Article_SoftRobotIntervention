@@ -1,0 +1,10 @@
+In the next step, briefly summarize the "Necessary Changes" in the following format, grouped separately under "Change," "Delete," and "Add." For each affected code name, describe the changes applied in up to two concise sentences. Use this format:
+
+Change:
+"affected code name": "Description of the changes made in up to two sentences."
+
+Delete:
+"affected code name": "Reason for deletion, written in up to two sentences."
+
+Add:
+"new code name": "Description of the new code and its purpose, written in up to two sentence
