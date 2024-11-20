@@ -1,0 +1,33 @@
+[
+    {
+        "robot": "RR",
+        "category": "HRIN",
+        "coded_texts": [
+            "fewer people: The emotional component must not be forgotten. The victims need support.",
+            "could cause fear",
+            "impersonal: lack of human closeness, which the victim may need",
+            "bad communication",
+            "problems with contacting",
+            "**No compassion: Robots don't have feelings like we humans do.**<sup>emotions</sup> If, for example, **the robot would save a person from a dire situation**, could it then **act carefully so that it doesn't hurt the person during this situation**<sup>carefulness</sup>?",
+            "**human closeness is missing**<sup>emotions</sup>: In the interaction with the victims, the human closeness is lacking.",
+            "lack of humanity",
+            "people are afraid",
+            "**can seem frightening**<sup>emotions</sup>: Children and other people may react fearfully to robots",
+            "emotional coldness: **The use of humans in emergency situations is probably more pleasant for the victims than the use of cold/emotionless robots.**<sup>emotional coldness</sup>",
+            "influence of interactions",
+            "own decisions",
+            "**lack of humanity**: The person to be rescued may be afraid of robots<sup>perceived negative Human-Robot-Interaction</sup>",
+            "**lack of humanity: a robot does not provide the closeness and humanity as a human does**<sup>emotional coldness; lack of emotional connection</sup>",
+            "victim uncertainty: In crisis situations, human communication can be vital, for example in shock.",
+            "**no compassion: a robot does not know what pain is**<sup>lack of emotional understanding</sup>",
+            "irritation due to appearance",
+            "lack of interpersonal contact"
+        ],
+        "code_descriptions": {
+            "emotions": "Captures instances where participants express concerns about the lack of emotional understanding, including fear and discomfort caused by emotionally detached robots in the context of Human-Robot-Interaction of rescue robots.",
+            "carefulness": "Identifies instances where participants express concerns or expectations for rescue robots to exhibit caution and precision in their actions to prevent harm during emergency situations, and address the emotional needs of victims during rescue operations.",
+            "emotional coldness": "Identifies instances where participants express a preference for human interaction over emotionally detached or robotic interactions in emergency scenarios, highlighting concerns about the perceived emotional coldness of rescue robots.",
+            "lack of emotional understanding": "Identifies instances where participants express frustration or disappointment with robots' inability to recognize or respond to emotional cues, such as lacking empathy or understanding of human emotions. This also includes concerns about the robot's inability to recognize distress, fear, or pain, and its failure to show compassion or empathy in human-robot interactions."
+          }
+    }
+]
