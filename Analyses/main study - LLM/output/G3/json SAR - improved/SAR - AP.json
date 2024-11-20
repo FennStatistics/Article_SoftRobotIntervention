@@ -1,0 +1,45 @@
+[
+    {
+        "robot": "SAR",
+        "category": "AP",
+        "coded_texts": [
+            "evocation of emotions",
+            "human-like: feel like humans through soft fabrics - like silicone",
+            "**emotional support:**<sup>potential benefit</sup> For example, during panic attacks, tantrums or other emotional crisis situations",
+            "emotional therapy approaches",
+            "**Trauma patients:** Traumatized children might find it easier to confide their experienced suffering to a (childishly designed) robot than to a strange adult person.<sup>potential benefit</sup>",
+            "**humanity AI: Advanced AI are probably hard to distinguish from real humans (in their language)**<sup>not insightful</sup>",
+            "***nicer than humans: not all people who work in social environments are nice and polite***",
+            "facial recognition / emotion recognition",
+            "almost like a pet",
+            "**physical proximity possible**<sup>not insightful</sup>",
+            "social support: Can help bring a sense of closeness to lonely people who otherwise have no contact",
+            "**emotional support**<sup>potential benefit</sup>",
+            "feeling of empathy: The **empathy of the soft robot appears greater**<sup>feeling of empathy</sup> due to its lifelike nature",
+            "**Emotion recognition**",
+            "movement instruction: Preschool children might have more fun with movement, **if the robot participates in the movements**<sup>engagement</sup>.",
+            "automatic further development",
+            "estimable: We can guess their behavior",
+            "enables closeness",
+            "physical affection possible",
+            "closer bond: With soft robots, **it is easier to establish a connection with the robot than if it were strictly made of metal**<sup>material; connection</sup>.",
+            "***robot as friend: A robot can serve as a friend and listener, helping one cope with thoughts and feelings.***<sup>emotional support</sup>",
+            "emotional affection: Soft robots: advantages of a pet, without the disadvantages?",
+            "more resilient than humans: Physically as well as mentally",
+            "another \"reference person\"",
+            "in therapy: emotion recognition",
+            "***calm disposition: Robots don't have a bad mood and don't get one when patients are uncomfortable***<sup>calmness; user experience</sup>",
+            "***better recognition of emotions: People who react quickly to triggers can be better supported by the robot, by the robot quickly noticing what emotions the human currently has -> better emotional support.***<sup>emotional support</sup>"
+        ],
+  "code_descriptions": {
+    "feeling of empathy": "Identifies instances where participants perceive socially assistive robots as displaying a heightened sense of empathy, often attributed to their lifelike characteristics, such as soft materials or realistic emotional responses. These factors enhance the overall interaction experience.",
+    "engagement": "Identifies instances where participants describe active involvement or interaction with socially assistive robots, emphasizing how prompt responses and interactive features foster connection and engagement.",
+    "material": "Identifies instances where participants express a preference for socially assistive robots designed with soft, relatable materials, such as silicone, which foster physical affection and make the robot more approachable and human-like.",
+    "connection": "Captures instances where participants express the ease of forming a relational connection with socially assistive robots, highlighting the role of design elements, like soft materials, in facilitating human-robot bonds.",
+    "emotional support": "Captures instances where participants attribute emotional support qualities to socially assistive robots, viewing them as friends or listeners that aid in coping with thoughts and feelings, especially in challenging emotional situations.",
+    "calmness": "Captures instances where participants highlight the calming effect of socially assistive robots, emphasizing their consistent and stable demeanor, which alleviates stress even in difficult situations.",
+    "therapeutic applications": "Captures instances where participants discuss the use of socially assistive robots in therapeutic contexts, such as aiding trauma patients or emotionally vulnerable individuals by providing support and comfort."
+  }
+}
+
+]

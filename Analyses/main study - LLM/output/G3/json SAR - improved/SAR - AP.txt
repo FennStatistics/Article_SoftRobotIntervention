@@ -1,0 +1,14 @@
+#### Change:
+"feeling of empathy": "Enhanced the description by including lifelike characteristics like soft materials as factors that heighten perceived empathy and streamlined the text for clarity."
+"engagement": "Refocused the description on prompt responses and interactive features, eliminating extraneous details for conciseness."
+"material": "Incorporated the idea of soft, relatable materials such as silicone promoting physical affection and refined the text for improved clarity."
+"connection": "Clarified the role of design elements, such as soft materials, in facilitating human-robot bonds and condensed the description."
+"calmness": "Emphasized the calming effect of robots through their stable demeanor and removed redundant wording for clarity."
+
+#### Delete:
+"potential benefit"**: "Removed as it overlaps with the 'emotional support' code, making it redundant."
+"not insightful"**: "Deleted because it is irrelevant to the category of perceived positive anthropomorphism."
+"user experience"**: "Removed due to redundancy with the 'calmness' code, which already captures similar concepts."
+
+#### Add:
+"therapeutic applications"**: "Added to capture the use of socially assistive robots in therapeutic settings, especially for trauma patients and emotionally vulnerable individuals, emphasizing their supportive and comforting roles."
