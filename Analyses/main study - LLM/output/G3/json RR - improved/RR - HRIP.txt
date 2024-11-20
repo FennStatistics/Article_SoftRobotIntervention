@@ -1,0 +1,12 @@
+Change:
+
+    "hope": "Refined the description to focus solely on emotional reassurance and optimism, emphasizing the belief that the robot's presence or potential impact provides hope to victims."
+    "comfort": "Expanded the description to include emotional reassurance provided by the robot's soft design or adaptable forms, enhancing its calming effect on victims."
+    "endurance": "Condensed the description to focus on physical and mental stamina in human-robot interactions, removing unnecessary details and literal quotes for clarity."
+    "complementary role": "Condensed and clarified the description to emphasize the supportive role of robots, adding specific instances like delivering essential resources in rescue scenarios."
+
+Delete:
+(No codes were deleted in this step.)
+
+Add:
+(No new codes were added in this step.)
