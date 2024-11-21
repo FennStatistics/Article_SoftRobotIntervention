@@ -1,0 +1,132 @@
+---
+title: "Create tables and graphics for G3 (result part II)"
+author: "Julius Fenn, Louisa Estadieu"
+format:
+  html:
+    toc: true
+    toc-depth: 4
+    html-math-method: katex
+---
+
+
+
+# Notes
+
+
+# load cleaned data files
+
+```{r}
+#| label: load cleaned data files
+#| warning: false
+
+# sets the directory of location of this script as the current directory
+# setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
+### load packages
+require(pacman)
+p_load('jsonlite', 'xlsx',
+       'stargazer', 'DT', 'tools')
+
+
+### load abbrevations dictionary
+setwd("data")
+dir()
+
+abbreviations_dict <- jsonlite::fromJSON(txt = "abbreviations_dict.txt")
+
+
+### load improved coding guidelines
+setwd("../../output/G3/json RR - improved")
+
+# List all JSON files in the directory
+json_files <- list.files(pattern = "json$", full.names = FALSE)
+# Initialize an empty list to store code descriptions
+list_json_files_RR <- list()
+# Loop through each JSON file
+for (i in 1:length(json_files)) {
+  # Read the JSON file
+  list_json_files_RR[[i]] <- jsonlite::fromJSON(json_files[i])
+}
+names(list_json_files_RR) <- json_files
+
+
+setwd("../json SAR - improved")
+
+# List all JSON files in the directory
+json_files <- list.files(pattern = "json$", full.names = FALSE)
+# Initialize an empty list to store code descriptions
+list_json_files_SAR <- list()
+# Loop through each JSON file
+for (i in 1:length(json_files)) {
+  # Read the JSON file
+  list_json_files_SAR[[i]] <- jsonlite::fromJSON(json_files[i])
+}
+names(list_json_files_SAR) <- json_files
+
+rm(i); rm(json_files)
+```
+
+
+# Create table for Supplementary Materials
+
+## for RR
+
+```{r}
+# Create an empty data frame to store results
+results_df <- data.frame(
+  CategoryAbbrevation = character(),
+  Category = character(),
+  CodeName = character(),
+  Description = character(),
+  stringsAsFactors = FALSE
+)
+
+# Loop through the JSON files
+for (i in 1:length(list_json_files_RR)) {
+  
+  # Improve code names
+  names(list_json_files_RR[[i]]$code_descriptions) <- str_replace_all(
+    string = names(list_json_files_RR[[i]]$code_descriptions),
+    pattern = "_",
+    replacement = " "
+  )
+  names(list_json_files_RR[[i]]$code_descriptions) <- tools::toTitleCase(
+    names(list_json_files_RR[[i]]$code_descriptions)
+  )
+  
+  # Get full name of category
+  tmp_categoryAbbrevation <- names(abbreviations_dict$abbreviations_dict[
+    names(abbreviations_dict$abbreviations_dict) == list_json_files_RR[[i]]$category])
+  tmp_category <- abbreviations_dict$abbreviations_dict[
+    names(abbreviations_dict$abbreviations_dict) == list_json_files_RR[[i]]$category
+  ][[1]]
+  
+  # Loop through each code description
+  for (j in 1:length(list_json_files_RR[[i]]$code_descriptions)) {
+    
+    # Extract the code name and description
+    code_name <- names(list_json_files_RR[[i]]$code_descriptions)[j]
+    description <- list_json_files_RR[[i]]$code_descriptions[j][[1]]
+    
+    # Append to the results data frame
+    results_df <- rbind(
+      results_df,
+      data.frame(
+        CategoryAbbrevation = tmp_categoryAbbrevation,
+        Category = tmp_category,
+        CodeName = code_name,
+        Description = description,
+        stringsAsFactors = FALSE
+      )
+    )
+  }
+}
+
+colnames(results_df) <- c("Abbrevation", "Category", "Code", "Description")
+
+xlsx::write.xlsx2(x = results_df, file = "outputs/RR_codes.xlsx")
+
+DT::datatable(data = results_df)
+```
+
+

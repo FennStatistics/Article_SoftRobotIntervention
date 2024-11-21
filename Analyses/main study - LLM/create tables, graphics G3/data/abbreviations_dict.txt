@@ -1,0 +1,22 @@
+{
+  "abbreviations_dict": {
+    "RCPP": "perceived positive usefulness (rest category, refers to a classification of arguments that do not fit into any of the predefined categories)",
+    "LC": "perceived low costs",
+    "T": "perceived trust",
+    "SIP": "perceived positive social impact",
+    "HRIP": "perceived positive Human-Robot-Interaction",
+    "AN": "perceived negative anthropomorphism",
+    "SIN": "perceived positive social impact",
+    "R": "perceived risks",
+    "HC": "perceived high costs",
+    "RCN": "neutral rest category (rest category refers to a classification of arguments that do not fit into any of the predefined categories)",
+    "SA": "perceived safety",
+    "TP": "perceived technological possibilities",
+    "TL": "perceived technological limitations",
+    "RCPN": "perceived negative usefulness (rest category, refers to a classification of arguments that do not fit into any of the predefined categories)",
+    "HRIN": "perceived negative Human-Robot-Interaction",
+    "MT": "perceived mistrust",
+    "RCA": "ambivalent rest category (rest category refers to a classification of arguments that do not fit into any of the predefined categories)",
+    "AP": "perceived positive anthropomorphism"
+  }
+}
