@@ -36,6 +36,7 @@ abbreviations_dict <- jsonlite::fromJSON(txt = "abbreviations_dict.txt")
 ### load frequency table of codes
 setwd("../../output/G3")
 
+#> RR
 codes_frequency_RR <- xlsx::read.xlsx2(file = "rescue robot frequency table codes.xlsx", sheetIndex = 1)
 
 codes_frequency_RR$Code <- str_replace_all(
@@ -50,6 +51,21 @@ codes_frequency_RR$rigid <- as.numeric(codes_frequency_RR$rigid)
 
 codes_frequency_RR$soft <- codes_frequency_RR$soft + codes_frequency_RR$rigid 
 
+
+#> SAR
+codes_frequency_SAR <- xlsx::read.xlsx2(file = "socially assistive robot frequency table codes.xlsx", sheetIndex = 1)
+
+codes_frequency_SAR$Code <- str_replace_all(
+    string = codes_frequency_SAR$Code,
+    pattern = "_",
+    replacement = " ")
+codes_frequency_SAR$Code <- tools::toTitleCase(codes_frequency_SAR$Code)
+
+
+codes_frequency_SAR$soft <- as.numeric(codes_frequency_SAR$soft)
+codes_frequency_SAR$rigid <- as.numeric(codes_frequency_SAR$rigid)
+
+codes_frequency_SAR$soft <- codes_frequency_SAR$soft + codes_frequency_SAR$rigid 
 
 
 ### load improved coding guidelines
@@ -169,13 +185,95 @@ xlsx::write.xlsx2(x = results_df_sorted[1:20, ], file = "outputs/RR_codes_first2
 results_df_RR <- results_df
 
 ### show overall table
-DT::datatable(data = results_df)
+DT::datatable(data = results_df_RR)
 ```
-
 
 
 ## for SAR
 
+```{r}
+# Create an empty data frame to store results
+results_df <- data.frame(
+  CategoryAbbrevation = character(),
+  Category = character(),
+  CodeName = character(),
+  Description = character(),
+  stringsAsFactors = FALSE
+)
+
+# Loop through the JSON files
+for (i in 1:length(list_json_files_SAR)) {
+  
+  # Improve code names
+  names(list_json_files_SAR[[i]]$code_descriptions) <- str_replace_all(
+    string = names(list_json_files_SAR[[i]]$code_descriptions),
+    pattern = "_",
+    replacement = " "
+  )
+  names(list_json_files_SAR[[i]]$code_descriptions) <- tools::toTitleCase(
+    names(list_json_files_SAR[[i]]$code_descriptions)
+  )
+  
+  # Get full name of category
+  tmp_categoryAbbrevation <- names(abbreviations_dict$abbreviations_dict[
+    names(abbreviations_dict$abbreviations_dict) == list_json_files_SAR[[i]]$category])
+  tmp_category <- abbreviations_dict$abbreviations_dict[
+    names(abbreviations_dict$abbreviations_dict) == list_json_files_SAR[[i]]$category
+  ][[1]]
+  
+  # Loop through each code description
+  for (j in 1:length(list_json_files_SAR[[i]]$code_descriptions)) {
+    
+    # Extract the code name and description
+    code_name <- names(list_json_files_SAR[[i]]$code_descriptions)[j]
+    description <- list_json_files_SAR[[i]]$code_descriptions[j][[1]]
+    
+    # Append to the results data frame
+    results_df <- rbind(
+      results_df,
+      data.frame(
+        CategoryAbbrevation = tmp_categoryAbbrevation,
+        Category = tmp_category,
+        CodeName = code_name,
+        Description = description,
+        stringsAsFactors = FALSE
+      )
+    )
+  }
+}
+
+colnames(results_df) <- c("Abbrevation", "Category", "Code", "Description")
+
+
+results_df$soft <- NA
+results_df$rigid <- NA
+
+
+### add frequencies
+for(c in unique(results_df$Abbrevation)){
+  tmp_codes_frequency <- codes_frequency_SAR[codes_frequency_SAR$Category == c, ]
+  for(i in 1:nrow(tmp_codes_frequency)){
+    results_df$soft[results_df$Abbrevation == c & results_df$Code == tmp_codes_frequency[i,"Code"]] <- tmp_codes_frequency[i,"soft"]
+
+results_df$rigid[results_df$Abbrevation == c & results_df$Code == tmp_codes_frequency[i,"Code"]] <- tmp_codes_frequency[i,"rigid"]
+  }
+}
+
+
+### save overall table
+xlsx::write.xlsx2(x = results_df, file = "outputs/SAR_codes_complete.xlsx")
+
+
+### sort according to frequency soft, and save top 20
+results_df_sorted <- results_df[order(results_df$soft, decreasing = TRUE),]
+xlsx::write.xlsx2(x = results_df_sorted[1:20, ], file = "outputs/SAR_codes_first20.xlsx")
+
+### backup:
+results_df_SAR <- results_df
+
+### show overall table
+DT::datatable(data = results_df_SAR)
+```
 
 
 
@@ -242,6 +340,8 @@ for(c in unique(results_df_RR$Abbrevation)){
 do not filter for most frequent soft terms:
 
 ```{r}
+setwd("outputs/G3_RR")
+
 for(c in unique(results_df_RR$Abbrevation)){
   tmp_frequency <- results_df_RR[results_df_RR$Abbrevation == c, ]
   tmp_frequency <- tmp_frequency[!is.na(tmp_frequency$soft),]
@@ -287,5 +387,121 @@ for(c in unique(results_df_RR$Abbrevation)){
   
   # Display the plot
   print(plot)
+  
+  ggsave(paste0(tmp_title, ".pdf"))
 }
 ```
+
+
+## for SAR
+
+
+filter for most frequent soft terms:
+
+```{r}
+for(c in unique(results_df_SAR$Abbrevation)){
+  tmp_frequency <- results_df_SAR[results_df_SAR$Abbrevation == c, ]
+  tmp_frequency <- tmp_frequency[!is.na(tmp_frequency$soft),]
+  tmp_frequency <- tmp_frequency[tmp_frequency$soft >= median(tmp_frequency$soft, na.rm = TRUE),]
+  
+  tmp_frequency$Abbrevation <- NULL
+  tmp_frequency$Description <- NULL
+  
+  tmp_title <- paste0(unique(tmp_frequency$Category), collapse = " ") # " - rescue robots"
+  
+  
+  cat("Plot for:\n", tmp_title, "\n")
+  # Insert line breaks into long category names
+  tmp_frequency$Code <- str_wrap(tmp_frequency$Code, width = 20)
+  
+  # Reshape data for ggplot (long format)
+  tmp_long <- reshape2::melt(tmp_frequency, id.vars = c("Category", "Code"), 
+                             variable.name = "Type", value.name = "Count")
+  
+  # Create the plot
+  plot <- ggplot(tmp_long, aes(y = factor(Code, levels = rev(unique(Code))), 
+                               x = Count, fill = Type)) +
+    geom_bar(stat = "identity", position = position_dodge(width = 0.7)) + # Increase bar spacing
+    labs(
+      title = tmp_title,
+      y = "Category",
+      x = "Frequency",
+      fill = "Type"
+    ) +
+    theme_pubr() + # APA-like theme
+    theme(
+      plot.title = element_text(size = 16, face = "bold"),
+      axis.title = element_text(size = 14),
+      axis.title.y = element_blank(),
+      axis.text.y = element_text(size = 12, hjust = 1), # Adjust y-axis text alignment
+      axis.text.x = element_text(size = 14),
+      legend.title = element_text(size = 12),
+      legend.text = element_text(size = 10),
+      panel.grid.major = element_blank(), # Remove grid lines for clarity
+      panel.grid.minor = element_blank()
+    ) +
+    scale_y_discrete(labels = function(labels) str_wrap(labels, width = 20)) # Ensure proper wrapping
+  
+  # Display the plot
+  print(plot)
+}
+```
+
+
+do not filter for most frequent soft terms:
+
+
+```{r}
+setwd("outputs/G3_SAR")
+
+
+for(c in unique(results_df_SAR$Abbrevation)){
+  tmp_frequency <- results_df_SAR[results_df_SAR$Abbrevation == c, ]
+  tmp_frequency <- tmp_frequency[!is.na(tmp_frequency$soft),]
+  # tmp_frequency <- tmp_frequency[tmp_frequency$soft >= median(tmp_frequency$soft, na.rm = TRUE),]
+  
+  tmp_frequency$Abbrevation <- NULL
+  tmp_frequency$Description <- NULL
+  
+  tmp_title <- paste0(unique(tmp_frequency$Category), collapse = " ") # " - rescue robots"
+  
+  
+  cat("Plot for:\n", tmp_title, "\n")
+  # Insert line breaks into long category names
+  tmp_frequency$Code <- str_wrap(tmp_frequency$Code, width = 20)
+  
+  # Reshape data for ggplot (long format)
+  tmp_long <- reshape2::melt(tmp_frequency, id.vars = c("Category", "Code"), 
+                             variable.name = "Type", value.name = "Count")
+  
+  # Create the plot
+  plot <- ggplot(tmp_long, aes(y = factor(Code, levels = rev(unique(Code))), 
+                               x = Count, fill = Type)) +
+    geom_bar(stat = "identity", position = position_dodge(width = 0.7)) + # Increase bar spacing
+    labs(
+      title = tmp_title,
+      y = "Category",
+      x = "Frequency",
+      fill = "Type"
+    ) +
+    theme_pubr() + # APA-like theme
+    theme(
+      plot.title = element_text(size = 16, face = "bold"),
+      axis.title = element_text(size = 14),
+      axis.title.y = element_blank(),
+      axis.text.y = element_text(size = 12, hjust = 1), # Adjust y-axis text alignment
+      axis.text.x = element_text(size = 14),
+      legend.title = element_text(size = 12),
+      legend.text = element_text(size = 10),
+      panel.grid.major = element_blank(), # Remove grid lines for clarity
+      panel.grid.minor = element_blank()
+    ) +
+    scale_y_discrete(labels = function(labels) str_wrap(labels, width = 20)) # Ensure proper wrapping
+  
+  # Display the plot
+  print(plot)
+  
+  ggsave(paste0(tmp_title, ".pdf"))
+}
+```
+
