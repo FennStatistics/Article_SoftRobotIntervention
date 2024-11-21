@@ -1,0 +1,19 @@
+Change:
+
+"durability": "Added concerns about material and production defects to address broader issues of construction quality in rescue robots."
+"technical limitation": "Refocused description on limited senses, orientation, and navigation while removing specific references to soft materials or designs."
+"safety": "Expanded description to include concerns about endangerment of human lives."
+"reliability": "Broadened to include loss of control, unpredictability of autonomous systems, and software errors leading to critical failures."
+"potential risk": "Added concerns about cyber attacks to highlight vulnerabilities in rescue robot deployment."
+"Error development": "Expanded to include issues related to error detection and program disturbances."
+"unintended actions": "Added absence of moral decision-making as a contributing factor to unintended harm caused by rescue robots."
+"misidentification": "Incorporated sensor issues and scenarios where sensors fail to detect victims accurately, emphasizing critical risks."
+"potential harm to victims": "Condensed and clarified description, focusing on risks of injury or fatality due to technical malfunctions."
+
+Delete:
+
+"not insightful": "Removed due to being an irrelevant and non-meaningful code."
+
+Add:
+
+"design limitation": "Introduced to address physical and structural considerations, including weaknesses in soft robots and design flaws that impact resilience and performance."

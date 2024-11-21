@@ -1,0 +1,99 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived risks** specifically regarding **rescue robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key `code_descriptions`. Each key represents a code, and its value is a description of that code. Example structure:  
+```json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+```
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   `[change1, change2, change3]`  
+   Example:  
+   `Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].`  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   `[reason for deletion]`  
+   Example:  
+   `Delete: "code_name_3". Reason: [redundant with code_name_2].`  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   `[keyword1, keyword2, keyword3]`  
+   Example:  
+   `Add: "code_name_4". Keywords: [safety, trust, autonomy].`
+
+---
+
+### Necessary Changes
+
+- Delete: "not insightful". Reason: [not a meaningful code.].  
+
+- Change: "technical limitation". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "potential harm to victims". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "Error development". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "misidentification". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+
+- Change: "reliability". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness; remove the coded texts passage].
+
+
+- Change: "durability". Updates: [add concerns about material and production defects].
+- Change: "technical limitation". Updates: [add issues with limited senses, orientation and navigation; remove specific references to soft materials or designs].
+- Change: "misidentification". Updates: [incorporate sensor issues and scenarios where sensors fail to detect victims accurately].
+- Change: "safety". Updates: [add concerns about endangerment of human lives].
+- Change: "reliability". Updates: [broaden to address loss of control, highlighting situations where autonomous systems fail to behave predictably, and the potential for software errors leading to critical failures].
+- Change: "potential risk". Updates: [add cyber attacks].
+- Change: "Error Development". Updates: [add issues related to error detection and program disturbances].
+- Change: "unintended actions". Updates: [add absence of moral decision-making].
+
+- Add: "design limitation". Keywords: [address physical and structural considerations, such as weaknesses in soft robots or design flaws impacting resilience and performance].  
+
+
+---
+
+### For the following data:
+
+        "code_descriptions": {
+            "durability": "Identifies instances where participants express concerns about the fragility or susceptibility to damage of rescue robots due to their soft construction.",
+            "technical limitation": "Identifies instances where participants express concerns or frustrations related to the constraints or drawbacks of technical capabilities in rescue robots, such as limitations in handling soft tissues or other technical challenges. \n\n*** \n\nthat rescue robots may encounter, there are potential technical limitations that could impact their effectiveness in certain scenarios. *** These technical limitations may hinder the ability of rescue robots to navigate through complex environments or perform delicate tasks, raising concerns about their overall reliability and utility in critical situations.",
+            "not insightful": "Identifies instances where participants express dissatisfaction with the lack of depth or meaningful information provided about the risks associated with rescue robots, potentially hindering their understanding and decision-making process. \n\nCODED TEXTS:\nCan suffer damage on the terrain\n***",
+            "potential misuse": "Identifies instances where the responsibility associated with controlling rescue robots is highlighted as having the potential for misuse.",
+            "accuracy": "Identifies concerns about the ability of rescue robots to accurately respond to unique or unexpected scenarios, highlighting potential limitations in their performance under exceptional circumstances.",
+            "safety": "Identifies concerns related to the safety implications of using rescue robots, highlighting potential risks and negative outcomes associated with their deployment in emergency situations.",
+            "precision": "Identifies references to the level of accuracy or exactness associated with soft rescue robots in contrast to hard rescue robots in the context of perceived risks and benefits of rescue robots.",
+            "perceived risk": "Identifies concerns expressed by participants regarding the potential negative outcomes associated with rescue robots, such as lack of sensitivity leading to exacerbation of situations like collapses.",
+            "reliability": "Identifies instances where participants express uncertainty or lack of trust in the dependability of rescue robots. \n\nCODED TEXTS:\ndoubtful",
+            "potential harm to victims": "Identifies concerns related to the possibility of harm to individuals caused by technical malfunctions in rescue robots, such as potential risks of injury or even fatality. \n\n*** \n\nI hope this description helps in capturing the essence of the \"potential harm to victims\" code within the context of your research project on rescue robots. Let me know if you need further assistance!",
+            "unintended actions": "Captures instances where participants express concerns about potential harm caused by rescue robots due to unintended actions, such as malfunctions leading to accidental harm or even fatalities.",
+            "Error development": "Identifies instances where participants express concerns about potential software errors in rescue robots leading to misidentification of living individuals in emergency situations. \n\n*** \n\nOf course, there can also be errors in the software, so that the robot does not first recognize the living people and only then rushes to the dead.",
+            "misidentification": "Identifies instances where errors in sensor settings may result in areas being mistakenly cleared of victims, potentially leading to misidentification of survivors in rescue operations. \n\n*** \n\nThis code captures situations where misidentification due to sensor errors can have critical implications for rescue efforts, potentially impacting the accuracy of victim detection and endangering survivors.",
+            "potential risk": "Identifies concerns expressed about the susceptibility of rescue robots to hacking, highlighting a potential risk in their deployment for rescue operations.",
+            "unpredictability": "Identifies instances where participants highlight the challenges and limitations associated with the unpredictable nature of rescue scenarios, emphasizing the need for adaptability and flexibility in rescue robot design and operation."
+        }
+
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.

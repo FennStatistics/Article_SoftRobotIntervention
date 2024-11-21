@@ -1,0 +1,111 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived technological limitations** specifically regarding **rescue robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key `code_descriptions`. Each key represents a code, and its value is a description of that code. Example structure:  
+```json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+```
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   `[change1, change2, change3]`  
+   Example:  
+   `Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].`  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   `[reason for deletion]`  
+   Example:  
+   `Delete: "code_name_3". Reason: [redundant with code_name_2].`  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   `[keyword1, keyword2, keyword3]`  
+   Example:  
+   `Add: "code_name_4". Keywords: [safety, trust, autonomy].`
+
+---
+
+### Necessary Changes
+
+- Delete: "not insightful". Reason: [not a meaningful code.].  
+
+
+- Change: "technological limitations". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "movement". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "specialization". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "operational mechanism". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "limited autonomy". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "faulty analyses". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "speed comparison". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "damage not excludable". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+
+
+- Change: "specialization". Updates: [add that specialization limits the robots' adaptability to diverse rescue scenarios].
+- Change: "operational delay". Updates: [incorporate battery and recharging issues].
+- Change: "faulty analyses". Updates: [add the importance of human oversight to avoid errors].
+- Change: "robot runtime". Updates: [add energy constraints].
+- Change: "damage not excludable". Updates: [add that soft/ non-durable materials could be damaged quickly].
+
+
+- Change: "error risk". Updates: [incoporate all the arguments of "error-free"; add that errors can stem from both software and hardware issues; add algorithmic errors].
+- Delete: "error-free". Reason: [same as "error risk"]. 
+
+- Delete: "technological limitations". Reason: [code is too broad.]. 
+- Delete: "perceived technological limitations". Reason: [code is too broad.]. 
+
+ 
+- Add: "immature technology". Keywords: [highlights the developmental limitations of current rescue robot technology, emphasizing the lack of readiness for efficient real-world application]. 
+- Add: "limited flexibility". Keywords: [highlights the robots' inability to adapt dynamically to unforeseen or complex situations]. 
+
+
+ 
+---
+
+### For the following data:
+
+        "code_descriptions": {
+            "risk": "Identifies concerns related to potential errors in algorithms used by rescue robots, highlighting the associated risks in rescue operations.",
+            "technological limitations": "Identifies instances where participants highlight concerns about potential errors in rescue operations due to the presence of technological limitations in rescue robots. \n\n*** \n\nIn the context of a qualitative research project with the research question \"What are the mentioned key benefits and risks regarding the perceived technological limitations of rescue robots?\", the code \"technological limitations\" captures participants' discussions about the possibility of errors in rescue operations stemming from the algorithms' potential mistakes.",
+            "error-free": "Identifies instances where participants express concerns about the lack of perfection or reliability in artificial intelligence systems, highlighting the potential risks associated with errors in technological applications.",
+            "robot runtime": "Captures concerns and questions related to the operational duration and energy sources of rescue robots, particularly focusing on potential delays in rescue operations due to recharging requirements.",
+            "operational delay": "Identifies concerns and questions related to potential delays in the operational capabilities of rescue robots, particularly focusing on issues such as battery life and recharging times.",
+            "not insightful": "Identifies instances where participants express dissatisfaction with the lack of depth or meaningful information provided by remote-controlled rescue robots, highlighting a perceived lack of valuable insights or perspectives. \n\n***\nLimited autonomy and decision-making capabilities. \n***\nNot providing innovative solutions or critical insights.",
+            "movement": "Identifies references in the data where participants express concerns or observations about the restricted mobility or range of motion of rescue robots, potentially impacting their effectiveness in emergency situations. \n\n*** \n\nRobots are limited in their movements.",
+            "perceived risk": "Captures instances where participants express skepticism about the ability of AI, such as rescue robots, to accurately assess complex situations compared to human judgment.",
+            "specialization": "Identifies instances where participants highlight the limited scope of rescue robots, emphasizing their specialization for particular rescue tasks over broader functionalities or applications. \n\n*** \n\nThe robot is only specialized for a specific form of rescue.",
+            "operational mechanism": "Identifies references to the underlying algorithms that drive the functionality and operation of rescue robots within the context of perceived technological limitations and capabilities. \n\n*** \n\nRobots are powered by algorithms.",
+            "pattern recognition": "Identifies instances where individuals express concerns or observations about the limitations of rescue robots in recognizing patterns, potentially impacting their effectiveness in locating victims during emergencies.",
+            "limited autonomy": "Identifies instances where participants express concerns about rescue robots' limited autonomy hindering their ability to effectively respond to complex situations compared to human capabilities. \n\n*** \n\nMay struggle to navigate unpredictable environments or adapt to dynamic circumstances due to their restricted decision-making abilities.",
+            "faulty analyses": "Identifies instances where participants express concerns about potential errors or inaccuracies in the analysis performed by rescue robots due to reliance on recognition software. \n\n*** \n\nParticipants highlighted the need for human oversight to prevent faulty analyses by rescue robots, emphasizing the importance of human judgment in critical situations. \n\n*** \n\nConcerns were raised about the consequences of faulty analyses by rescue robots, particularly in scenarios where quick and accurate decision-making is crucial for saving lives.",
+            "speed comparison": "Identifies instances where participants compare the speed of robots unfavorably to human capabilities, highlighting concerns about efficiency and performance in rescue robot technology. \n\n*** \n\nParticipants noted that in emergency situations, the robot's speed was a significant drawback compared to human responders. *** The speed comparison between the robot and human rescuers was a recurring theme in discussions about the practical limitations of rescue robots. *** While acknowledging the benefits of using robots in search and rescue missions, participants consistently raised concerns about the speed disparity between robots and humans.",
+            "damage not excludable": "Identifies instances where participants express concerns that damage to rescue robots may not be easily repairable or preventable, potentially leading to operational failures. \n\n*** \n\nParticipants highlighted that the soft material can damage faster and thus become defective, raising concerns about the repairability and longevity of rescue robots in critical situations.",
+            "perceived technological limitations": "Highlights the recognition by participants of the constraints in the capabilities of rescue robots compared to human versatility, particularly emphasizing the lack of flexibility in task execution.",
+            "error risk": "Identifies instances where concerns are raised about the potential for errors or mistakes in the performance of rescue robots, questioning their reliability and effectiveness in comparison to human responders."
+        }
+
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.

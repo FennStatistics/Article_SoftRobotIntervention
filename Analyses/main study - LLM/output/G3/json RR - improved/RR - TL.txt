@@ -1,0 +1,25 @@
+Change:
+
+    "technological limitations": "Condensed the description for clarity and conciseness, but later removed due to its broad scope (see Delete section)."
+    "movement": "Condensed the description to focus on restricted mobility concerns in emergency situations."
+    "specialization": "Revised to include the limitation of robots' adaptability to diverse rescue scenarios."
+    "operational mechanism": "Condensed the description to focus on underlying algorithm functionality."
+    "limited autonomy": "Condensed and focused on challenges in responding to dynamic and unpredictable circumstances."
+    "faulty analyses": "Condensed the description and added the importance of human oversight to prevent errors."
+    "speed comparison": "Condensed the description to focus on concerns about robots' speed compared to humans in emergencies."
+    "damage not excludable": "Condensed the description and added concerns about soft/non-durable materials being damaged quickly."
+    "operational delay": "Incorporated battery life and recharging issues into the description."
+    "robot runtime": "Added concerns about energy constraints affecting operational duration."
+    "error risk": "Incorporated arguments from 'error-free,' noting errors can arise from software, hardware, and algorithms."
+
+Delete:
+
+    "not insightful": "Removed for being not meaningful as a code."
+    "error-free": "Deleted as it was redundant with 'error risk.'"
+    "technological limitations": "Deleted for being overly broad."
+    "perceived technological limitations": "Deleted for being overly broad and redundant."
+
+Add:
+
+    "immature technology": "Highlights the developmental limitations of rescue robot technology, focusing on the lack of readiness for real-world application."
+    "limited flexibility": "Describes the inability of rescue robots to adapt dynamically to unforeseen or complex situations."

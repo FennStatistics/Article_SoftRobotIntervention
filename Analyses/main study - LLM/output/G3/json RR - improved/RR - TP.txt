@@ -1,0 +1,22 @@
+Change:
+
+"information generation": "Condensed the description to focus on the main arguments, emphasizing real-time report generation and decision-making without unnecessary details."
+"size": "Simplified the description to emphasize the robot's size and its implications on functionality."
+"autonomy": "Streamlined the description to highlight participant concerns and interests regarding robot self-governance."
+"underwater rescue": "Revised the description to emphasize underwater scenarios where human access is limited, removing extraneous details."
+"efficiency": "Updated the description to include energy throughput and uninterrupted operations as contributors to task efficiency."
+"multiplicability": "Condensed the description to focus on the concept of scalability and large-scale deployment in rescue scenarios."
+"more possibilities": "Simplified the description to focus on the expanded capabilities of rescue robots beyond human limitations."
+"flight": "Revised the description to emphasize the robot's flying capabilities as a distinguishing feature in emergencies."
+"enhanced capabilities": "Included air rescue and lightweight designs as examples of enhanced features."
+"data collection": "Incorporated mapping and geolocation as specific tasks related to data collection."
+"basic needs": "Expanded the description to emphasize the provision of vital resources like food, water, and medicine during rescue operations."
+"accessibility": "Merged arguments from 'entering unstable areas' to focus on the robots' ability to access difficult locations."
+Delete:
+
+"irrelevant": "Removed because it is not a meaningful code for the context of technological possibilities in rescue robots."
+"": "Deleted because it lacks a name and is not a meaningful or distinct code."
+"entering unstable areas": "Removed because its arguments were consolidated under the 'accessibility' code."
+Add:
+
+No new codes were added.
