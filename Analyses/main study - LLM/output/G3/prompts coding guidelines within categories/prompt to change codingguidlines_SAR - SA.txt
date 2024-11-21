@@ -1,0 +1,83 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived safety** specifically regarding **socially assistive robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key code_descriptions. Each key represents a code, and its value is a description of that code. Example structure:  
+json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   [change1, change2, change3]  
+   Example:  
+   Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   [reason for deletion]  
+   Example:  
+   Delete: "code_name_3". Reason: [redundant with code_name_2].  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   [keyword1, keyword2, keyword3]  
+   Example:  
+   Add: "code_name_4". Keywords: [safety, trust, autonomy].
+
+---
+
+### Necessary Changes
+
+- Change: "efficiency". Updates: [add arguments that robots are working faster].
+
+
+- Delete: "safety". Reason: [same as "reliability"].
+- Delete: "NA". Reason: [not relevant for "perceived safety"].
+- Delete: "material comparison". Reason: [same as "material"].
+- Delete: "decision-making options". Reason: [same as "objectivity"].
+
+
+- Add: "reliability". Keywords: [enhancing safety through quick emergency response capabilities and accuracy; 24/7 available].
+- Add: "material". Keywords: [low risk of injury risks during interactions or accidents due to the soft materials used in robots, leads to higher acceptance].
+- Add: "objectivity". Keywords: [instances where participants express expectations that robots should excel in decision-making due to their perceived lack of emotional bias compared to humans].
+
+  
+
+---
+
+### For the following data:
+
+        "code_descriptions": {
+            "safety": "Captures instances where participants highlight the potential benefits of socially assistive robots in enhancing safety through quick emergency response capabilities. \n\n*** \n\nsafety concerns:** Participants express concerns about the safety implications of relying on robots for emergency monitoring, questioning their reliability in critical situations.",
+            "NA": "Captures instances where participants express concerns or experiences related to the absence of necessary safety measures or protocols in interactions with socially assistive robots, potentially leading to negative outcomes or risks. \n\n***Participants highlighted instances where the lack of safety features in socially assistive robots resulted in accidents or potential harm, emphasizing the need for improved safety standards and regulations in the design and deployment of such technology.***",
+            "decision-making options": "Identifies instances where participants express expectations that robots should excel in decision-making due to their perceived lack of emotional bias compared to humans.",
+            "material comparison": "Highlights instances where participants evaluate the differences between materials used in socially assistive robots, emphasizing contrasts in qualities such as durability, aesthetics, or tactile experience. \n\n*** \n\nand the softer, more flexible materials used in the new prototype, participants expressed a preference for the latter due to its perceived friendliness and comfort.",
+            "efficiency": "Identifies instances in the data where participants highlight the effectiveness and productivity of socially assistive robots in performing tasks efficiently."
+        }
+    }
+]
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.

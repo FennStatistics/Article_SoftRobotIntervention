@@ -1,0 +1,20 @@
+Change:
+
+"empathy": "Condensed the description to focus on the inability to convey human warmth or genuine emotional connection and removed unnecessary details for clarity."
+"limitations": "Streamlined the description to highlight key arguments about the limitations of robots in understanding human emotions and needs, while removing redundant content."
+"manipulation": "Simplified the description to emphasize concerns about unauthorized access or coercion, removing extraneous examples for clarity."
+"uncanny valley": "Focused the description on participants' discomfort with robots' artificiality, removing irrelevant details and improving clarity."
+
+Delete:
+
+"perception": "Removed as it was deemed irrelevant for perceived negative anthropomorphism."
+"lack of adaptability": "Eliminated because it did not align with the focus on perceived negative anthropomorphism."
+"complexity": "Deleted as it was redundant with the new 'interaction' code."
+"ethics": "Removed due to redundancy with the new 'ethical concerns' code."
+"empathy": "Deleted to avoid overlap with the new 'lack of empathy' code."
+
+Add:
+
+"interaction": "Introduced to capture skepticism about the feasibility of mechanical or life-like substitutes for intricate human interactions."
+"ethical concerns": "Added to address worries about psychological harm from over-anthropomorphizing robots and emotional bonds breaking due to malfunctions or manipulative use."
+"lack of empathy": "Created to emphasize the inability of socially assistive robots to convey genuine emotional warmth or connection."

@@ -1,0 +1,46 @@
+[
+    {
+        "robot": "SAR",
+        "category": "SA",
+        "coded_texts": [
+            "lower risk of injury: With soft robots",
+            "low risk of injury: with soft robots",
+            "**emergency monitoring:** Depending on how a robot is equipped, **it could respond very quickly in an emergency, faster than a human**<sup>safety</sup>.",
+            "few physical risks: **e.g. through injuries**<sup>NA</sup>",
+            "***low risk of injury:** Due to the fact that a soft robot is not made of metal, but rather soft, **the risk is lower**<sup>safety</sup>.",
+            "decision-making options: **in theory, a robot should be able to make a logical decision better than a human because emotions etc. cannot cloud a decision**<sup>decision-making options</sup>",
+            "No illness: **Robots do not get infected, they do not spread diseases, and they do not get sick.**<sup>safety</sup>",
+            "Not susceptible to infection: **Robots are insensitive to infections.**",
+            "lower risk of injury: **through soft robots**<sup>NA</sup>",
+            "quick hygienic help",
+            "low risk of injury: **In comparison to hard plastic/metal**<sup>material comparison</sup>",
+            "**knowledge:** You get the information from the internet and can capture and assign the data faster than humans.<sup>efficiency</sup>",
+            "lower risk of injury: **due to their softness**<sup>NA</sup>",
+            "***animal protection:** Using a soft robot instead of an animal protects the animal from potentially harmful behavior by the owner.",
+            "low risk of injury",
+            "Precise execution: **Robots perform tasks purposefully**<sup>efficiency</sup>",
+            "***health monitoring:** People no longer necessarily need an emergency button if an external system can watch over them and summon help when in doubt.<sup>efficiency; safety</sup>",
+            "safety: **Soft material reduces risk of injury**<sup>NA</sup>",
+            "no human errors",
+            "less risk of injury",
+            "more attentive",
+            "always correct",
+            "robots are more efficient",
+            "efficient: Work on statistics can be made more efficient through probabilities.",
+            "higher utilization: the robots can be used continuously",
+            "health monitoring",
+            "lower risk of injury",
+            "Ability to learn: The robots are learning and being further developed, **making them more efficient**<sup>efficiency</sup>",
+            "more reliable than humans",
+            "reliable: is always ready",
+            "reduced risk of injury: **through soft materials**<sup>material comparison</sup>",
+            "continuous monitoring"
+        ],
+  "code_descriptions": {
+    "efficiency": "Identifies instances in the data where participants highlight the effectiveness and productivity of socially assistive robots in performing tasks efficiently, with arguments that robots are working faster.",
+    "reliability": "Captures instances where participants highlight the potential benefits of socially assistive robots in enhancing safety through quick emergency response capabilities and accuracy, and being available 24/7.",
+    "material": "Highlights instances where participants evaluate the differences in materials used in socially assistive robots, with a focus on the low risk of injury during interactions or accidents due to the soft materials, leading to higher acceptance.",
+    "objectivity": "Identifies instances where participants express expectations that robots should excel in decision-making due to their perceived lack of emotional bias compared to humans."
+        }
+    }
+]

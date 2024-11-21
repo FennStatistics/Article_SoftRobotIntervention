@@ -1,0 +1,38 @@
+[
+    {
+        "robot": "SAR",
+        "category": "R",
+        "coded_texts": [
+            "information security: **Depending on the specification of the robots, data losses can occur and pose a danger**<sup>data security risk</sup>.",
+            "**Unforeseen reactions**: Reactions of robots can turn out differently than desired if the program does not work 100% correctly<sup>program errors; precise programming</sup>.",
+            "influence through human likeness",
+            "**danger: A malfunctioning robot can seriously endanger humans**<sup>physical harm</sup>. **Software problems can never be ruled out even in security-relevant environments**<sup>technical issues</sup>.",
+            "wrong conditions can harm",
+            "**possible data protection issues**<sup>data security risk</sup>",
+            "repair/ maintenance",
+            "malfunctions: Technical errors can cost human lives",
+            "***risk of injury: with non-soft robots, but also with faulty processing with soft ones***<sup>physical harm</sup>",
+            "**helplessness in case of failures**<sup>technical issues</sup>: Technical problems could cause helplessness",
+            "***\n\nconsequences: **There are no rules yet about social assistance robots. The consequences of a data leak are unknown.**<sup>lack of regulations</sup>",
+            "***device failure: If devices break down or have malfunctions, it can negatively affect the use of the robots***<sup>technical issues</sup>",
+            "no physical accompaniment",
+            "environmental conditions: For example: What to do during a long power outage? Professionals could still work, robots cannot without energy.",
+            "dangers: Similar to what was mentioned before. **It can lead to interpersonal desensitization**<sup>not insightful</sup>.",
+            "data security: Cannot be 100% sure",
+            "safety concerns",
+            "type of robot",
+            "technical malfunction: **Machines make brutal mistakes**<sup>error</sup>",
+            "limited spontaneity",
+            "**accidents due to bugs**<sup>error</sup>: In the early stages, certainly some unforeseen errors occur that could lead to accidents",
+            "risk of injury"
+        ],
+
+  "code_descriptions": {
+    "physical harm": "Identifies instances where participants express concerns about the potential for physically harmful outcomes due to malfunctioning socially assistive robots, particularly unpredictable or unintended reactions.",
+    "technical issues": "Identifies instances where participants express concerns or frustrations related to malfunctions, glitches, or limitations in the technical performance of socially assistive robots, highlighting potential disruptions or challenges in their use.",
+    "lack of regulations": "Identifies instances where participants express concerns about the absence of established guidelines or regulations surrounding socially assistive robots, particularly in relation to potential risks like data security breaches.",
+    "data security": "Identifies concerns regarding the potential for data breaches, loss, or misuse when interacting with socially assistive robots, highlighting perceived risks to privacy and security.",
+    "environmental vulnerabilities": "Identifies concerns about how external factors, such as power outages, extreme temperatures, or unsuitable environments, could impair robot functionality and compromise safety or reliability."
+        }
+    }
+]

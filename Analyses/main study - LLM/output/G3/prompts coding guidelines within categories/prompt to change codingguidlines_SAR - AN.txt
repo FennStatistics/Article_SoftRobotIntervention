@@ -1,0 +1,95 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived negative anthropomorphism** specifically regarding **socially assistive robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key code_descriptions. Each key represents a code, and its value is a description of that code. Example structure:  
+json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   [change1, change2, change3]  
+   Example:  
+   Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   [reason for deletion]  
+   Example:  
+   Delete: "code_name_3". Reason: [redundant with code_name_2].  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   [keyword1, keyword2, keyword3]  
+   Example:  
+   Add: "code_name_4". Keywords: [safety, trust, autonomy].
+
+---
+
+### Necessary Changes
+
+- Change: "empathy". Updates: [add arguments of the inability to convey human warmth or genuine emotional connection; condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+- Change: "limitations". Updates: [add arguments for limitation regarding perceived negative anthropomorphism; condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+- Change: "manipulation". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+- Change: "uncanny valley". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+
+
+- Delete: "perception". Reason: [not relevant for "perceived negative anthropomorphism"].
+- Delete: "lack of adaptability". Reason: [not relevant for "perceived negative anthropomorphism"].
+- Delete: "complexity". Reason: [same as "interaction"].
+- Delete: "ethics". Reason: [same as "ethical concerns"].
+- Delete: "empathy". Reason: [same as "lack of empathy"].
+
+- Add: "interaction". Keywords: [intricate and multifaceted nature of human interaction, suggesting skepticism towards the feasibility of mechanical or life-like substitutes].
+- Add: "ethical concerns". Keywords: [concerns about the potential psychological harm caused by over-anthropomorphizing robots, particularly when emotional bonds are formed that could break due to malfunctions or manipulative use].
+- Add: "lack of empathy". Keywords: [inability to convey human warmth or genuine emotional connection in the context of perceived negative anthropomorphism].
+
+
+  
+
+---
+
+### For the following data:
+
+"code_descriptions": {
+            "empathy": "Identifies instances where participants express a lack of emotional responsiveness or understanding in socially assistive robots, highlighting a perceived absence of empathy in their interactions. \n\n*** \n\nParticipants noted that the robots' responses felt scripted and devoid of genuine emotional connection, emphasizing a desire for more empathetic interactions in their interactions with socially assistive robots.",
+            "deception": "Identifies instances in the data where participants describe deceptive behaviors or actions that imply empathy towards individuals requiring assistance.",
+            "complexity": "Captures references to the intricate and multifaceted nature of human interaction, suggesting skepticism towards the feasibility of mechanical substitutes.",
+            "limitations": "Highlights the acknowledgment of the intricate nature of human interaction and the skepticism towards the feasibility of substituting it with mechanical alternatives. \n\n*** \n\nthe technology has its limitations, especially in understanding and responding to human emotions and needs***while robots can assist in certain tasks, their limitations in emotional intelligence and understanding human nuances are evident***the participants expressed concerns about the limitations of robots in providing genuine emotional support and connection",
+            "lack of adaptability": "Identifies instances where socially assistive robots are described as lacking the ability to adapt to new situations or experiences, potentially limiting their effectiveness in providing support and assistance.",
+            "intuition": "Captures instances where participants express skepticism towards socially assistive robots' ability to exhibit human-like intuition, emphasizing reliance on programmed skills over intuitive understanding.",
+            "harmful potential": "Identifies instances where the anthropomorphism of socially assistive robots is perceived as having the potential to cause harm, particularly in scenarios involving vulnerable populations like children or the elderly.",
+            "manipulation": "Identifies instances in the data where individuals describe actions involving unauthorized access or coercion to influence behavior. \n\n*** \n\nThe individual was manipulated into revealing sensitive information. *** The study participants discussed instances where technology was used for manipulation rather than assistance.",
+            "emotional impact": "Captures instances where participants express the disruption or strain on emotional connections when the socially assistive robot malfunctions or ceases to function.",
+            "perception": "Captures the varied ways in which individuals interpret and feel about anthropomorphized robots, ranging from positive to negative perceptions. \n\n*** \n\nParticipants expressed a sense of comfort and companionship when interacting with anthropomorphized robots, highlighting the positive impact on their emotional well-being.\n\n*** \n\nSome participants mentioned feeling uneasy and unsettled by the human-like features of socially assistive robots, indicating a negative perception of anthropomorphism in this context.",
+            "ethics": "Captures concerns about the ethical implications of replacing human interactions with robots in the context of social assistance. \n\n*** \n\nRobots should not be given the power to make decisions that affect human lives, as this raises ethical concerns. \n\n*** \n\nThe use of socially assistive robots should be carefully monitored to ensure that ethical standards are upheld and human values are respected.",
+            "technological advancement": "Identifies instances where participants express observations or concerns about the blurring boundary between humans and machines in the context of socially assistive robots, reflecting on the impact of technological advancement.",
+            "uncanny valley": "Identifies instances where participants express discomfort or fear when socially assistive robots exhibit characteristics that remind them of their artificial nature, leading to a sense of unease or alienation. \n\n***Robots could suddenly seem alien and scary in interaction, when one becomes aware of their artificiality again***"
+        }
+    }
+]
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.

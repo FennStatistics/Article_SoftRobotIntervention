@@ -1,0 +1,32 @@
+Change:
+
+"promote interaction": "Condensed the description to focus on the main arguments and removed unnecessary details for clarity."
+"emotional support": "Incorporated references to the emotional and sensory benefits of soft, life-like materials in facilitating interactions."
+"haptics": "Added arguments emphasizing the positive evaluation of life-like features in soft robots, which enhances acceptance."
+"companion": "Condensed the description to focus on the main points and removed unnecessary details for clarity."
+"pet alternative": "Simplified the description to highlight the key arguments, removing redundant details for better clarity."
+"therapy success": "Expanded to include the benefits of socially assistive robots in supporting individuals with autism or related disorders."
+
+Delete:
+
+"deterioration": "Removed as it is not relevant for 'perceived positive Human-Robot-Interaction'."
+"privacy": "Removed as it is unrelated to the theme of 'perceived positive Human-Robot-Interaction'."
+"efficiency": "Deleted because its content overlaps with 'emotional support'."
+"communication": "Eliminated due to its lack of relevance to positive Human-Robot-Interaction."
+"lack of expertise": "Deleted as it does not align with the focus on positive Human-Robot-Interaction."
+"benefit": "Removed as it overlaps with 'social contact'."
+"acceptance": "Deleted because its content overlaps with 'haptics'."
+"not insightful": "Removed as it is not relevant to 'perceived positive Human-Robot-Interaction'."
+"positive interaction": "Deleted because it overlaps with 'individualized attention'."
+"social interaction": "Removed as its content overlaps with 'promote interaction'."
+"disorders": "Deleted as it overlaps with 'therapy success'."
+"physicality": "Eliminated as it overlaps with 'haptics'."
+
+Add:
+
+"Natural Interactions": "Highlights the importance of human-like movements, gestures, and reactions to enhance the realism and comfort of interactions with socially assistive robots."
+
+
+
+
+

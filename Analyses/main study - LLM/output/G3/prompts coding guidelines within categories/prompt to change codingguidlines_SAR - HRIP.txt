@@ -1,0 +1,117 @@
+### Task Overview
+Your task is to update an existing coding guideline represented as a JSON object. Each key in the object corresponds to a specific code, and its value describes that code. You will perform one or more of the following operations: modifying descriptions, removing irrelevant codes, or adding new ones.
+
+---
+
+### Background Information
+This coding guideline is part of a research project exploring people's perceptions of robots. Participants evaluated two types of robots: **traditional rigid robots** and **soft, electronic-free robots**. Feedback was collected using scenario-based descriptions of these robots, focusing on their **perceived risks** and **benefits**. The codes in this guideline address the **perceived positive Human-Robot-Interaction** specifically regarding **socially assistive robots**.
+
+---
+
+### Available Operations
+- **Change**: Revise the description of an existing code for clarity, accuracy, or to reflect updated definitions.  
+- **Delete**: Remove codes that are redundant, irrelevant, or no longer applicable.  
+- **Add**: Introduce new codes to capture additional themes or concepts.  
+
+---
+
+### Data Structure
+The guideline is structured as a JSON object under the key code_descriptions. Each key represents a code, and its value is a description of that code. Example structure:  
+json
+{
+  "code_descriptions": {
+    "code_name_1": "Description of code_name_1.",
+    "code_name_2": "Description of code_name_2."
+  }
+}
+
+
+---
+
+### Instructions for Applying Changes
+Each update is written as a separate paragraph and follow these formats:  
+
+- **Change**: Specify the operation as "Change" and include the code name. Provide a list of necessary changes in this format:  
+   [change1, change2, change3]  
+   Example:  
+   Change: "code_name_1". Updates: [clarify benefits, remove ambiguity].  
+
+- **Delete**: Specify the operation as "Delete" and include the code name. Provide the reason for deletion in this format:  
+   [reason for deletion]  
+   Example:  
+   Delete: "code_name_3". Reason: [redundant with code_name_2].  
+
+- **Add**: Specify the operation as "Add" and include a new code name. Provide the description using relevant keywords in this format:  
+   [keyword1, keyword2, keyword3]  
+   Example:  
+   Add: "code_name_4". Keywords: [safety, trust, autonomy].
+
+---
+
+### Necessary Changes
+
+- Change: "promote interaction". Updates: [add arguments for facilitating social contact for socially isolated and elderly individuals; condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].  
+- Change: "emotional support". Updates: [include the emotional and sensory benefits of soft like-like materials in facilitating interactions].  
+- Change: "haptics". Updates: [add arguments for posistive evaluation of like-like features in soft socially assistive roboots which leads to a higher acceptance]. 
+- Change: "companion". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].  
+- Change: "pet alternative". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+- Change: "therapy success". Updates: [add arguments for the potential benefits of socially assistive robots in supporting individuals with autism or related disorders].  
+ 
+
+- Delete: "deterioration". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
+- Delete: "privacy". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
+- Delete: "efficiency". Reason: [same as "emotional support"].
+- Delete: "communication". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
+- Delete: "lack of expertise". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
+- Delete: "benefit". Reason: [same as "social contact"].
+- Delete: "acceptance". Reason: [same as "haptics"].
+- Delete: "not insightful". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
+- Delete: "positive interaction". Reason: [same as "individualized attention"].
+- Delete: "social interaction". Reason: [same as "promote interaction"].
+- Delete: "disorders". Reason: [same as "therapy success"].
+- Delete: "physicality". Reason: [same as "haptics"].
+
+
+- Add: "Natural Interactions". Keywords: [importance of human-like movements, gestures, and reactions to enhance the realism and comfort of interactions with socially assistive robots].  
+  
+
+---
+
+### For the following data:
+
+      "code_descriptions": {
+            "robotic assistance": "Identifies instances where participants highlight the positive impact of socially assistive robots in assuming degrading tasks, enhancing efficiency and quality of life.",
+            "promote interaction": "Identifies instances where socially assistive robots are seen as encouraging social interaction, particularly for introverted or lonely individuals, potentially fostering increased engagement with others. \n\n*** \n\nThis code captures the idea that socially assistive robots have the potential to promote interaction among individuals who may be introverted or lonely, encouraging them to engage more with others.",
+            "brain activation": "Identifies references to engaging in activities or practices aimed at maintaining cognitive health and function, potentially related to the perceived positive Human-Robot-Interaction of socially assistive robots.",
+            "deterioration": "Identifies instances where participants express concerns or observations related to a decline or worsening in mental or physical well-being within the context of Human-Robot-Interaction with socially assistive robots.",
+            "privacy": "Identifies instances where participants express concerns about the potential invasion of privacy by socially assistive robots due to their advanced capabilities in understanding and interacting with individuals.",
+            "efficiency": "Identifies instances where participants highlight the potential for robots to outperform human staff in understanding individuals and their emotions, emphasizing efficiency in human-robot interaction.",
+            "help with depression": "Captures instances where socially assistive robots are utilized to provide support and assistance to individuals with depression in establishing routines or similar activities.",
+            "communication": "Identifies instances where language barriers hinder effective communication in discussions about the benefits and risks of socially assistive robots in Human-Robot Interaction. \n\n*** \n\nmisunderstandings due to technical jargon***\n\n***\n\ndifficulties in conveying emotions and intentions through robotic interactions",
+            "emotional support": "Identifies instances where participants express a desire for emotional support from socially assistive robots to address feelings of shame related to their suffering.",
+            "help with attention": "Identifies instances where participants discuss the need for assistance or support in improving attention and learning skills, within the context of socially assistive robots in Human-Robot Interaction research. \n\n***",
+            "physicality": "Identifies references to the advantageous use of physically interactive robots in various contexts such as elderly care, dementia, and toddler engagement.",
+            "resource availability": "Identifies instances where participants highlight the perception of socially assistive robots having abundant and unlimited resources to support individual users in the context of Human-Robot-Interaction.",
+            "lack of expertise": "Identifies instances where participants express concerns or limitations due to a perceived absence of specialized skills or experience in the context of socially assistive robots within Human-Robot-Interaction research. \n\n*** \n\nParticipants mentioned feeling unprepared to engage with socially assistive robots due to a lack of expertise in the field.***\n\nParticipants highlighted the importance of having specialized knowledge and skills to effectively interact with socially assistive robots.***\n\nThe lack of expertise in Human-Robot-Interaction was seen as a barrier to fully benefitting from the positive aspects of socially assistive robots.***",
+            "benefit": "Identifies instances where socially assistive robots are recognized as providing positive benefits, particularly in facilitating social contact for socially isolated and elderly individuals.",
+            "target demographic": "Identifies references to specific groups or populations that socially assistive robots are designed to benefit, such as socially isolated individuals or the elderly, within the context of discussing the key benefits and risks of Human-Robot-Interaction.",
+            "haptics": "Captures instances where participants express appreciation for tactile interactions and the incorporation of materials like fur to enhance acceptance in Human-Robot-Interaction.",
+            "acceptance": "Captures instances where participants express positive attitudes towards the incorporation of tactile elements, such as fur, in socially assistive robots, indicating increased acceptance of these robots.",
+            "patience": "Captures instances where individuals exhibit tolerance and understanding, particularly in contexts involving repetitive actions, such as interactions with individuals with dementia, within the realm of positive Human-Robot-Interaction with socially assistive robots.",
+            "dementia care": "Captures instances where individuals emphasize the importance of patience in providing care for individuals with dementia, highlighting the need for tolerance towards repetitive actions.",
+            "autism": "Captures references to the perceived utility of socially assistive robots for individuals with autism or related conditions, highlighting their potential benefits in providing support and assistance.",
+            "disorders": "Identifies references to the potential benefits of socially assistive robots in supporting individuals with autism or related disorders within the context of Human-Robot Interaction research.",
+            "companion": "Captures instances where participants express the potential for emotional attachment and companionship with socially assistive robots, highlighting the perceived benefits of forming a close relationship with these machines. \n\n*** \n\nParticipants discussing the robot as a companion rather than just a tool for assistance.***\n\n*** \n\nDescribing feelings of comfort and companionship when interacting with the socially assistive robot.***",
+            "therapy success": "Identifies instances where participants express the potential for emotional attachment to socially assistive robots as a measure of therapy success.",
+            "not insightful": "Identifies instances where participants express a lack of depth or value in the insights provided, potentially indicating a perceived absence of meaningful or thought-provoking content in discussions related to socially assistive robots.",
+            "individualized attention": "Identifies instances where the potential benefits of socially assistive robots are highlighted through the provision of personalized and individualized attention, such as tailoring care to specific needs in settings like nursing homes.",
+            "positive interaction": "Identifies instances where participants highlight the potential benefits of positive interactions with socially assistive robots, such as personalized care in settings like nursing homes.",
+            "pet alternative": "Identifies references to alternative options to traditional pets, particularly for individuals with allergies or limitations in caring for live animals, within discussions on the benefits and risks of positive Human-Robot-Interaction with socially assistive robots. \n\n*** \n\nThis code captures mentions of alternatives to traditional pets, like robotic or virtual companions, for individuals unable to care for real animals due to allergies or other constraints, within the context of exploring the positive Human-Robot-Interaction with socially assistive robots.",
+            "social interaction": "Captures instances where socially assistive robots facilitate engaging and stimulating interactions to invigorate and connect with otherwise disengaged nursing home residents."
+        }
+    }
+]
+		
+---
+
+Only return the JSON file "code_descriptions" with all the necessary changes applied. Return nothing else.

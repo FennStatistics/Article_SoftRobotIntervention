@@ -1,0 +1,19 @@
+Change:
+
+"support": Updated to focus on personalized support and continuous care in socially assistive robots, removing unnecessary details for clarity.
+"medical advancement": Condensed to emphasize the positive impact of technological advancements in medical diagnosis, removing extraneous information.
+"adaptability": Shortened to focus on the versatility of socially assistive robots in various contexts, removing unnecessary examples.
+"rapid advancement/training": Streamlined to highlight the quick learning capabilities of socially assistive robots, removing redundant details.
+"therapy": Removed the quote "referencing therapy animals like dogs, focusing solely on socially assistive robots" role in therapy.
+"usability": Condensed to emphasize technological possibilities, such as user well-being, removing unnecessary details.
+
+Delete:
+
+"coding": Deleted as it is not relevant to the perceived technological possibilities of socially assistive robots.
+"comparison": Removed as it does not focus on the technological possibilities of socially assistive robots.
+"technology": Deleted as it overlaps with the healthcare theme and doesn't provide additional distinct insights.
+
+Add:
+
+"healthcare": Emphasizes the importance of incorporating advanced technology into healthcare for improved patient care and outcomes.
+"multilingual": Highlights the ability of robots to understand and communicate in multiple languages, overcoming language barriers in various contexts.

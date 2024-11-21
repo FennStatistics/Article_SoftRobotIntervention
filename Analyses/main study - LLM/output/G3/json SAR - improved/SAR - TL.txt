@@ -1,0 +1,19 @@
+Change:
+
+"interaction": "The description was updated to include concerns about robots having limited interaction capabilities due to technological limitations."
+"lower adaptability": "The description was condensed to focus on key concerns about robots' inability to personalize or adapt to individual needs, removing unnecessary details."
+"limited assistance": "The description was condensed to emphasize concerns about robots' limited support in urgent or critical situations, removing unnecessary details."
+
+Delete:
+
+"risk": "Deleted as it overlaps with 'lower adaptability' in addressing potential negative outcomes related to robots' limitations."
+"dialect": "Deleted because its concerns are captured under 'language barrier.'"
+"prone to errors": "Deleted because it is not relevant to the theme of technological limitations in socially assistive robots."
+"technical progress": "Deleted because it overlaps with concerns about the robot's ability to understand human emotions."
+"safety concerns": "Deleted due to redundancy with concerns about understanding human emotions."
+
+Add:
+
+"language barrier": "New code describing concerns about robots' inability to comprehend regional or individual speech patterns, including issues with age-related communication difficulties."
+"understanding human emotions": "New code highlighting skepticism about robots' ability to understand and mimic human emotions."
+"spontaneity": "New code capturing concerns about robots' inability to handle spontaneous or unexpected situations."

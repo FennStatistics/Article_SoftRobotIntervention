@@ -1,0 +1,16 @@
+
+Change:
+
+"physical harm": The description was revised to emphasize unpredictable or unintended reactions from socially assistive robots that could result in physical harm, with unnecessary details removed for conciseness and clarity.
+"data security risk": The code was replaced with "data security" to better focus on concerns about data breaches, loss, or misuse, highlighting perceived risks to privacy and security.
+
+Delete:
+
+"not insightful": This code was deleted as it was not relevant to the theme of "perceived risks."
+"error": This code was deleted because it did not pertain to "perceived risks."
+"data security risk": This code was deleted because it was redundant with the newly added "data security" code.
+
+Add:
+
+"data security": This new code captures concerns about potential data breaches, loss, or misuse related to socially assistive robots, emphasizing privacy and security risks.
+"environmental vulnerabilities": This new code highlights concerns about external factors, such as power outages or extreme temperatures, that could affect robot functionality and safety.

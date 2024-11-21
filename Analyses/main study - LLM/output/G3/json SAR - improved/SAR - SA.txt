@@ -1,0 +1,16 @@
+Change:
+
+"efficiency": The description was updated to emphasize the argument that robots work faster, highlighting their effectiveness and productivity in performing tasks efficiently.
+
+Delete:
+
+"safety": This code was deleted as its content overlaps with 'reliability,' which covers similar safety aspects more comprehensively.
+"NA": This code was deleted as it is not relevant to 'perceived safety' in socially assistive robots.
+"material comparison": This code was deleted as it overlaps with 'material,' which focuses more specifically on the acceptance linked to the materials used.
+"decision-making options": This code was deleted as its content overlaps with 'objectivity,' which captures the expectation that robots excel in decision-making due to the perceived lack of emotional bias.
+
+Add:
+
+"reliability": This new code highlights the benefits of socially assistive robots in enhancing safety through quick emergency responses, accuracy, and being available 24/7.
+"material": This new code emphasizes the low risk of injury during interactions or accidents due to the soft materials used in robots, leading to higher acceptance.
+"objectivity": This new code focuses on participants' expectations that robots should excel in decision-making, as they are perceived to lack emotional bias compared to humans.
