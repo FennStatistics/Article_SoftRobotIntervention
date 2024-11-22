@@ -26,7 +26,6 @@
             "**accidents due to bugs**<sup>error</sup>: In the early stages, certainly some unforeseen errors occur that could lead to accidents",
             "risk of injury"
         ],
-
   "code_descriptions": {
     "physical harm": "Identifies instances where participants express concerns about the potential for physically harmful outcomes due to malfunctioning socially assistive robots, particularly unpredictable or unintended reactions.",
     "technical issues": "Identifies instances where participants express concerns or frustrations related to malfunctions, glitches, or limitations in the technical performance of socially assistive robots, highlighting potential disruptions or challenges in their use.",

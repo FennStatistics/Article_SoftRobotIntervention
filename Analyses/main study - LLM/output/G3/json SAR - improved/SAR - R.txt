@@ -14,3 +14,8 @@ Add:
 
 "data security": This new code captures concerns about potential data breaches, loss, or misuse related to socially assistive robots, emphasizing privacy and security risks.
 "environmental vulnerabilities": This new code highlights concerns about external factors, such as power outages or extreme temperatures, that could affect robot functionality and safety.
+
+
+###
+in future:
+manually overwrite code name "technical issues" to "Technical Challenges and Limitations"

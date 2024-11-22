@@ -3,31 +3,32 @@
         "robot": "RR",
         "category": "SA",
         "coded_texts": [
+            "human safety",
+            "access to areas: Access to areas difficult or only reachable through considerable dangers for people",
+            "earthquake rescue",
+            "direct help: through water/food",
+            "precise work",
+            "simplified access",
+            "are mentally superior: No trauma for rescuers",
+            "**remote control: Can be operated by experts via remote control**<sup>safety; remote operation</sup> **or autonomous systems to perform operations from a safe distance.**<sup>safety; remote operation</sup>",
+            "**More flexible than human: People cannot access some areas or cannot see whether people are still alive.**<sup>accessibility; assessment</sup> **For example, in an earthquake incident under the rubble.**<sup>accessibility; assessment</sup>",
+            "can save lives",
             "food/water transport",
-            "reliable: Can be precisely controlled",
-            "**unrestricted access: Robots can operate in environments that would be toxic to humans, e.g. areas contaminated with radiation.**<sup>safety; hazardous environments</sup>",
-            "greater accuracy",
-            "quick help",
-            "do not get tired",
-            "**fire department support**<sup>no relevant insights</sup>",
-            "**responsiveness: Robots have a significantly higher reaction capability than human rescuers**<sup>safety</sup>",
-            "**dispensable: the loss of a robot is less tragic than the loss of a human rescuer**<sup>safety</sup>",
-            "**less danger: for human rescue forces**<sup>safety</sup>",
-            "**earthquake rescue**<sup>no relevant insights</sup>",
+            "**area of application: Can be used in areas that are too dangerous for humans.**<sup>accessibility; safety</sup>",
+            "supply with food",
+            "**Range: Robots, again just the drone can rescue victims faster in difficult terrain or bring help, e.g. medicine, food**<sup>accessibility; safety</sup>",
+            "rescue efficient and",
             "toxic places: Places where people can only breathe with special equipment (gas mask)",
-            "**life-threatening places**<sup>no relevant insights</sup>",
-            "**protection of rescue forces: for example in contamination scenarios**<sup>no relevant insights</sup>",
-            "**do not lose strength: Robots do not lose stamina while humans could lose strength during missions.**<sup>no relevant insights</sup>",
-            "**fewer deaths**<sup>no relevant insights</sup>",
-            "**protection of rescue forces: Reduced deployment of human rescue forces in dangerous situations**<sup>safety; hazardous environments</sup>",
-            "**sparing human life: If robots are used instead of human rescuers, the lives and health of the rescuers do not have to be put at risk.**<sup>safety</sup>",
-            "**rescue efficient and**<sup>no relevant insights</sup>",
-            "**are physically superior: Strength, agility, mobility**<sup>no relevant insights</sup>"
+            "**protection of rescue forces: Reduced deployment of human rescue forces in dangerous situations**<sup>safety</sup>",
+            "faster access: easier access to dangerous place",
+            "enter dangerous areas",
+            "consistent performance"
         ],
         "code_descriptions": {
-            "safety": "Captures discussions on the perceived safety benefits of search and rescue robots, particularly their ability to access hazardous environments, such as radiation-contaminated areas, without risking human lives.",
-            "hazardous environments": "Captures discussions about the ability of search and rescue robots to safely navigate and perform tasks in environments that are dangerous or inaccessible to humans, such as those contaminated with hazardous substances or extreme conditions.",
-            "no relevant insights": "Captures instances where participants mention topics or information that do not provide meaningful contributions or insights related to the perceived benefits and risks regarding the safety of the search and rescue robot, such as generic statements or unrelated themes."
+            "safety": "Captures discussions where participants highlight the perceived safety benefits of the search and rescue robot being remotely controlled by experts, thereby minimizing human risk in hazardous environments.",
+            "remote operation": "Captures instances where participants highlight the ability of search and rescue robots to be operated from a distance by skilled professionals, emphasizing the safety benefits of minimizing human exposure to hazardous environments.",
+            "accessibility": "Captures instances where participants highlight the ability of search and rescue robots to access hazardous or confined spaces that are challenging or impossible for humans to reach, thereby enhancing the effectiveness and safety of rescue operations.",
+            "assessment": "Captures instances where participants evaluate the capabilities of search and rescue robots, particularly highlighting their ability to access areas and assess situations that may be challenging or impossible for humans."
         }
     }
 ]
