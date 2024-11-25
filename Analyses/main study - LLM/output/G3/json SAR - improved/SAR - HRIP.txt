@@ -1,32 +1,36 @@
 Change:
 
-"promote interaction": "Condensed the description to focus on the main arguments and removed unnecessary details for clarity."
-"emotional support": "Incorporated references to the emotional and sensory benefits of soft, life-like materials in facilitating interactions."
-"haptics": "Added arguments emphasizing the positive evaluation of life-like features in soft robots, which enhances acceptance."
-"companion": "Condensed the description to focus on the main points and removed unnecessary details for clarity."
-"pet alternative": "Simplified the description to highlight the key arguments, removing redundant details for better clarity."
-"therapy success": "Expanded to include the benefits of socially assistive robots in supporting individuals with autism or related disorders."
+    "promote interaction": "Consolidated arguments from 'emotional support' and 'companion' into a concise description highlighting the role of socially assistive robots in fostering social interaction, emotional support, and companionship."
+    "robotic assistance": "Incorporated arguments from 'help with attention' and 'help with depression' into a cohesive description of the robot's role in task efficiency and supporting mental health."
+    "therapy success": "Expanded the description to include benefits for individuals with autism or related disorders and emphasized emotional attachment as a measure of therapy success."
+    "haptics": "Enhanced the description to highlight the positive evaluation of lifelike tactile features in soft socially assistive robots, leading to higher acceptance."
 
 Delete:
 
-"deterioration": "Removed as it is not relevant for 'perceived positive Human-Robot-Interaction'."
-"privacy": "Removed as it is unrelated to the theme of 'perceived positive Human-Robot-Interaction'."
-"efficiency": "Deleted because its content overlaps with 'emotional support'."
-"communication": "Eliminated due to its lack of relevance to positive Human-Robot-Interaction."
-"lack of expertise": "Deleted as it does not align with the focus on positive Human-Robot-Interaction."
-"benefit": "Removed as it overlaps with 'social contact'."
-"acceptance": "Deleted because its content overlaps with 'haptics'."
-"not insightful": "Removed as it is not relevant to 'perceived positive Human-Robot-Interaction'."
-"positive interaction": "Deleted because it overlaps with 'individualized attention'."
-"social interaction": "Removed as its content overlaps with 'promote interaction'."
-"disorders": "Deleted as it overlaps with 'therapy success'."
-"physicality": "Eliminated as it overlaps with 'haptics'."
+    "emotional support": "Merged into 'promote interaction' due to overlapping content."
+    "companion": "Merged into 'promote interaction' to consolidate similar ideas."
+    "help with attention": "Merged into 'robotic assistance' to streamline related content."
+    "help with depression": "Merged into 'robotic assistance' due to overlapping content."
+    "deterioration": "Removed as it was not relevant to perceived positive Human-Robot Interaction."
+    "privacy": "Removed as it was not relevant to perceived positive Human-Robot Interaction."
+    "efficiency": "Removed as it was redundant with the updated 'promote interaction.'"
+    "communication": "Removed as it was not relevant to perceived positive Human-Robot Interaction."
+    "lack of expertise": "Removed as it was not relevant to perceived positive Human-Robot Interaction."
+    "benefit": "Removed as it was redundant with 'social contact.'"
+    "acceptance": "Removed as it was redundant with 'haptics.'"
+    "not insightful": "Removed as it was not relevant to perceived positive Human-Robot Interaction."
+    "positive interaction": "Removed as it was redundant with 'individualized attention.'"
+    "social interaction": "Removed as it was redundant with 'promote interaction.'"
+    "disorders": "Removed as it was redundant with 'therapy success.'"
+    "physicality": "Removed as it was redundant with 'haptics.'"
 
 Add:
 
-"Natural Interactions": "Highlights the importance of human-like movements, gestures, and reactions to enhance the realism and comfort of interactions with socially assistive robots."
+    "Natural Interactions": "Introduced to highlight the importance of human-like movements, gestures, and reactions in enhancing the realism and comfort of interactions with socially assistive robots."
 
 
 
 
-
+Renamed manually the following category:
+    promote interaction -> emotional support and social interaction
+    robotic assistance -> Assistance and Cognitive Support

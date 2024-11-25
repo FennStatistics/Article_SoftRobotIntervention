@@ -1,21 +1,25 @@
 Change:
 
-    benefit: "Condensed the description to focus on the primary advantage of reducing human presence in hazardous conditions, removing unnecessary details."
-    safety: "Updated to focus on reducing risks and protecting humans, highlighting features like hazard-detecting sensors while removing excessive details."
-    speed: "Streamlined the description to emphasize the importance of quick responses and productivity in rescue scenarios."
-    access: "Refined the description to highlight improved access to remote locations, emphasizing faster response times."
-    replaceability: "Simplified the description and added the argument that material loss is less significant than human loss."
-    strength: "Expanded to highlight the physical superiority of rescue robots, including their ability to lift heavy objects and operate beyond human capacity."
-    reliability: "Enhanced the description by adding references to consistent performance and precise control of rescue robots."
-    focus on task: "Condensed the description to emphasize the efficiency of robots in performing tasks without emotional interference."
-    search capabilities: "Simplified the description to emphasize the enhanced search ability in challenging environments using advanced sensors."
-    efficiency: "Updated to focus on enhancing overall operational performance and speed in emergencies."
+    "strength": "Expanded description to include specific examples of physical superiority, such as lifting heavy objects and navigating difficult terrains."
+    "reliability": "Enhanced the definition to include consistent performance, precise control, and the role of rescue robots in reducing risks in hazardous conditions."
+    "replaceability": "Refined the description to emphasize that material loss is less significant than human loss and the ease of substituting robots in operations."
+    "efficiency": "Incorporated arguments of speed and operational efficiency to highlight quicker response times, improved performance, and reduced risks during interventions."
+    "access": "Condensed the description to focus on enhanced access to remote or hard-to-reach areas, enabling quicker responses and potential lifesaving actions."
+    "focus on task": "Clarified the emphasis on task efficiency and the lack of emotional interference, enhancing reliability in rescue missions."
+    "search capabilities": "Condensed the description to emphasize the advanced sensor technology and its utility in challenging environments like dark or smoky areas."
 
 Delete:
 
-    not insightful: "Removed because it was not a meaningful code and lacked substantial value."
-    "" (unnamed code): "Deleted as it was an unnamed code without any meaningful content."
+    "safety": "Removed for being a generic argument with limited utility in the context of the guidelines."
+    "benefit": "Eliminated for being overly broad and not directly relevant."
+    "speed": "Removed due to redundancy with the more comprehensive 'efficiency' code."
+    "operational efficiency": "Deleted as its arguments were merged into the updated 'efficiency' code."
+    "not insightful": "Deleted for lacking meaningful or actionable content."
+    "": "Removed because the code name was missing and lacked meaningful context."
 
 Add:
 
-    risk reduction: "Introduced to capture references to minimizing risks for victims and rescuers, emphasizing the role of rescue robots in reducing exposure to dangerous conditions."
+    No new codes were added in this update.
+
+Renamed manually the following four categories:
+    efficiency -> Operational Efficiency

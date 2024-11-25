@@ -97,23 +97,18 @@
 
   ],
   "code_descriptions": {
-    "robotic assistance": "Identifies instances where participants highlight the positive impact of socially assistive robots in assuming degrading tasks, enhancing efficiency and quality of life.",
-    "promote interaction": "Identifies instances where socially assistive robots are seen as encouraging social interaction, particularly for introverted or lonely individuals, fostering increased engagement with others.",
+    "Assistance and Cognitive Support": "Identifies instances where participants highlight the positive impact of socially assistive robots in assuming degrading tasks, enhancing efficiency and quality of life. Additionally, this includes their role in improving attention and supporting individuals with depression.",
+    "emotional support and social interaction": "Identifies instances where socially assistive robots are seen as encouraging social interaction, particularly for introverted or lonely individuals, fostering increased engagement with others. This also includes their role in providing emotional support and companionship, focusing on the benefits of fostering connections and addressing social isolation.",
     "brain activation": "Identifies references to engaging in activities or practices aimed at maintaining cognitive health and function, potentially related to the perceived positive Human-Robot-Interaction of socially assistive robots.",
-    "help with depression": "Captures instances where socially assistive robots are utilized to provide support and assistance to individuals with depression in establishing routines or similar activities.",
-    "emotional support": "Identifies instances where participants express a desire for emotional support from socially assistive robots, including the emotional and sensory benefits of soft, life-like materials in facilitating interactions.",
-    "help with attention": "Identifies instances where participants discuss the need for assistance or support in improving attention and learning skills, within the context of socially assistive robots in Human-Robot Interaction research.",
-    "resource availability": "Identifies instances where participants highlight the perception of socially assistive robots having abundant and unlimited resources to support individual users in the context of Human-Robot-Interaction.",
+    "therapy success": "Identifies instances where participants express the potential benefits of socially assistive robots in supporting therapy, such as helping individuals with autism or related disorders, and fostering emotional attachment as a measure of success.",
     "target demographic": "Identifies references to specific groups or populations that socially assistive robots are designed to benefit, such as socially isolated individuals or the elderly, within the context of discussing the key benefits and risks of Human-Robot-Interaction.",
-    "haptics": "Captures instances where participants express appreciation for tactile interactions and the incorporation of materials like fur to enhance acceptance in Human-Robot-Interaction, particularly highlighting positive evaluations of life-like features in soft socially assistive robots.",
+    "haptics": "Captures instances where participants express appreciation for tactile interactions and the incorporation of materials like fur to enhance acceptance in Human-Robot-Interaction, highlighting the positive evaluation of lifelike features in soft, socially assistive robots.",
     "patience": "Captures instances where individuals exhibit tolerance and understanding, particularly in contexts involving repetitive actions, such as interactions with individuals with dementia, within the realm of positive Human-Robot-Interaction with socially assistive robots.",
     "dementia care": "Captures instances where individuals emphasize the importance of patience in providing care for individuals with dementia, highlighting the need for tolerance towards repetitive actions.",
-    "autism": "Captures references to the perceived utility of socially assistive robots for individuals with autism or related conditions, highlighting their potential benefits in providing support and assistance.",
-    "companion": "Captures instances where participants express the potential for emotional attachment and companionship with socially assistive robots, highlighting the perceived benefits of forming a close relationship with these machines.",
-    "therapy success": "Identifies instances where participants express the potential for socially assistive robots to support therapy success, particularly in helping individuals with autism or related disorders.",
+    "resource availability": "Identifies instances where participants highlight the perception of socially assistive robots having abundant and unlimited resources to support individual users in the context of Human-Robot-Interaction.",
     "individualized attention": "Identifies instances where the potential benefits of socially assistive robots are highlighted through the provision of personalized and individualized attention, such as tailoring care to specific needs in settings like nursing homes.",
-    "pet alternative": "Identifies references to alternative options to traditional pets, particularly for individuals with allergies or limitations in caring for live animals, highlighting the benefits of robotic or virtual companions.",
+    "pet alternative": "Identifies references to alternative options to traditional pets, particularly for individuals with allergies or limitations in caring for live animals, within discussions on the benefits and risks of positive Human-Robot-Interaction with socially assistive robots.",
     "Natural Interactions": "Highlights the importance of human-like movements, gestures, and reactions to enhance the realism and comfort of interactions with socially assistive robots."
-        }
+    }
     }
 ]

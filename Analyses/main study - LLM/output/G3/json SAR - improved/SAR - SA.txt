@@ -14,3 +14,6 @@ Add:
 "reliability": This new code highlights the benefits of socially assistive robots in enhancing safety through quick emergency responses, accuracy, and being available 24/7.
 "material": This new code emphasizes the low risk of injury during interactions or accidents due to the soft materials used in robots, leading to higher acceptance.
 "objectivity": This new code focuses on participants' expectations that robots should excel in decision-making, as they are perceived to lack emotional bias compared to humans.
+
+Renamed manually the following four categories:
+    efficiency -> Operational Efficiency

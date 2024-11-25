@@ -52,7 +52,7 @@ Each update is written as a separate paragraph and follow these formats:
 
 
 - Change: "carefulness". Updates: [add concerns if robot can adress the emotional needs of victims during rescue operations].
-- Change: "emotions". Updates: [incorporate references to fear and discomfort caused by emotionally detached robots in rescue scenarios].
+- Change: "emotions". Updates: [incorporate references to fear and discomfort caused by emotionally detached robots in rescue scenarios; add feelings of fear].
 - Change: "lack of emotional understanding". Updates: [include concerns about the robot's inability to recognize or respond to distress or fear in addition to compassion and empathy].
 
 - Change: "lack of emotional understanding". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].  

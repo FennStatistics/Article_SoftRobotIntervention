@@ -79,22 +79,20 @@
             "fake relationships",
             "***fear due to strangeness: Above all, elderly people could be confused by the concept of robots.***<sup>fear</sup>"
           ],
-  "code_descriptions": {
-    "loss of gestures": "Captures instances where participants express a sense of diminished emotional connection or understanding due to the absence or reduction of physical gestures in interactions with socially assistive robots, such as hugs or placing a hand on the shoulder.",
-    "emotional understanding": "Captures instances where participants express concerns or expectations regarding a socially assistive robot's ability to understand and respond to human emotions in a meaningful way, including reacting to emotions appropriately and controlling actions based on emotional cues.",
-    "fear": "Captures instances where participants express concerns or apprehension, particularly among older individuals or dementia patients, regarding the use of socially assistive robots in Human-Robot-Interaction, highlighting potential fears associated with machine interaction.",
-    "individual response": "Highlights the varying individual reactions to physical closeness in Human-Robot-Interaction, ranging from comfort to discomfort or triggers, emphasizing diverse personal preferences.",
-    "loneliness risk": "Identifies concerns related to the potential risk of loneliness stemming from the reduction of social contacts when humans are replaced by robots in socially assistive roles.",
-    "competence": "Denotes references to the necessity for both staff and clients to possess the necessary skills and knowledge to effectively interact with socially assistive robots in the context of perceived risks and benefits.",
-    "age-related attitudes": "Captures instances where older individuals express skepticism or resistance towards adopting new technologies, particularly in the context of socially assistive robots and Human-Robot-Interaction.",
-    "impersonal": "Identifies instances where participants express a preference for human-like qualities in interactions with robots, highlighting a desire for more personalized and emotionally engaging experiences.",
-    "dependence": "Identifies instances where participants discuss reliance on socially assistive robots for various tasks, emphasizing the nuanced perspectives on the benefits and risks of dependence, including reduced human contact and emotional impacts.",
-    "emotional dependence": "Captures instances where individuals form emotional attachments to socially assistive robots, viewing them as companions or substitutes for human relationships. This includes concerns about emotional blunting, pseudo-relationships, and potential overdependence.",
-    "technical knowledge": "Identifies instances where participants discuss the importance of possessing technical knowledge for effectively operating socially assistive robots, including managing potential communication barriers and ensuring smooth interactions.",
-    "unhealthy relationships": "Identifies instances where participants express concerns about forming unhealthy dynamics with socially assistive robots, potentially leading to decreased human contact and distorted emotional interactions.",
-    "deception": "Identifies instances where participants express concerns about the unethical practice of simulating human interaction with socially assistive robots, potentially leading to misunderstandings or misperceptions.",
-    "superficial interaction": "Captures concerns that interactions with robots may feel insincere or lack depth compared to human connections, raising questions about the authenticity of such engagements.",
-    "lack of humanity": "Captures instances where participants emphasize the irreplaceable value of human empathy and connection, which cannot be adequately replicated by interactions with robots."
-  }
+          "code_descriptions": {
+            "lack of emotional understanding": "Captures instances where participants express concerns or expectations regarding a socially assistive robot's ability to understand and respond to human emotions in a meaningful way, including the ability to compensate for the lack of physical gestures or emotional cues.",
+            "fear": "Captures instances where participants express concerns or apprehension, highlighting potential fears associated with machine interaction.",
+            "individual response": "Captures the varying individual reactions to physical closeness in the context of Human-Robot-Interaction, highlighting differing preferences and triggers among participants, with a focus on comfort levels and diverse personal boundaries.",
+            "loneliness risk": "Identifies concerns related to the potential risk of loneliness stemming from the reduction of social contacts when humans are replaced by robots in socially assistive roles.",
+            "competence": "Denotes references to the necessity for both staff and clients to possess the necessary skills and knowledge to effectively interact with socially assistive robots in the context of perceived negative Human-Robot-Interaction risks and benefits.",
+            "age-related attitudes": "Captures instances where older individuals express skepticism or resistance towards adopting new technologies, particularly in the context of socially assistive robots and human-robot interaction.",
+            "Reliance and Trust": "Identifies instances where participants express reliance on socially assistive robots for various needs or tasks, highlighting the perceived benefits and risks associated with this dependence.",
+            "emotional dependence": "Identifies instances where individuals form emotional attachments to socially assistive robots, viewing them as companions or substitutes for human relationships, highlighting concerns around emotional replacement, emotional blunting, and pseudo-relationships.",
+            "technical knowledge": "Identifies instances where participants discuss the importance of possessing technical knowledge for effectively operating socially assistive robots, including addressing communication barriers to ensure smooth interactions.",
+            "unhealthy relationships": "Identifies instances in the data where participants express concerns or negative experiences related to the quality or dynamics of their interactions with socially assistive robots, highlighting potential risks and challenges in forming meaningful connections.",
+            "deception": "Identifies instances where participants express concerns about the unethical practice of simulating human interaction with socially assistive robots, potentially leading to misunderstandings or misperceptions.",
+            "lack of humanity": "Captures instances where participants express a sense of loss or absence in human interactions and empathy that cannot be adequately replaced by socially assistive robots in the context of Human-Robot-Interaction, emphasizing a preference for personalized and emotionally engaging experiences.",
+            "superficial interaction": "Identifies concerns that robot interactions may feel insincere or lack depth compared to human connections."
+        }
 }
 ]

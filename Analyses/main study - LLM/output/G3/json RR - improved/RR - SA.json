@@ -214,25 +214,19 @@
             "rescue efficient and"
         ],
         "code_descriptions": {
-            "benefit": "Highlights the advantages of using rescue robots, such as reducing the need for human presence in hazardous conditions, thereby improving overall safety.",
-            "safety": "Emphasizes the role of rescue robots in reducing risks and protecting humans from harm, including minimizing human errors during rescue operations and enhancing safety through hazard-detecting sensors.",
-            "speed": "Focuses on the importance of rapid response and swift operations in rescue scenarios, highlighting the ability of robots to enhance efficiency and productivity in hazardous situations.",
-            "access": "Describes the capability of rescue robots to access remote or hard-to-reach locations quickly, enabling faster response times and potentially saving lives.",
-            "replaceability": "Highlights the ease of replacing rescue robots in operations, emphasizing that material loss is less significant than human loss and alleviating concerns about their safety.",
-            "strength": "Describes the physical superiority of rescue robots, including their ability to lift heavy objects and demonstrate strength beyond human capacity, particularly in challenging environments.",
-            "reliability": "Underscores the consistent performance and precise control of rescue robots, emphasizing their dependability during critical rescue operations.",
-            "focus on task": "Highlights the efficiency and effectiveness of rescue robots in performing tasks without emotional interference, ensuring successful rescue operations.",
-            "search capabilities": "Details the advanced sensor technology of rescue robots that enables them to conduct searches in challenging conditions like darkness or smoke.",
-            "efficiency": "Defines the ability of rescue robots to improve operational performance by enhancing response speed and effectiveness in emergencies.",
-            "operational capability": "Describes the ability of rescue robots to function effectively in hazardous environments, demonstrating adaptability and unrestricted functionality.",
-            "automation": "Highlights the advantages of using automation in rescue operations to simplify complex or challenging scenarios.",
-            "physical capabilities": "Focuses on the ability of rescue robots to perform physical tasks beyond human capabilities, especially in environments where human performance is limited.",
-            "accessibility": "Highlights the advantage of rescue robots in accessing tight or narrow spaces, showcasing their adaptability and potential to enhance safety.",
-            "replaceable": "Discusses the ease of substituting rescue robots in case of damage or loss, emphasizing their interchangeability.",
-            "delivery of goods": "Explores the potential of rescue robots to deliver goods in hazardous environments like war zones, balancing safety benefits and risks.",
-            "operational efficiency": "Highlights the consistent performance of rescue robots in maintaining operational efficiency, surpassing human limitations during rescue missions.",
-            "environment": "References the need for specialized equipment in certain hazardous environments, such as gas masks, when using rescue robots.",
-            "risk reduction": "Captures the role of rescue robots in minimizing risks for both victims and rescuers, reducing exposure to dangerous conditions."
-          }
+            "strength": "Highlights the physical superiority of rescue robots, including their ability to lift heavy objects, navigate difficult terrains, and demonstrate strength beyond human capacity.",
+            "reliability": "Emphasizes consistent performance, precise control, and the role of rescue robots in reducing risks by ensuring dependable operation in hazardous conditions.",
+            "replaceability": "Describes the ease of substituting rescue robots during operations, highlighting that material loss is less significant than human loss, reducing concerns over the robot's safety.",
+            "Operational Efficiency": "Emphasizes rescue robots' ability to improve overall performance, reduce response times, and minimize risks to victims and rescuers through quicker and safer interventions, incorporating the importance of speed and operational efficiency.",
+            "access": "Focuses on the enhanced ability of rescue robots to access remote or hard-to-reach locations, enabling quicker response times and potentially saving lives.",
+            "environment": "References environments requiring specialized equipment for breathing, such as gas masks, and how rescue robots enhance safety in such conditions.",
+            "focus on task": "Highlights rescue robots' efficiency and effectiveness in completing tasks without emotional interference, enhancing performance and reliability in rescue missions.",
+            "search capabilities": "Discusses the advanced ability of rescue robots to conduct searches in challenging environments using sensor technology, allowing effective operation in dark or smoke-filled areas.",
+            "automation": "Highlights the advantages of automation in simplifying complex or challenging scenarios, emphasizing the reliability and adaptability of rescue robots in hazardous conditions.",
+            "physical capabilities": "Discusses the ability of rescue robots to perform physical tasks beyond human capabilities, emphasizing their potential in challenging environments.",
+            "accessibility": "Describes the advantage of rescue robots being able to access tight or narrow spaces that are typically inaccessible to humans, enhancing their utility and safety in rescue operations.",
+            "delivery of goods": "Highlights the potential use of rescue robots for delivering goods in hazardous environments, like war zones, emphasizing the safety benefits.",
+            "operational capability": "Discusses the ability of rescue robots to function effectively in hazardous environments, showcasing their operational adaptability and reliable performance."
+        }
     }
 ]

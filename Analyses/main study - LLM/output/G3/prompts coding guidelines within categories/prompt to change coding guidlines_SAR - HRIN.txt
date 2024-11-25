@@ -68,6 +68,11 @@ Each update is written as a separate paragraph and follow these formats:
 - Delete: "emotional replacement". Reason: [same as "emotional dependence"].
 - Delete: "lack of insight". Reason: [same as "emotional understanding"].
 
+- Change: "emotional understanding". Updates: [incorporate all the arguments of "loss of gestures", write a concise argument].
+- Delete: "loss of gestures". Reason: [same as "emotional understanding"].
+
+- Change: "lack of humanity". Updates: [incorporate all the arguments of "impersonal", write a concise argument].
+- Delete: "impersonal". Reason: [same as "lack of humanity"].
 
 
 - Add: "superficial interaction". Keywords: [concerns that robot interactions may feel insincere or lack depth compared to human connections].  
@@ -100,8 +105,6 @@ Each update is written as a separate paragraph and follow these formats:
             "The animal-like shape leads to fewer associations with human counterpart": "Identifies instances where the animal-like appearance of socially assistive robots reduces the tendency for users to associate them closely with human counterparts, potentially influencing perceptions of the robot's role and capabilities in Human-Robot-Interaction.",
             "lack of humanity": "Captures instances where participants express a sense of loss or absence in human interactions and empathy that cannot be adequately replaced by socially assistive robots in the context of Human-Robot-Interaction. \n\n*** \n\nlack of humanity: participants emphasize the irreplaceable value of human empathy and connection in contrast to interactions with robots."
         }
-    }
-]
 		
 ---
 

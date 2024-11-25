@@ -53,10 +53,31 @@ Each update is written as a separate paragraph and follow these formats:
 - Change: "promote interaction". Updates: [add arguments for facilitating social contact for socially isolated and elderly individuals; condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].  
 - Change: "emotional support". Updates: [include the emotional and sensory benefits of soft like-like materials in facilitating interactions].  
 - Change: "haptics". Updates: [add arguments for posistive evaluation of like-like features in soft socially assistive roboots which leads to a higher acceptance]. 
-- Change: "companion". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].  
-- Change: "pet alternative". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
 - Change: "therapy success". Updates: [add arguments for the potential benefits of socially assistive robots in supporting individuals with autism or related disorders].  
  
+
+
+- Change: "promote interaction". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "communication". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "help with attention". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "lack of expertise". Updates: [Condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n***") for clarity and conciseness.].
+- Change: "companion". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].  
+- Change: "pet alternative". Updates: [condense the description to focus on the main arguments, removing unnecessary details and the literal quote ("\n\n*** \n\n") for clarity and conciseness].
+
+
+
+- Change: "promote interaction". Updates: [incorporate all the arguments of "emotional support", write a concise argument].
+- Delete: "emotional support". Reason: [same as "promote interaction"].
+
+- Change: "promote interaction". Updates: [incorporate all the arguments of "companion", write a concise argument].
+- Delete: "companion". Reason: [same as "promote interaction"].
+
+- Change: "robotic assistance". Updates: [incorporate all the arguments of "help with attention"].
+- Delete: "help with attention". Reason: [same as "robotic assistance"].
+
+- Change: "robotic assistance". Updates: [incorporate all the arguments of "help with depression", write a concise argument].
+- Delete: "help with depression". Reason: [same as "robotic assistance"].
+
 
 - Delete: "deterioration". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
 - Delete: "privacy". Reason: [not relevant for "perceived positive Human-Robot-Interaction"].
@@ -70,6 +91,8 @@ Each update is written as a separate paragraph and follow these formats:
 - Delete: "social interaction". Reason: [same as "promote interaction"].
 - Delete: "disorders". Reason: [same as "therapy success"].
 - Delete: "physicality". Reason: [same as "haptics"].
+
+
 
 
 - Add: "Natural Interactions". Keywords: [importance of human-like movements, gestures, and reactions to enhance the realism and comfort of interactions with socially assistive robots].  
@@ -109,8 +132,6 @@ Each update is written as a separate paragraph and follow these formats:
             "pet alternative": "Identifies references to alternative options to traditional pets, particularly for individuals with allergies or limitations in caring for live animals, within discussions on the benefits and risks of positive Human-Robot-Interaction with socially assistive robots. \n\n*** \n\nThis code captures mentions of alternatives to traditional pets, like robotic or virtual companions, for individuals unable to care for real animals due to allergies or other constraints, within the context of exploring the positive Human-Robot-Interaction with socially assistive robots.",
             "social interaction": "Captures instances where socially assistive robots facilitate engaging and stimulating interactions to invigorate and connect with otherwise disengaged nursing home residents."
         }
-    }
-]
 		
 ---
 

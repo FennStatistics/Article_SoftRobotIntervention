@@ -1,12 +1,14 @@
 Change:
-
-    "carefulness": "Expanded the description to include concerns about the robot's ability to address the emotional needs of victims during rescue operations, alongside its caution and precision."
-    "emotions": "Incorporated references to fear and discomfort caused by emotionally detached robots in rescue scenarios."
-    "lack of emotional understanding": "Broadened the description to include concerns about the robot's inability to recognize distress, fear, or pain, alongside compassion and empathy; condensed the description for clarity and merged relevant arguments from 'lack of emotional connection'."
+"emotions": "Expanded to include concerns about fear and discomfort caused by emotionally detached robots, in addition to the lack of emotional understanding and empathy."
+"carefulness": "Updated to address concerns about whether the robot can meet the emotional needs of victims during rescue operations, in addition to precision and caution."
+"lack of emotional understanding": "Condensed for clarity by removing unnecessary details, including the literal quote, and expanded to include concerns previously covered under 'lack of emotional connection,' such as recognizing distress and fear."
 
 Delete:
-
-    "lack of emotional connection": "Removed because its content was similar to 'lack of emotional understanding,' which has now been updated to encompass these ideas."
+"lack of emotional connection": "Removed because its themes are redundant with 'lack of emotional understanding,' which now includes concerns about emotional detachment and human-like connection."
 
 Add:
-(No additions were made in this set of changes.)
+No new codes were added in this revision.
+
+Renamed manually the following category:
+    carefulness -> Reliance and Trust
+    emotions -> fear

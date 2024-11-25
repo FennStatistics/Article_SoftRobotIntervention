@@ -60,6 +60,9 @@ Each update is written as a separate paragraph and follow these formats:
 - Change: "endurance". Updates: [highlights physical and mental stamina in human-robot interaction rather than emotional states].
 - Change: "complementary role". Updates: [add instances where robots provide tangible support in rescue scenarios, including the delivery of essential resources].
 
+- Change: "comfort". Updates: [incorporate all the arguments of "hope", write a concise argument].
+- Delete: "hope". Reason: [same as "comfort"].
+
 
 ---
 

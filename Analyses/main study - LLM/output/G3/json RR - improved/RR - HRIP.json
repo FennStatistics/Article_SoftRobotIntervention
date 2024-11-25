@@ -13,10 +13,9 @@
             "supply: **Robots can take care of people who are initially unreachable**<sup>complementary role</sup>"
         ],
         "code_descriptions": {
-            "hope": "Captures instances where participants express emotional reassurance and optimism, emphasizing the belief that rescue robots provide hope to victims through their presence or potential impact.",
-            "endurance": "Highlights physical and mental stamina in human-robot interaction, focusing on participants' discussions about sustaining performance or functionality during prolonged interactions with rescue robots.",
-            "complementary role": "Identifies instances where rescue robots provide tangible support in rescue scenarios, including delivering essential resources, while complementing human actions and tasks, enhancing capabilities through collaboration.",
-            "comfort": "Captures instances where the soft design, adaptable forms, or non-mechanical appearance of rescue robots provide emotional reassurance and calm to victims in distress."
+            "Sustained Performance": "Highlights physical and mental stamina in Human-Robot-Interaction, focusing on the importance of sustaining performance and functionality during prolonged rescue operations, without unnecessary details or quotes.",
+            "Collaborative Support": "Identifies instances where rescue robots provide tangible support in rescue scenarios, including the delivery of essential resources and enhancing human capabilities through collaboration and support, rather than replacement.",
+            "Emotional Resilience": "Focuses on emotional reassurance provided by rescue robots through their soft design, adaptable forms, or demeanor, emphasizing their ability to offer calm and optimism to victims in distress."
           }
     }
 ]

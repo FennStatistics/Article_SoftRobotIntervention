@@ -24,10 +24,10 @@
             "lack of interpersonal contact"
         ],
         "code_descriptions": {
-            "emotions": "Captures instances where participants express concerns about the lack of emotional understanding, including fear and discomfort caused by emotionally detached robots in the context of Human-Robot-Interaction of rescue robots.",
-            "carefulness": "Identifies instances where participants express concerns or expectations for rescue robots to exhibit caution and precision in their actions to prevent harm during emergency situations, and address the emotional needs of victims during rescue operations.",
+            "fear": "Captures instances where participants express concerns about the lack of emotional understanding, empathy, and the fear or discomfort caused by emotionally detached robots in rescue scenarios.",
+            "Reliance and Trust": "Identifies instances where participants express concerns or expectations for rescue robots to exhibit caution and precision in their actions to prevent harm during emergency situations, and address the emotional needs of victims during rescue operations.",
             "emotional coldness": "Identifies instances where participants express a preference for human interaction over emotionally detached or robotic interactions in emergency scenarios, highlighting concerns about the perceived emotional coldness of rescue robots.",
-            "lack of emotional understanding": "Identifies instances where participants express frustration or disappointment with robots' inability to recognize or respond to emotional cues, such as lacking empathy or understanding of human emotions. This also includes concerns about the robot's inability to recognize distress, fear, or pain, and its failure to show compassion or empathy in human-robot interactions."
-          }
+            "lack of emotional understanding": "Identifies instances where participants express frustration or disappointment with robots' inability to recognize, respond to distress or fear, or show compassion and empathy. This also encompasses concerns about emotional detachment and the absence of human-like emotional depth."
+        }
     }
 ]

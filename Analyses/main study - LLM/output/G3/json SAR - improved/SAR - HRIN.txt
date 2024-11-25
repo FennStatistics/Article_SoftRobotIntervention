@@ -1,25 +1,26 @@
-
 Change:
-
-"loss of gestures": "Condensed the description to focus on the absence or reduction of physical gestures in robot interactions and their emotional impact."
-"emotional understanding": "Condensed the description and emphasized concerns about robots' ability to react to emotions appropriately and control their actions."
-"individual response": "Condensed the description to highlight diverse personal preferences regarding physical closeness in Human-Robot-Interaction."
-"impersonal": "Streamlined the description to focus on participants' desire for more personalized and emotionally engaging interactions with robots."
-"dependence": "Condensed the description and added a focus on nuanced risks like reduced human contact and emotional impacts."
-"emotional dependence": "Expanded the description to include concerns about emotional blunting, pseudo-relationships, and overdependence on robots."
-"technical knowledge": "Condensed the description and added concerns about communication barriers alongside the need for technical expertise."
-"lack of humanity": "Condensed the description to emphasize the irreplaceable value of human empathy and connection."
+"loss of gestures": "Condensed the description and incorporated its arguments into 'emotional understanding' to streamline content."
+"emotional understanding": "Condensed the description and integrated arguments from 'loss of gestures' for clarity and completeness."
+"individual response": "Simplified the description, focusing on diverse preferences and comfort levels in physical closeness."
+"dependence": "Condensed the description to emphasize the key benefits and risks of reliance on socially assistive robots."
+"emotional dependence": "Expanded to include arguments about emotional replacement, blunting, and pseudo-relationships."
+"technical knowledge": "Condensed the description and added concerns about communication barriers to highlight operational challenges."
+"lack of humanity": "Condensed the description and incorporated arguments from 'impersonal' to emphasize the lack of personalized and empathetic interactions."
 
 Delete:
-
+"perceived negative HRI": "Removed as it overlaps with 'superficial interaction' in content and scope."
+"loss of gestures": "Removed as its arguments were fully incorporated into 'emotional understanding'."
+"older adults": "Removed as it overlaps with 'fear' in addressing apprehensions among older participants."
+"dementia patients": "Removed as it overlaps with 'fear' in addressing apprehensions among dementia patients."
+"emotional connection": "Removed as it overlaps with 'emotional dependence' in addressing emotional attachments."
+"emotional replacement": "Removed as its themes were incorporated into 'emotional dependence'."
+"impersonal": "Removed as its content was incorporated into 'lack of humanity'."
+"lack of insight": "Removed as it overlaps with 'emotional understanding' in addressing emotional response concerns."
 "The animal-like shape leads to fewer associations with human counterpart": "Removed as it overlaps with 'emotional support.'"
-"perceived negative HRI": "Removed as it overlaps with 'superficial interaction.'"
-"older adults": "Removed as it overlaps with 'fear.'"
-"dementia patients": "Removed as it overlaps with 'fear.'"
-"emotional connection": "Removed as it overlaps with 'emotional dependence.'"
-"emotional replacement": "Removed as it overlaps with 'emotional dependence.'"
-"lack of insight": "Removed as it overlaps with 'emotional understanding.'"
 
 Add:
+"superficial interaction": "Introduced to address concerns that robot interactions may feel insincere or lack depth compared to human connections, emphasizing the need for meaningful engagement."
 
-"superficial interaction": "Introduced a new code to capture concerns that robot interactions may feel insincere or lack depth compared to human connections."
+Renamed manually the following category:
+    emotional understanding -> lack of emotional understanding
+    dependence -> Reliance and Trust
