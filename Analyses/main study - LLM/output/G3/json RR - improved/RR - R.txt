@@ -1,19 +1,31 @@
+ChatGPT
 Change:
 
-"durability": "Added concerns about material and production defects to address broader issues of construction quality in rescue robots."
-"technical limitation": "Refocused description on limited senses, orientation, and navigation while removing specific references to soft materials or designs."
-"safety": "Expanded description to include concerns about endangerment of human lives."
-"reliability": "Broadened to include loss of control, unpredictability of autonomous systems, and software errors leading to critical failures."
-"potential risk": "Added concerns about cyber attacks to highlight vulnerabilities in rescue robot deployment."
-"Error development": "Expanded to include issues related to error detection and program disturbances."
-"unintended actions": "Added absence of moral decision-making as a contributing factor to unintended harm caused by rescue robots."
-"misidentification": "Incorporated sensor issues and scenarios where sensors fail to detect victims accurately, emphasizing critical risks."
-"potential harm to victims": "Condensed and clarified description, focusing on risks of injury or fatality due to technical malfunctions."
+    "durability": "Added concerns about material and production defects to the description to broaden its scope."
+    "technical limitation": "Incorporated arguments about limited senses, orientation, navigation, and loss of control from 'reliability,' along with general limitations like handling complex environments and software errors."
+    "accuracy": "Incorporated arguments from 'precision,' focusing on performance limitations and response accuracy in unique or unexpected scenarios."
+    "safety": "Expanded to include concerns about the endangerment of human lives during emergency situations."
+    "perceived risk": "Clarified that this code emphasizes emotional or subjective perceptions rather than concrete risks."
+    "potential harm to victims": "Incorporated arguments from 'unintended actions,' focusing on harm due to malfunctions or unintended actions leading to injury or fatalities."
+    "misidentification": "Expanded to include sensor failures and their critical impact on victim detection accuracy."
+    "potential risk": "Added cybersecurity concerns to emphasize identifiable, factual dangers or vulnerabilities in real-world scenarios."
 
 Delete:
 
-"not insightful": "Removed due to being an irrelevant and non-meaningful code."
+    "not insightful": "Removed because it is not a meaningful code."
+    "Error development": "Deleted as it overlaps with the expanded 'technical limitation' code."
+    "reliability": "Deleted and its arguments were integrated into 'technical limitation.'"
+    "unintended actions": "Deleted as its concerns were incorporated into 'potential harm to victims.'"
+    "precision": "Deleted and its arguments were merged into 'accuracy.'"
 
 Add:
 
-"design limitation": "Introduced to address physical and structural considerations, including weaknesses in soft robots and design flaws that impact resilience and performance."
+    "Material": "Introduced to address physical and structural concerns, such as weaknesses in soft robots or design flaws impacting resilience and performance."
+
+
+
+Renamed manually the following four categories:
+    technical limitation -> Technical Issues 
+    potential harm to victims -> Potential Physical Harm
+    Perceived Risk -> Subjective Concerns
+    Potential Risks -> Objective Threats

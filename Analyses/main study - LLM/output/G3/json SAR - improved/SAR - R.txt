@@ -16,6 +16,5 @@ Add:
 "environmental vulnerabilities": This new code highlights concerns about external factors, such as power outages or extreme temperatures, that could affect robot functionality and safety.
 
 
-###
-in future:
-manually overwrite code name "technical issues" to "Technical Challenges and Limitations"
+Renamed manually the following four categories:
+    Physical Harm -> Potential Physical Harm

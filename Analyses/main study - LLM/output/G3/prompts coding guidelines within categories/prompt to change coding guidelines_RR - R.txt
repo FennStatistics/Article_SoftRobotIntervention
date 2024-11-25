@@ -65,11 +65,27 @@ Each update is written as a separate paragraph and follow these formats:
 - Change: "misidentification". Updates: [incorporate sensor issues and scenarios where sensors fail to detect victims accurately].
 - Change: "safety". Updates: [add concerns about endangerment of human lives].
 - Change: "reliability". Updates: [broaden to address loss of control, highlighting situations where autonomous systems fail to behave predictably, and the potential for software errors leading to critical failures].
-- Change: "potential risk". Updates: [add cyber attacks].
+
+- Change: "potential risk". Updates: [add cyber attacks; emphasize that this code deals with identifiable, factual dangers or vulnerabilities that could occur in real-world scenarios].
+- Change: "perceived risk". Updates: [highlights that this code focuses on emotional or subjective perceptions rather than concrete risks].
+
 - Change: "Error Development". Updates: [add issues related to error detection and program disturbances].
 - Change: "unintended actions". Updates: [add absence of moral decision-making].
 
-- Add: "design limitation". Keywords: [address physical and structural considerations, such as weaknesses in soft robots or design flaws impacting resilience and performance].  
+
+- Change: "technical limitation". Updates: [incoporate all the arguments of "technical limitation" and all the arguments of "reliability"].
+- Delete: "Error Development". Reason: [same as "technical limitation"]. 
+- Delete: "reliability". Reason: [same as "technical limitation"]. 
+
+- Change: "potential harm to victims". Updates: [incoporate all the arguments of "unintended actions"].
+- Delete: "unintended actions". Reason: [same as "potential harm to victims"]. 
+
+- Change: "accuracy". Updates: [incoporate all the arguments of "precision"].
+- Delete: "precision". Reason: [same as "accuracy"]. 
+
+
+- Add: "Material". Keywords: [address physical and structural considerations, such as weaknesses in soft robots or design flaws impacting resilience and performance].  
+
 
 
 ---
