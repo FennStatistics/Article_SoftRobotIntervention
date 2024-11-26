@@ -24,7 +24,7 @@ format:
 
 ### load packages
 require(pacman)
-p_load('jsonlite', 'xlsx', 'ggpubr',
+p_load('jsonlite', 'readxl', 'writexl', 'ggpubr',
        'stargazer', 'DT', 'tools', 'tidyverse', 'gridExtra', 'reshape2', 'patchwork')
 
 
@@ -35,9 +35,8 @@ abbreviations_dict <- jsonlite::fromJSON(txt = "abbreviations_dict.txt")
 
 ### load frequency table of codes
 setwd("../../output/G3")
-
 #> RR
-codes_frequency_RR <- xlsx::read.xlsx2(file = "rescue robot frequency table codes.xlsx", sheetIndex = 1)
+codes_frequency_RR <- readxl::read_excel(path = "rescue robot frequency table codes.xlsx")
 
 codes_frequency_RR$Code <- str_replace_all(
     string = codes_frequency_RR$Code,
@@ -51,9 +50,10 @@ codes_frequency_RR$rigid <- as.numeric(codes_frequency_RR$rigid)
 
 codes_frequency_RR$soft <- codes_frequency_RR$soft + codes_frequency_RR$rigid 
 
+codes_frequency_RR <- as.data.frame(codes_frequency_RR)
 
 #> SAR
-codes_frequency_SAR <- xlsx::read.xlsx2(file = "socially assistive robot frequency table codes.xlsx", sheetIndex = 1)
+codes_frequency_SAR <- readxl::read_excel(path = "socially assistive robot frequency table codes.xlsx")
 
 codes_frequency_SAR$Code <- str_replace_all(
     string = codes_frequency_SAR$Code,
@@ -66,6 +66,8 @@ codes_frequency_SAR$soft <- as.numeric(codes_frequency_SAR$soft)
 codes_frequency_SAR$rigid <- as.numeric(codes_frequency_SAR$rigid)
 
 codes_frequency_SAR$soft <- codes_frequency_SAR$soft + codes_frequency_SAR$rigid 
+
+codes_frequency_SAR <- as.data.frame(codes_frequency_SAR)
 
 
 ### load improved coding guidelines
@@ -174,12 +176,12 @@ results_df$rigid[results_df$Abbrevation == c & results_df$Code == tmp_codes_freq
 
 
 ### save overall table
-xlsx::write.xlsx2(x = results_df, file = "outputs/RR_codes_complete.xlsx")
+writexl::write_xlsx(x = results_df, path = "outputs/RR_codes_complete.xlsx")
 
 
 ### sort according to frequency soft, and save top 20
 results_df_sorted <- results_df[order(results_df$soft, decreasing = TRUE),]
-xlsx::write.xlsx2(x = results_df_sorted[1:20, ], file = "outputs/RR_codes_first20.xlsx")
+writexl::write_xlsx(x = results_df_sorted[1:20, ], path = "outputs/RR_codes_first20.xlsx")
 
 ### backup:
 results_df_RR <- results_df
@@ -261,12 +263,12 @@ results_df$rigid[results_df$Abbrevation == c & results_df$Code == tmp_codes_freq
 
 
 ### save overall table
-xlsx::write.xlsx2(x = results_df, file = "outputs/SAR_codes_complete.xlsx")
+writexl::write_xlsx(x = results_df, path = "outputs/SAR_codes_complete.xlsx")
 
 
 ### sort according to frequency soft, and save top 20
 results_df_sorted <- results_df[order(results_df$soft, decreasing = TRUE),]
-xlsx::write.xlsx2(x = results_df_sorted[1:20, ], file = "outputs/SAR_codes_first20.xlsx")
+writexl::write_xlsx(x = results_df_sorted[1:20, ], path = "outputs/SAR_codes_first20.xlsx")
 
 ### backup:
 results_df_SAR <- results_df
