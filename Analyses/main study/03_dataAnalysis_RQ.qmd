@@ -28,7 +28,8 @@ p_load('tidyverse', 'jsonlite', 'magrittr', 'xlsx',
        'stargazer', 'psych', 'jtools', 'DT', 'ggstatsplot', 
        'lavaan', 
        'regsem', 'MplusAutomation', 'igraph', 'openxlsx',
-       'reshape2')
+       'reshape2',
+       'gridExtra')
 
 
 setwd("outputs/01_dataPreperation/final")
@@ -248,12 +249,12 @@ psych::describe(x = questionnaire$feedCAM_repres)
 
 ```{r}
 ### post - pre difference of robot -> average valence
-fit1 <- afex::aov_car(mean_valence_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+fit1_emo <- afex::aov_car(mean_valence_macro ~ timepoint*typeRobot + Error(ID / timepoint),
                       data = networkIndicators_long)
 fit1a <- afex::aov_ez(id = "ID", dv = "mean_valence_macro",
                       data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
 # partical eta squared
-anova(fit1, es = "pes")
+anova(fit1_emo, es = "pes")
 # generalized eta squared
 fit1a # > identical results
 
@@ -262,13 +263,13 @@ dfvalcor <- data_summary(networkIndicators_long, varname="mean_valence_macro",
 
 dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("rigid", "soft"))
 
-p <- ggplot(dfvalcor, aes(x=timepoint, y=mean_valence_macro, fill=typeRobot)) +
+p_emo <- ggplot(dfvalcor, aes(x=timepoint, y=mean_valence_macro, fill=typeRobot)) +
   geom_bar(stat="identity", color="black",
            position=position_dodge()) +
   geom_errorbar(aes(ymin=mean_valence_macro-se, ymax=mean_valence_macro+se), width=.2,
                 position=position_dodge(.9)) + ggplot_theme + ylab(label = "average emotional evaluation") + 
   theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
-print(p)
+print(p_emo)
 ```
 
 
@@ -279,12 +280,12 @@ print(p)
 
 ```{r}
 ### post - pre difference of robot -> number of concepts
-fit1 <- afex::aov_car(num_nodes_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+fit1_concepts <- afex::aov_car(num_nodes_macro ~ timepoint*typeRobot + Error(ID / timepoint),
                       data = networkIndicators_long)
 fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_macro",
                       data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
 # partical eta squared
-anova(fit1, es = "pes")
+anova(fit1_concepts, es = "pes")
 # generalized eta squared
 fit1a # > identical results
 
@@ -294,13 +295,13 @@ dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_macro",
 
 dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("rigid", "soft"))
 
-p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_macro, fill=typeRobot)) +
+p_concepts <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_macro, fill=typeRobot)) +
   geom_bar(stat="identity", color="black",
            position=position_dodge()) +
   geom_errorbar(aes(ymin=num_nodes_macro-se, ymax=num_nodes_macro+se), width=.2,
                 position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of concepts") + 
   theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
-print(p)
+print(p_concepts)
 ```
 
 
@@ -337,12 +338,12 @@ print(p)
 
 ```{r}
 ### post - pre difference of robot -> number of concepts
-fit1 <- afex::aov_car(num_nodes_neg_macro ~ timepoint*typeRobot + Error(ID / timepoint),
+fit1_negative <- afex::aov_car(num_nodes_neg_macro ~ timepoint*typeRobot + Error(ID / timepoint),
                       data = networkIndicators_long)
 fit1a <- afex::aov_ez(id = "ID", dv = "num_nodes_neg_macro",
                       data = networkIndicators_long, between=c("typeRobot"), within=c("timepoint"))
 # partical eta squared
-anova(fit1, es = "pes")
+anova(fit1_negative, es = "pes")
 # generalized eta squared
 fit1a # > identical results
 
@@ -352,13 +353,13 @@ dfvalcor <- data_summary(networkIndicators_long, varname="num_nodes_neg_macro",
 
 dfvalcor$timepoint <- factor(dfvalcor$timepoint, levels = c("rigid", "soft"))
 
-p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_neg_macro, fill=typeRobot)) +
+p_negative <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_neg_macro, fill=typeRobot)) +
   geom_bar(stat="identity", color="black",
            position=position_dodge()) +
   geom_errorbar(aes(ymin=num_nodes_neg_macro-se, ymax=num_nodes_neg_macro+se), width=.2,
                 position=position_dodge(.9)) + ggplot_theme + ylab(label = "number of negative concepts") + 
   theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
-print(p)
+print(p_negative)
 ```
 
 ### ambivalent 
@@ -389,6 +390,74 @@ p <- ggplot(dfvalcor, aes(x=timepoint, y=num_nodes_ambi_macro, fill=typeRobot)) 
   theme(axis.title.x = element_text(size=20), axis.title.y = element_text(size=20), axis.text.x = element_text(size = 18), axis.text.y = element_text(size = 18), legend.text = element_text(size=16), legend.title = element_text(size=18))
 print(p)
 ```
+
+## group G1 graphics
+
+```{r}
+setwd("outputs/03_dataAnalysis_RQ")
+
+# Adjust ggplot themes
+common_theme <- theme(
+  legend.position = "top",
+  axis.title.x = element_text(size = 20),
+  axis.title.y = element_text(size = 20),
+  axis.text.x = element_text(size = 12),
+  axis.text.y = element_text(size = 12),
+  legend.text = element_text(size = 14),
+  legend.title = element_text(size = 18),
+  legend.key.size = unit(1.2, "cm")
+)
+
+# Apply the common theme to all plots
+p_emo <- p_emo + common_theme
+p_concepts <- p_concepts + common_theme + theme(legend.position = "none")
+p_negative <- p_negative + common_theme + theme(legend.position = "none")
+
+# Extract ANOVA results
+extract_anova <- function(fit, label) {
+  summary <- anova(fit, es = "pes")
+  data.frame(
+    DV = label,
+    IV = rownames(summary),
+    `Effect Size` = round(summary$pes, 2),
+    `p` = paste0(format.pval(summary$`Pr(>F)`, digits = 2), ifelse(summary$`Pr(>F)` < 0.05, "*", ""))
+  )
+}
+
+# Create ANOVA result tables
+anova1 <- extract_anova(fit1_emo, "Avg. Emotional Evaluation")
+anova2 <- extract_anova(fit1_concepts, "Number Concepts")
+anova3 <- extract_anova(fit1_negative, "Number Negative Concepts")
+
+# Combine all ANOVA results
+anova_results <- bind_rows(anova1, anova2, anova3)
+
+anova_results$IV[anova_results$IV == "typeRobot"] <- "SAR vs. RR"
+anova_results$IV[anova_results$IV == "timepoint"] <- "intervention"
+anova_results$IV[anova_results$IV == "typeRobot:timepoint"] <- "interaction"
+
+# Remove row names and format table for APA7
+table_grob <- tableGrob(
+  anova_results,
+  rows = NULL, # Removes row numbers
+  theme = ttheme_default(
+    core = list(
+      fg_params = list(hjust = 0, x = 0.1, fontsize = 14) # Increase font size
+    ),
+    colhead = list(
+      fg_params = list(fontface = "bold", fontsize = 16) # Increase header font size
+    )
+  )
+)
+
+# Arrange plots and table into a 2x2 grid
+combined_plot <- grid.arrange(
+  p_emo, p_concepts, p_negative, table_grob,
+  ncol = 2, nrow = 2,
+  heights = c(1, 1) # if necessary increase height of the second row (for the table)
+)
+```
+
 
 
 ## additional analysis
