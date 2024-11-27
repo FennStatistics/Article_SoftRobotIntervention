@@ -556,3 +556,161 @@ for(pair in abbreviation_pairs) {
 }
 
 ```
+
+
+## RR and SAR below each other
+
+```{r}
+# Set the working directory
+setwd("outputs/G3_RR_SAR")
+
+# Define the abbreviation vector in pairs
+abbreviation_pairs <- list(
+  c("AN", "AP"),
+  c("HRIN", "HRIP"),
+  c("R", "SA"),
+  c("TL", "TP")
+)
+
+# Loop through abbreviation pairs
+for(pair in abbreviation_pairs) {
+  print(pair)
+  rr_sar_plots <- list() # To store combined RR and SAR plots
+  
+  max_frequency_rr <- 0 # Max frequency for RR
+  max_frequency_sar <- 0 # Max frequency for SAR
+  
+  for(c in pair) {
+    # Generate RR plot
+    tmp_rr <- results_df_RR[results_df_RR$Abbrevation == c, ]
+    tmp_rr <- tmp_rr[!is.na(tmp_rr$soft), ]
+    
+    tmp_rr$Abbrevation <- NULL
+    tmp_rr$Description <- NULL
+    
+    tmp_rr_title <- paste0(unique(tmp_rr$Category), collapse = " ")
+    
+    # title too long
+    if(tmp_rr_title == "perceived negative Human-Robot-Interaction"){
+      tmp_rr_title <- "perceived negative HRI"
+    }
+    if(tmp_rr_title == "perceived positive Human-Robot-Interaction"){
+      tmp_rr_title <- "perceived positive HRI"
+    }
+    
+    max_count_rr <- max(tmp_rr$rigid, tmp_rr$soft, na.rm = TRUE)
+    max_frequency_rr <- max(max_frequency_rr, max_count_rr)
+    
+    tmp_rr$Code <- str_wrap(tmp_rr$Code, width = 20)
+    tmp_long_rr <- melt(tmp_rr, id.vars = c("Category", "Code"), 
+                        variable.name = "Type", value.name = "Count")
+    tmp_long_rr$Type <- factor(tmp_long_rr$Type, levels = c("rigid", "soft"))
+    
+    rr_plot <- ggplot(tmp_long_rr, aes(y = factor(Code, levels = rev(unique(Code))), 
+                                       x = Count, fill = Type)) +
+      geom_bar(stat = "identity", position = position_dodge(width = 0.7)) +
+      labs(
+        title = paste(tmp_rr_title, "(RR)"),
+        y = "Category",
+        x = "Frequency",
+        fill = "Type Robot"
+      ) +
+      theme_pubr() +
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(size = 14),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(size = 12, hjust = 1),
+        axis.text.x = element_text(size = 14),
+        legend.title = element_text(size = 18),
+        legend.text = element_text(size = 16),
+        legend.key.size = unit(1.2, "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+      ) +
+      scale_y_discrete(labels = function(labels) str_wrap(labels, width = 20))
+    
+    # Generate SAR plot
+    tmp_sar <- results_df_SAR[results_df_SAR$Abbrevation == c, ]
+    tmp_sar <- tmp_sar[!is.na(tmp_sar$soft), ]
+    
+    tmp_sar$Abbrevation <- NULL
+    tmp_sar$Description <- NULL
+    
+    tmp_sar_title <- paste0(unique(tmp_sar$Category), collapse = " ")
+    
+    if(tmp_sar_title == "perceived negative Human-Robot-Interaction"){
+      tmp_sar_title <- "perceived negative HRI"
+    }
+    if(tmp_sar_title == "perceived positive Human-Robot-Interaction"){
+      tmp_sar_title <- "perceived positive HRI"
+    }
+    
+    max_count_sar <- max(tmp_sar$rigid, tmp_sar$soft, na.rm = TRUE)
+    max_frequency_sar <- max(max_frequency_sar, max_count_sar)
+    
+    tmp_sar$Code <- str_wrap(tmp_sar$Code, width = 20)
+    tmp_long_sar <- melt(tmp_sar, id.vars = c("Category", "Code"), 
+                         variable.name = "Type", value.name = "Count")
+    tmp_long_sar$Type <- factor(tmp_long_sar$Type, levels = c("rigid", "soft"))
+    
+    sar_plot <- ggplot(tmp_long_sar, aes(y = factor(Code, levels = rev(unique(Code))), 
+                                         x = Count, fill = Type)) +
+      geom_bar(stat = "identity", position = position_dodge(width = 0.7)) +
+      labs(
+        title = paste(tmp_sar_title, "(SAR)"),
+        y = "Category",
+        x = "Frequency",
+        fill = "Type Robot"
+      ) +
+      theme_pubr() +
+      theme(
+        plot.title = element_text(size = 18, face = "bold"),
+        axis.title = element_text(size = 14),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(size = 12, hjust = 1),
+        axis.text.x = element_text(size = 14),
+        legend.title = element_text(size = 18),
+        legend.text = element_text(size = 16),
+        legend.key.size = unit(1.2, "cm"),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()
+      ) +
+      scale_y_discrete(labels = function(labels) str_wrap(labels, width = 20))
+    
+    # Adjust axis limits
+    rr_plot <- rr_plot +
+      scale_x_continuous(breaks = seq(0, max_frequency_rr, by = 2), 
+                         limits = c(0, max_frequency_rr))
+    sar_plot <- sar_plot +
+      scale_x_continuous(breaks = seq(0, max_frequency_sar, by = 2), 
+                         limits = c(0, max_frequency_sar))
+    
+    # Combine RR and SAR plots vertically
+    combined_rr_sar <- wrap_plots(rr_plot, sar_plot, ncol = 1) +
+      plot_annotation(
+        title = paste0("Rescue Robot and SAR for ", c),
+        theme = theme(
+          plot.title = element_text(size = 20, face = "bold", hjust = 0.5)
+        )
+      )
+    
+    rr_sar_plots[[c]] <- combined_rr_sar
+  }
+  
+  # Save all combined RR-SAR plots for the pair
+  combined_title <- paste(pair, collapse = "_")
+  final_plot <- wrap_plots(rr_sar_plots, ncol = 2) +
+    plot_layout(guides = "collect") & 
+    theme(legend.position = "bottom")
+  
+  plot(final_plot)
+  
+  # Save as PDF
+  ggsave(paste0(combined_title, ".pdf"), final_plot, width = 16, height = 20)
+  
+  # Save as JPEG
+  ggsave(paste0(combined_title, ".jpeg"), final_plot, width = 16, height = 20, dpi = 300, device = "jpeg")
+}
+
+```
