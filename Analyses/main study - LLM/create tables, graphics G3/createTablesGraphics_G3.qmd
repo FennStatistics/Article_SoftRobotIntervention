@@ -167,8 +167,8 @@ for (i in 1:length(list_json_files_RR)) {
 colnames(results_df) <- c("Abbrevation", "Category", "Code", "Description")
 
 
-results_df$soft <- NA
 results_df$rigid <- NA
+results_df$soft <- NA
 
 
 ### add frequencies
@@ -254,8 +254,8 @@ for (i in 1:length(list_json_files_SAR)) {
 colnames(results_df) <- c("Abbrevation", "Category", "Code", "Description")
 
 
-results_df$soft <- NA
 results_df$rigid <- NA
+results_df$soft <- NA
 
 
 ### add frequencies
