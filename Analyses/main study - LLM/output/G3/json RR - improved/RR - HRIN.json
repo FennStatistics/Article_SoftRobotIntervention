@@ -25,7 +25,7 @@
         ],
         "code_descriptions": {
             "fear": "Captures instances where participants express concerns about the lack of emotional understanding, empathy, and the fear or discomfort caused by emotionally detached robots in rescue scenarios.",
-            "Reliance and Trust": "Identifies instances where participants express concerns or expectations for rescue robots to exhibit caution and precision in their actions to prevent harm during emergency situations, and address the emotional needs of victims during rescue operations.",
+            "reliance and trust": "Identifies instances where participants express concerns or expectations for rescue robots to exhibit caution and precision in their actions to prevent harm during emergency situations, and address the emotional needs of victims during rescue operations.",
             "emotional coldness": "Identifies instances where participants express a preference for human interaction over emotionally detached or robotic interactions in emergency scenarios, highlighting concerns about the perceived emotional coldness of rescue robots.",
             "lack of emotional understanding": "Identifies instances where participants express frustration or disappointment with robots' inability to recognize, respond to distress or fear, or show compassion and empathy. This also encompasses concerns about emotional detachment and the absence of human-like emotional depth."
         }

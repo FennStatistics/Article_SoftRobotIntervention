@@ -3,30 +3,31 @@
         "robot": "RR",
         "category": "SA",
         "coded_texts": [
-            "efficiency: Robots are not limited to human speed, vision, and perception in general.",
-            "**risk-free rescue: From the side of the rescuers, who do not have to put themselves in danger**<sup>safety; benefit</sup>",
-            "better CPR",
+            "can act quickly: Robots can intervene quickly, as they do not need to be dressed or prepared and are autonomous",
+            "**saves lives: For example, when human helpers are not available, a rescue robot can still save human lives.**<sup>benefit; safety</sup>",
             "increased efficiency",
-            "access: access to areas where people cannot reach",
-            "consistent performance",
-            "more/ easier access: Robots can create (easier) access to places where it would otherwise be more difficult.",
-            "medication supply",
-            "**can act quickly: The robots can act faster than a human in an emergency.**<sup>benefit; safety</sup>",
+            "less risk",
+            "**life-threatening places: The possibility of entering dangerous places that people do not dare to approach, such as wreck parts, battlefields, etc.**<sup>benefit; safety</sup>",
+            "Accuracy of rescue robots: this way human errors can be reduced",
+            "precision in search",
+            "**remote control: Can be operated by experts via remote control or autonomous systems to perform operations from a safe distance.**<sup>safety; benefit</sup>",
+            "danger: less human danger",
+            "access to hard-to-reach places",
+            "**eyes and ears: for the rescue forces from a safe distance**<sup>safety; benefit</sup>",
+            "care of people",
             "reach the inaccessible",
-            "low risks: **Soft robots pose only a low risk to the victims due to their flexibility.**<sup>safety; benefit</sup>",
-            "quick deployment",
-            "Range: **Robots, again just the drone can rescue victims faster in difficult terrain or bring help, e.g. medicine, food**<sup>benefit; safety</sup>",
-            "do not get distracted: **Rescue robots follow their programming and can focus better on the rescue without being influenced by emotions.**<sup>benefit; safety</sup>",
-            "low risk",
-            "**Stronger than human: As already mentioned, many people lost their lives in the earthquake in Turkey, and this was because human strength was not enough at a certain point.**<sup>safety</sup> **For example, the walls that fell on people could not be lifted, which is why arms and legs had to be cut off. If the robot was there, it could show more strength and lift the wall.**<sup>benefit</sup>",
-            "precise work",
-            "**no rescuer endangered**<sup>benefit; safety</sup>",
-            "**lower risk of injury**<sup>safety</sup>: **Lower risk of injury due to the adaptability of the robot**<sup>safety; benefit</sup>",
-            "no distraction"
+            "**lower risk of injury: Lower risk of injury due to the adaptability of the robot**<sup>safety; benefit</sup>",
+            "**dexterity: Often higher skill than human rescuers**<sup>safety; benefit</sup>",
+            "**Faster than human: In an earthquake, for example, recently in Turkey, the help arrived too late and this led to more loss. Robots would be more flexible and could be used faster, rather than gathering all people together and rushing to help.**<sup>benefit; efficiency</sup>",
+            "no fatigue",
+            "vital help",
+            "speed and efficiency",
+            "quick action"
         ],
         "code_descriptions": {
-            "safety": "Captures discussions where participants highlight the perceived benefit of enhanced safety, emphasizing the reduced risk to human rescuers who no longer need to place themselves in hazardous situations during search and rescue operations.",
-            "benefit": "Captures instances where participants highlight the advantage of using search and rescue robots to perform operations without exposing human rescuers to potential harm, thereby enhancing safety by minimizing direct human involvement in hazardous situations."
+            "benefit": "Captures instances where participants highlight the perceived advantage of search and rescue robots in life-saving scenarios, particularly when human rescuers are unavailable or unable to reach those in need.",
+            "safety": "Captures instances where participants highlight the perceived benefit of search and rescue robots in enhancing safety by saving human lives, particularly in situations where human rescuers are unavailable or at risk.",
+            "efficiency": "Captures instances where participants highlight the perceived advantage of search and rescue robots in rapidly responding to emergencies, thereby potentially reducing the time taken to initiate rescue operations compared to human efforts alone."
         }
     }
 ]

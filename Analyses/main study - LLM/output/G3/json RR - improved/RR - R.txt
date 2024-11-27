@@ -24,7 +24,7 @@ Add:
 
 
 
-Renamed manually the following four categories:
+Renamed manually the following category/ies:
     technical limitation -> Technical Issues 
     potential harm to victims -> Potential Physical Harm
     Perceived Risk -> Subjective Concerns

@@ -20,3 +20,6 @@ Delete:
 Add:
 
 No new codes were added.
+
+Renamed manually the following category/ies:
+    robot's continuous operation -> continuous operation

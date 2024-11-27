@@ -17,3 +17,6 @@ Add:
 
 "healthcare": Emphasizes the importance of incorporating advanced technology into healthcare for improved patient care and outcomes.
 "multilingual": Highlights the ability of robots to understand and communicate in multiple languages, overcoming language barriers in various contexts.
+
+Renamed manually the following category/ies:
+ rapid advancement/training -> rapid advancement and training

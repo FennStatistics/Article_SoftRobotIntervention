@@ -37,7 +37,7 @@
             "continuous monitoring"
         ],
   "code_descriptions": {
-    "Operational Efficiency": "Identifies instances in the data where participants highlight the effectiveness and productivity of socially assistive robots in performing tasks efficiently, with arguments that robots are working faster.",
+    "operational efficiency": "Identifies instances in the data where participants highlight the effectiveness and productivity of socially assistive robots in performing tasks efficiently, with arguments that robots are working faster.",
     "reliability": "Captures instances where participants highlight the potential benefits of socially assistive robots in enhancing safety through quick emergency response capabilities and accuracy, and being available 24/7.",
     "material": "Highlights instances where participants evaluate the differences in materials used in socially assistive robots, with a focus on the low risk of injury during interactions or accidents due to the soft materials, leading to higher acceptance.",
     "objectivity": "Identifies instances where participants express expectations that robots should excel in decision-making due to their perceived lack of emotional bias compared to humans."

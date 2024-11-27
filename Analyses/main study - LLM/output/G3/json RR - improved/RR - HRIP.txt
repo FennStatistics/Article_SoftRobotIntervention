@@ -12,7 +12,7 @@ Add:
 No new codes were added in this update.
 
 
-Renamed manually the following category:
+Renamed manually the following category/ies:
     comfort -> Emotional Resilience
     complementary role -> Collaborative Support
     endurance -> Sustained Performance

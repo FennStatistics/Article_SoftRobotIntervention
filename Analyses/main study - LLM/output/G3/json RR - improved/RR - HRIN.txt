@@ -9,6 +9,6 @@ Delete:
 Add:
 No new codes were added in this revision.
 
-Renamed manually the following category:
+Renamed manually the following category/ies:
     carefulness -> Reliance and Trust
     emotions -> fear

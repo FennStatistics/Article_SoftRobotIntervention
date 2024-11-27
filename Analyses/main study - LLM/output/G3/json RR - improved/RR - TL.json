@@ -90,8 +90,8 @@
         ],
         "code_descriptions": {
             "risk": "Identifies concerns related to potential errors in algorithms used by rescue robots, highlighting the associated risks in rescue operations.",
-            "robot_runtime": "Captures concerns and questions related to the operational duration and energy sources of rescue robots, particularly focusing on potential delays in rescue operations due to recharging requirements and energy constraints.",
-            "operational_delay": "Identifies concerns and questions related to potential delays in the operational capabilities of rescue robots, particularly focusing on issues such as battery life, recharging times, and energy management.",
+            "robot runtime": "Captures concerns and questions related to the operational duration and energy sources of rescue robots, particularly focusing on potential delays in rescue operations due to recharging requirements and energy constraints.",
+            "operational delay": "Identifies concerns and questions related to potential delays in the operational capabilities of rescue robots, particularly focusing on issues such as battery life, recharging times, and energy management.",
             "movement": "Identifies references in the data where participants express concerns or observations about the restricted mobility or range of motion of rescue robots, potentially impacting their effectiveness in emergency situations.",
             "perceived risk": "Captures instances where participants express skepticism about the ability of AI, such as rescue robots, to accurately assess complex situations compared to human judgment.",
             "specialization": "Identifies instances where participants highlight the limited scope of rescue robots, emphasizing their specialization for particular rescue tasks while noting their limited adaptability to diverse rescue scenarios.",

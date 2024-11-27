@@ -27,11 +27,11 @@
             "risk of injury"
         ],
   "code_descriptions": {
-    "Potential Physical Harm": "Identifies instances where participants express concerns about the potential for physically harmful outcomes due to malfunctioning socially assistive robots, particularly unpredictable or unintended reactions.",
-    "Technical Issues": "Identifies instances where participants express concerns or frustrations related to malfunctions, glitches, or limitations in the technical performance of socially assistive robots, highlighting potential disruptions or challenges in their use.",
-    "Lack of Regulations": "Identifies instances where participants express concerns about the absence of established guidelines or regulations surrounding socially assistive robots, particularly in relation to potential risks like data security breaches.",
-    "Data Security": "Identifies concerns regarding the potential for data breaches, loss, or misuse when interacting with socially assistive robots, highlighting perceived risks to privacy and security.",
-    "Environmental Vulnerabilities": "Identifies concerns about how external factors, such as power outages, extreme temperatures, or unsuitable environments, could impair robot functionality and compromise safety or reliability."
+    "potential physical harm": "Identifies instances where participants express concerns about the potential for physically harmful outcomes due to malfunctioning socially assistive robots, particularly unpredictable or unintended reactions.",
+    "technical issues": "Identifies instances where participants express concerns or frustrations related to malfunctions, glitches, or limitations in the technical performance of socially assistive robots, highlighting potential disruptions or challenges in their use.",
+    "lack of regulations": "Identifies instances where participants express concerns about the absence of established guidelines or regulations surrounding socially assistive robots, particularly in relation to potential risks like data security breaches.",
+    "data security": "Identifies concerns regarding the potential for data breaches, loss, or misuse when interacting with socially assistive robots, highlighting perceived risks to privacy and security.",
+    "environmental vulnerabilities": "Identifies concerns about how external factors, such as power outages, extreme temperatures, or unsuitable environments, could impair robot functionality and compromise safety or reliability."
         }
     }
 ]
