@@ -48,9 +48,13 @@ codes_frequency_RR$Code <- tools::toTitleCase(codes_frequency_RR$Code)
 codes_frequency_RR$soft <- as.numeric(codes_frequency_RR$soft)
 codes_frequency_RR$rigid <- as.numeric(codes_frequency_RR$rigid)
 
-codes_frequency_RR$soft <- codes_frequency_RR$soft + codes_frequency_RR$rigid 
+codes_frequency_RR$soft[is.na(codes_frequency_RR$soft)] <- 0
+codes_frequency_RR$rigid[is.na(codes_frequency_RR$rigid)] <- 0
+
+# codes_frequency_RR$soft <- codes_frequency_RR$soft + codes_frequency_RR$rigid 
 
 codes_frequency_RR <- as.data.frame(codes_frequency_RR)
+
 
 #> SAR
 codes_frequency_SAR <- readxl::read_excel(path = "socially assistive robot frequency table codes.xlsx")
@@ -65,7 +69,10 @@ codes_frequency_SAR$Code <- tools::toTitleCase(codes_frequency_SAR$Code)
 codes_frequency_SAR$soft <- as.numeric(codes_frequency_SAR$soft)
 codes_frequency_SAR$rigid <- as.numeric(codes_frequency_SAR$rigid)
 
-codes_frequency_SAR$soft <- codes_frequency_SAR$soft + codes_frequency_SAR$rigid 
+codes_frequency_SAR$soft[is.na(codes_frequency_SAR$soft)] <- 0
+codes_frequency_SAR$rigid[is.na(codes_frequency_SAR$rigid)] <- 0
+
+# codes_frequency_SAR$soft <- codes_frequency_SAR$soft + codes_frequency_SAR$rigid 
 
 codes_frequency_SAR <- as.data.frame(codes_frequency_SAR)
 
