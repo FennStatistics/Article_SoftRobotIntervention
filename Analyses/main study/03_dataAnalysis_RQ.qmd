@@ -1083,6 +1083,61 @@ ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
 ```
 
 
+```{r}
+setwd("outputs/03_dataAnalysis_RQ")
+
+
+# Data for r1
+data_r1 <- tmp_RR[!tmp_RR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
+data_r1$group = "RR"
+colnames(data_r1)[c(2,3)] <- c("rigid", "soft")
+
+# Data for r2
+data_r2 <- tmp_SAR[!tmp_SAR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
+data_r2$group = "SAR"
+colnames(data_r2)[c(2,3)] <- c("rigid", "soft")
+
+# Combine the data
+data_combined <- rbind(data_r1, data_r2)
+
+data_combined <- data_combined[data_combined$category %in% unique(c(data_r1$category[order(data_r1$soft, decreasing = TRUE)][1:5], 
+                                                                    data_r2$category[order(data_r2$soft, decreasing = TRUE)][1:5])),]
+
+# Reshape the data to long format for ggplot
+data_long <- melt(data_combined, id.vars = c("category", "group"), 
+                  variable.name = "type", value.name = "value")
+
+# Ensure "rigid" is always below "soft" in the stack
+data_long$type <- factor(data_long$type, levels = c("soft", "rigid"))
+
+# Create the stacked barplot
+p <- ggplot(data_long, aes(x = group, y = value, fill = type)) +
+  geom_bar(stat = "identity", position = "stack", width = 0.5) +  # Reduce bar width
+  geom_text(aes(label = round(value, 1)),  # Add value labels
+            position = position_stack(vjust = 0.5),  # Position labels in the middle of the stack
+            size = 3.5, color = "white") +  # Adjust text size and color
+  facet_wrap(~category, scales = "free_x", nrow = 1) +  # Reduce facet spacing
+  labs(title = "Stacked Barplot of Drawn Rigid and Soft Concepts by Robot Type",
+       x = "Robot Type (RR or SAR)",
+       y = "Average Number of Concepts Drawn per CAM",
+       fill = "Type") +
+  theme_minimal() +
+  scale_fill_manual(values = c("rigid" = "darkblue", "soft" = "lightblue")) +
+  theme(legend.position = "top",
+        legend.text = element_text(size = 12),
+        legend.title = element_text(size = 14),
+        legend.key.size = unit(0.8, "cm"),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        strip.text = element_text(size = 14, face = "bold"),  # Increase font size of category names
+        panel.spacing = unit(0.5, "lines"))  # Reduce spacing between facets
+
+print(p)
+
+ggsave(filename = "R2_G1.pdf")
+ggsave(filename = "R2_G1.jpeg")
+```
+
 
 
 
