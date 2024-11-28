@@ -778,7 +778,7 @@ xlsx::write.xlsx2(x = dat_post_out, file = "concepts_soft.xlsx")
 
 
 
-#### create data.frame of all words for ChatGPT
+#### create data.frame of all words for LLMs
 
 
 ```{r}
@@ -810,7 +810,8 @@ chooseRobot = "rescue robot"
 ```
 
 ```{r}
-saveWordsByCategory <- function(chooseRobot) {
+saveWordsByCategory <- function(chooseRobot, filterIDs = NA, changeName = NA) {
+
   wb <- openxlsx::createWorkbook()
   
   for (c in 1:length(ids_categories)) {
@@ -818,10 +819,17 @@ saveWordsByCategory <- function(chooseRobot) {
     tmp_pre <-
       dat_pre_out[dat_pre_out$category == ids_categories[c] &
                     dat_pre_out$choosen_Robot %in% chooseRobot,]
+      if(all(!is.na(filterIDs))){
+        tmp_pre <- tmp_pre[tmp_pre$participantCAM %in% filterIDs,]
+      }
+    
     ## post data:
     tmp_post <-
       dat_post_out[dat_post_out$category == ids_categories[c] &
                      dat_post_out$choosen_Robot %in% chooseRobot,]
+      if(all(!is.na(filterIDs))){
+        tmp_post <- tmp_post[tmp_post$participantCAM %in% filterIDs,]
+      }
     
     
     ## set up data.frame
@@ -865,7 +873,12 @@ saveWordsByCategory <- function(chooseRobot) {
   }
   
   # Save the workbook
-  saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets_new.xlsx"), overwrite = TRUE)
+        if(!is.na(changeName)){
+  saveWorkbook(wb, paste0(paste0(chooseRobot, changeName, collapse = "_"), "_multipleSheets_new.xlsx"), overwrite = TRUE)
+        }else{
+          saveWorkbook(wb, paste0(paste0(chooseRobot, collapse = "_"), "_multipleSheets_new.xlsx"), overwrite = TRUE)
+
+      }
   
   
   return("Saved")
@@ -873,14 +886,42 @@ saveWordsByCategory <- function(chooseRobot) {
 ```
 
 
+save overall:
+
 
 ```{r}
 setwd("outputs/03_dataAnalysis_RQ")
-saveWordsByCategory(chooseRobot = c("rescue robot", "social assistance robot"))
-saveWordsByCategory(chooseRobot = c("rescue robot"))
-saveWordsByCategory(chooseRobot = c("social assistance robot"))
+saveWordsByCategory(chooseRobot = c("rescue robot", "social assistance robot"), filterIDs = NA, changeName = NA)
+saveWordsByCategory(chooseRobot = c("rescue robot"), filterIDs = NA, changeName = NA)
+saveWordsByCategory(chooseRobot = c("social assistance robot"), filterIDs = NA, changeName = NA)
+```
+save for gender:
+
+
+for female:
+
+```{r}
+tmp_ids <- c(questionnaireCAMs$participantCAM_pre[questionnaireCAMs$socio_sex == "Female"],
+questionnaireCAMs$participantCAMpost[questionnaireCAMs$socio_sex == "Female"])
+
+
+setwd("outputs/03_dataAnalysis_RQ")
+saveWordsByCategory(chooseRobot = c("rescue robot"), filterIDs = tmp_ids, changeName = "_female")
+saveWordsByCategory(chooseRobot = c("social assistance robot"), filterIDs = tmp_ids, changeName = "_female")
 ```
 
+
+for male:
+
+```{r}
+tmp_ids <- c(questionnaireCAMs$participantCAM_pre[questionnaireCAMs$socio_sex == "Male"],
+questionnaireCAMs$participantCAMpost[questionnaireCAMs$socio_sex == "Male"])
+
+
+setwd("outputs/03_dataAnalysis_RQ")
+saveWordsByCategory(chooseRobot = c("rescue robot"), filterIDs = tmp_ids, changeName = "_male")
+saveWordsByCategory(chooseRobot = c("social assistance robot"), filterIDs = tmp_ids, changeName = "_male")
+```
 
 ## data analysis
 
