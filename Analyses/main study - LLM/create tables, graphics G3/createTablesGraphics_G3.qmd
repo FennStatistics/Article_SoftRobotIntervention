@@ -390,7 +390,10 @@ for(pair in abbreviation_pairs) {
   
   # Save the final combined plot
   combined_title <- paste(pair, collapse = "_")
-  ggsave(paste0(combined_title, ".pdf"), combined_plot, width = 16, height = 9)
+  ggsave(paste0(combined_title, "_RR.pdf"), combined_plot, width = 16, height = 9)
+    
+  # Save as JPEG
+  ggsave(paste0(combined_title, "_RR.jpeg"), combined_plot, width = 16, height = 9, dpi = 300, device = "jpeg")
 }
 
 ```
@@ -552,7 +555,10 @@ for(pair in abbreviation_pairs) {
   
   # Save the final combined plot
   combined_title <- paste(pair, collapse = "_")
-  ggsave(paste0(combined_title, ".pdf"), combined_plot, width = 16, height = 9)
+  ggsave(paste0(combined_title, "_SAR.pdf"), combined_plot, width = 16, height = 9)
+  
+  # Save as JPEG
+  ggsave(paste0(combined_title, "_SAR.jpeg"), combined_plot, width = 16, height = 9, dpi = 300, device = "jpeg")
 }
 
 ```
