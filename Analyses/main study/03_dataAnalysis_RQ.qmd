@@ -29,7 +29,8 @@ p_load('tidyverse', 'jsonlite', 'magrittr', 'xlsx',
        'lavaan', 
        'regsem', 'MplusAutomation', 'igraph', 'openxlsx',
        'reshape2',
-       'gridExtra')
+       'gridExtra',
+       'forcats')
 
 
 setwd("outputs/01_dataPreperation/final")
@@ -1127,7 +1128,6 @@ ggplot(data_long, aes(x = category, y = value, fill = group_type)) +
 ```{r}
 setwd("outputs/03_dataAnalysis_RQ")
 
-
 # Data for r1
 data_r1 <- tmp_RR[!tmp_RR$category %in% c("RCPP", "RCPN", "RCN", "RCA"), c("category", "avgConstant", "avgNew")]
 data_r1$group = "RR"
@@ -1141,6 +1141,10 @@ colnames(data_r2)[c(2,3)] <- c("rigid", "soft")
 # Combine the data
 data_combined <- rbind(data_r1, data_r2)
 
+# Sort categories by "soft" (avgNew) values
+data_combined <- data_combined[order(data_combined$soft, decreasing = TRUE), ]
+
+# Select the top categories
 data_combined <- data_combined[data_combined$category %in% unique(c(data_r1$category[order(data_r1$soft, decreasing = TRUE)][1:5], 
                                                                     data_r2$category[order(data_r2$soft, decreasing = TRUE)][1:5])),]
 
@@ -1151,33 +1155,51 @@ data_long <- melt(data_combined, id.vars = c("category", "group"),
 # Ensure "rigid" is always below "soft" in the stack
 data_long$type <- factor(data_long$type, levels = c("soft", "rigid"))
 
+# Add line breaks in category labels for better fit
+data_long$category <- recode(data_long$category,
+                             "AP" = "Anthropomorphism\npos.",
+                             "HRIN" = "Human-Robot-\nInteraction neg.",
+                             "HRIP" = "Human-Robot-\nInteraction pos.",
+                             "R" = "Risk",
+                             "SA" = "Safety",
+                             "TL" = "Technological\nlimitation",
+                             "TP" = "Technological\npossibilities"
+)
+
+# Reorder categories by the sum of values
+data_long$category <- fct_reorder(data_long$category, data_long$value, .fun = sum, .desc = TRUE)
+
 # Create the stacked barplot
 p <- ggplot(data_long, aes(x = group, y = value, fill = type)) +
   geom_bar(stat = "identity", position = "stack", width = 0.5) +  # Reduce bar width
-  geom_text(aes(label = round(value, 1)),  # Add value labels
+  geom_text(aes(label = sprintf("%.2f", value)),  # Add value labels with 2 decimal places
             position = position_stack(vjust = 0.5),  # Position labels in the middle of the stack
             size = 3.5, color = "white") +  # Adjust text size and color
   facet_wrap(~category, scales = "free_x", nrow = 1) +  # Reduce facet spacing
-  labs(title = "Stacked Barplot of Drawn Rigid and Soft Concepts by Robot Type",
-       x = "Robot Type (RR or SAR)",
+  labs(x = "Robot Type (RR or SAR)",
        y = "Average Number of Concepts Drawn per CAM",
-       fill = "Type") +
+       fill = "Concept Type") +
   theme_minimal() +
-  scale_fill_manual(values = c("rigid" = "darkblue", "soft" = "lightblue")) +
+  scale_fill_manual(values = c("rigid" = "black", "soft" = "gray")) +
   theme(legend.position = "top",
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 14),
         legend.key.size = unit(0.8, "cm"),
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12),
-        strip.text = element_text(size = 14, face = "bold"),  # Increase font size of category names
-        panel.spacing = unit(0.5, "lines"))  # Reduce spacing between facets
+        axis.title.x = element_text(size = 14),
+        axis.title.y = element_text(size = 14),
+        strip.text = element_text(size = 12, face = "bold"),  # Adjust font size for category names
+        strip.placement = "outside",  # Place labels outside to reduce clutter
+        panel.spacing = unit(0.8, "lines"))  # Increase spacing between facets
 
 print(p)
 
-ggsave(filename = "R2_G1.pdf")
-ggsave(filename = "R2_G1.jpeg")
+
+
+# Save the plot
+ggsave(filename = "R2_G1.pdf", plot = p, width = 14, height = 8)
+ggsave(filename = "R2_G1.jpeg", plot = p, width = 14, height = 8)
 ```
+
 
 
 
@@ -1185,9 +1207,7 @@ ggsave(filename = "R2_G1.jpeg")
 
 # R3: Perceived risks and benefits mediated by gender and age
 
-blub
-
-
+qualitative analyses using LLMs
 
 
 # ADDITIONAL ANALYSES
