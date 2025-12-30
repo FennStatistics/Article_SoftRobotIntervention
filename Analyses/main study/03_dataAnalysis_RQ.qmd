@@ -1219,13 +1219,21 @@ p <- ggplot(data_long, aes(x = group, y = value, fill = type)) +
        y = "Average Number of Concepts Drawn per CAM",
        fill = "Concept Type") +
   theme_minimal() +
-  scale_fill_manual(values = c("rigid" = "black", "soft" = "gray")) +
+scale_fill_manual(
+  values = c("rigid" = "black", "soft" = "gray"),
+  labels = c(
+    "rigid" = "rigid (pre-intervention)",
+    "soft"  = "soft (post-intervention)"
+  )
+) +
   theme(legend.position = "top",
-        legend.text = element_text(size = 12),
-        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 16),
         legend.key.size = unit(0.8, "cm"),
-        axis.title.x = element_text(size = 14),
-        axis.title.y = element_text(size = 14),
+        axis.title.x = element_text(size = 16),
+        axis.title.y = element_text(size = 16),
+        axis.text.x = element_text(size = 14),   # x-axis tick labels
+        axis.text.y = element_text(size = 14),    # y-axis tick labels
         strip.text = element_text(size = 12, face = "bold"),  # Adjust font size for category names
         strip.placement = "outside",  # Place labels outside to reduce clutter
         panel.spacing = unit(0.8, "lines"))  # Increase spacing between facets
