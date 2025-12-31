@@ -26,4 +26,4 @@ For any inquiries or questions, please contact Julius Fenn ([julius.fenn@psychol
 
 ---
 
-*This repository provides transparent and reproducible materials for research on public perceptions of obesity-related attitudes and beliefs. All methodological details and analyses can be found in the folders above and in the accompanying manuscript.*
+*This repository provides transparent and reproducible materials for research on public perceptions of rigid in comparison to soft robots. All methodological details and analyses can be found in the folders above and in the accompanying manuscript.*
