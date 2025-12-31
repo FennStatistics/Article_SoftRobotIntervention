@@ -1,6 +1,6 @@
 ---
 title: "Data analyses for S2 research questions"
-author: "Julius Fenn, Louisa Estadieu"
+author: "Julius Fenn"
 format:
   html:
     toc: true

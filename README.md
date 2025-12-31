@@ -1,11 +1,7 @@
-# Article basal attributes
+# Informing Robot Design through Early Public Engagement: Lay Perceptions of Soft versus Rigid Socially Assistive and Rescue Robots
 
-In the article we applied an innovative study design to compare soft to rigid robots:
-
-
-
-
-The study explored the following central questions:
+**Authors:**  
+ Julius Fenn, Louisa Estadieu, Michael Gorki, Irina Monno, Falk Tauber, Joscha Teichmann, Shelly Levy-Tzedek, Thomas Speck, Oliver Müller, Andrea Kiesel
 
 
 ## Folders
@@ -19,10 +15,15 @@ The study explored the following central questions:
 
 ## License
 
-This project is licensed under the Creative Commons License.
+This project is licensed under the **GNU General Public License (GPL)**.  
+You are free to use, modify, and distribute the code and materials under the terms of this license.
 
 
 ## Contact Information
 
-For any inquiries or questions, please contact Julius Fenn at Louisa Estadieu ([louisa.estadieu@philosophie.uni-freiburg.de](mailto:louisa.estadieu@philosophie.uni-freiburg.de)) and Julius Fenn ([julius.fenn@psychologie.uni-freiburg.de](mailto:julius.fenn@psychologie.uni-freiburg.de)).
+For any inquiries or questions, please contact Julius Fenn ([julius.fenn@psychologie.uni-freiburg.de](mailto:julius.fenn@psychologie.uni-freiburg.de)).
 
+
+---
+
+*This repository provides transparent and reproducible materials for research on public perceptions of obesity-related attitudes and beliefs. All methodological details and analyses can be found in the folders above and in the accompanying manuscript.*

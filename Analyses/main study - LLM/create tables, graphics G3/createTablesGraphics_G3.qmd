@@ -1,6 +1,6 @@
 ---
 title: "Create tables and graphics for G3 (result part II)"
-author: "Julius Fenn, Louisa Estadieu"
+author: "Julius Fenn"
 format:
   html:
     toc: true
